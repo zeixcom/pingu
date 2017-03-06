@@ -1,2 +1,2 @@
-# pingu-react
-Package for extending create-react-app
+# pingu
+Zeix boilerplate generator / extender
