@@ -11,8 +11,14 @@
     "babel-loader": "^7.1.2",
     "eslint": "^4.8.0",
     "grunt": "^1.0.1",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-twig-render": "^1.8.1",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "webpack": "^3.6.0"
+  },
+  "scripts": {
+    "grunt-dev": "grunt --gruntfile ./config/Gruntfile.js --debug"
   }
 }
