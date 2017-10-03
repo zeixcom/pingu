@@ -1,9 +1,6 @@
-<html>
-  <head>
-    <title>Test</title>
-  </head>
-  <body>
-    <p>{{exampleText}}</p>
-    <button>{{buttonLabel}}</button>
-  </body>
-</html>
+{% extends "../../layouts/base.twig" %}
+
+{% block content %}
+  <p>{{exampleText}}</p>
+  <button>{{buttonLabel}}</button>
+{% endblock %}
