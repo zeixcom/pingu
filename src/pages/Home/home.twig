@@ -1,6 +1,6 @@
-{% extends "../../layouts/base.twig" %}
+{% set layoutPath = '../../layouts/' ~ config.layout|capitalize ~ '/' ~ config.layout ~ '.twig' %}
+{% extends layoutPath %}
 
 {% block content %}
-  <p>{{exampleText}}</p>
-  <button>{{buttonLabel}}</button>
+  {% include '../../components/Header/header.twig' with header %}
 {% endblock %}
