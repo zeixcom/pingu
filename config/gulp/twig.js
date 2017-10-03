@@ -7,10 +7,10 @@ gulp.task('twig', function() {
   var rename = require('gulp-rename');
   var yaml = require('js-yaml');
   var data = require('gulp-data');
-  var gutil = require('gulp-util');
   var path = require('path');
   var fs = require('fs');
 
+  // @TODO: Replace to global path handling ('src/pages/');
   return gulp.src(['./src/pages/**/*.twig'])
     .pipe(data(function(file) {
       var filename = path.basename(file.path, path.extname(file.path));
@@ -22,6 +22,7 @@ gulp.task('twig', function() {
       {dirname: ''}
     ))
     .pipe(
+      // @TODO: Replace to global Path Handling
       gulp.dest('./.tmp/')
     );
 });
