@@ -17,6 +17,8 @@ gulp.task('twig', function() {
   return gulp.src(['./src/pages/**/*.twig'])
     .pipe(data(function(file) {
       var filename = path.basename(file.path, path.extname(file.path));
+
+      // @TODO: Path
       var pageData = yaml.safeLoad(fs.readFileSync(`./src/pages/${filename}/${filename}.yml`, 'utf8'));
 
       var concatedData = utils.concatPageDataWithLayoutData(pageData);
