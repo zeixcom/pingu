@@ -10,12 +10,20 @@ gulp.task('twig', function() {
   var path = require('path');
   var fs = require('fs');
 
+  var utils = require('./gulp.utils');
+
+
   // @TODO: Replace to global path handling ('src/pages/');
   return gulp.src(['./src/pages/**/*.twig'])
     .pipe(data(function(file) {
       var filename = path.basename(file.path, path.extname(file.path));
+      var pageData = yaml.safeLoad(fs.readFileSync(`./src/pages/${filename}/${filename}.yml`, 'utf8'));
 
-      return yaml.safeLoad(fs.readFileSync(`./src/pages/${filename.toUpperCase()}/${filename}.yml`, 'utf8'));
+      var concatedData = utils.concatPageDataWithLayoutData(pageData);
+
+      var finalizedData = utils.checkAndLoadDefaultComponentData(concatedData);
+
+      return finalizedData;
     }))
     .pipe(twig({}))
     .pipe(rename(
