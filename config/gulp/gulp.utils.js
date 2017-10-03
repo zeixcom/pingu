@@ -1,5 +1,4 @@
 var yaml = require('js-yaml');
-var gutil = require('gulp-util');
 var fs = require('fs');
 var _ = require('lodash');
 
