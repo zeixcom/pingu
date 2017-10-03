@@ -5,6 +5,7 @@ requireDir('./config/gulp');
 
 gulp.task('default', [
     'twig',
+    'favicon',
     'browser-sync'
   ]
 );
