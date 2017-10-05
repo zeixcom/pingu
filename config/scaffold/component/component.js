@@ -1,3 +1,7 @@
 /**
- * @name: {{NODE_NAME}}
+ * @name: {% NODE_NAME %}
  */
+
+class {% NODE_NAME %} extends PinguComponent {
+
+}

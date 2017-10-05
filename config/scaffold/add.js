@@ -1,10 +1,10 @@
 var gulp = require('gulp');
 var prompt = require('gulp-prompt');
-var gutil = require('gulp-util');
-var _ = require('lodash');
 var tap = require('gulp-tap');
 var path = require('path');
 var yaml = require('js-yaml');
+var fs = require('fs-extra');
+var rename = require('gulp-rename');
 
 var scaffoldUtils = require('./scaffold.utils.js');
 
@@ -23,7 +23,7 @@ gulp.task('addGeneratorPrompts', function() {
       name: 'nodeName',
       message: 'Name?'
     }], function(res) {
-      nodeName = scaffoldUtils.normalizeNodeName(res.nodeName);
+      nodeName = scaffoldUtils.normalizeNodeName(res.nodeName, res.nodeType);
       nodeType = res.nodeType;
     }))
 });
@@ -35,15 +35,14 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
     .pipe(tap(function(file, t) {
       var extension = path.extname(file.path);
 
-      switch(extension) {
-        case '.yml':
+      scaffoldUtils.FIND_REPLACES.forEach(function(replaceItem) {
+        var regex = new RegExp(`{% ${replaceItem.label} %}`, 'g');
 
-
-
-          break;
-        default:
-          break;
-      }
+        file.contents = Buffer.from(file.contents.toString().replace(regex, nodeName[replaceItem.value]));
+      });
+    }))
+    .pipe(rename({
+      basename: nodeName.fileAndComponent
     }))
     .pipe(gulp.dest(`./src/${folder}s/${nodeName.directory}/`))
 })
