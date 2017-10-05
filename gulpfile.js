@@ -5,6 +5,7 @@ requireDir('./config/gulp');
 
 gulp.task('default', [
     'twig',
+    'webpack',
     'browser-sync'
   ]
 );
