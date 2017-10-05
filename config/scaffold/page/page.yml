@@ -1,0 +1,3 @@
+config:
+  layout: base
+  title: NODE_NAME
