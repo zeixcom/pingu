@@ -1,3 +1,3 @@
 config:
   layout: base
-  name: NODE_NAME
+  title: NODE_NAME

@@ -1,17 +1,20 @@
 var fs = require('fs-extra');
 var path = require('path');
 var yaml = require('js-yaml');
+var _ = require('lodash');
 
 exports.ADDABLE_NODES = ['Component', 'Layout', 'Page']
 
-/**
- * Turns a nodeName into a directoryName
- */
-exports.getDirectoryName = function(nodeName) {
-  const nodeNameLowerCased = nodeName.toLowerCase();
+exports.normalizeNodeName = function(nodeName) {
+  var baseName = _.camelCase(nodeName);
 
-  return nodeNameLowerCased[0].toUpperCase() + nodeNameLowerCased.substring(1);
-}
+  return {
+    directory: _.capitalize(baseName),
+    class: _.kebabCase(baseName),
+    fileAndComponent: baseName,
+  };
+};
+
 
 /**
  * Generating a new page from scaffold templates
