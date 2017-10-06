@@ -11,6 +11,7 @@ gulp.task('twig', function() {
   var fs = require('fs');
 
   var utils = require('./gulp.utils');
+  var filters = require('../twig/filters');
 
 
   // @TODO: Replace to global path handling ('src/pages/');
@@ -27,7 +28,9 @@ gulp.task('twig', function() {
 
       return finalizedData;
     }))
-    .pipe(twig({}))
+    .pipe(twig({
+      filters: filters.FILTERS
+    }))
     .pipe(rename(
       {dirname: ''}
     ))

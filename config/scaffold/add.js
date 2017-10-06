@@ -11,6 +11,7 @@ var nodeName = {};
 var nodeType = '';
 
 gulp.task('addGeneratorPrompts', function() {
+  // @TODO: Add Directory handling
   return gulp.src('./config/scaffold/add.js')
     .pipe(prompt.prompt([{
       type: 'list',
@@ -43,6 +44,7 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
     .pipe(rename({
       basename: nodeName.file
     }))
+    // @TODO: Add Directory Handling
     .pipe(gulp.dest(`./src/${folder}s/${nodeName.directory}/`));
 })
 
