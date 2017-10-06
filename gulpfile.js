@@ -13,3 +13,7 @@ gulp.task('default', [
 gulp.task('add', [
   'addGenerator'
 ]);
+
+gulp.task('remove', [
+  'removeHandler'
+]);
