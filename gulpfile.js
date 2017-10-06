@@ -2,8 +2,7 @@ var gulp = require('gulp');
 
 var requireDir = require('require-dir');
 requireDir('./config/gulp');
-
-var add = require('./config/scaffold/add.js');
+requireDir('./config/scaffold');
 
 gulp.task('default', [
     'twig',
