@@ -1,5 +1,1 @@
-export default class Header {
-  constructor() {
-    console.log('header.js loaded');
-  }
-}
+export default class Header {}
