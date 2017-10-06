@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var prompt = require('gulp-prompt');
 var tap = require('gulp-tap');
 var path = require('path');
-var yaml = require('js-yaml');
 var fs = require('fs-extra');
 var rename = require('gulp-rename');
 
