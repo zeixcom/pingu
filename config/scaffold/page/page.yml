@@ -1,0 +1,3 @@
+config:
+  layout: base
+  name: {% COMP_NAME %}
