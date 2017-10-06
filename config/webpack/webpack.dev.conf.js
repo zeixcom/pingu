@@ -14,4 +14,3 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin()
   ],
 });
-
