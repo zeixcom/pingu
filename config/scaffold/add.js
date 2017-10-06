@@ -24,7 +24,7 @@ gulp.task('addGeneratorPrompts', function() {
     }], function(res) {
       nodeName = scaffoldUtils.normalizeNodeName(res.nodeName, res.nodeType);
       nodeType = res.nodeType;
-    }))
+    }));
 });
 
 gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
@@ -41,8 +41,8 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
       });
     }))
     .pipe(rename({
-      basename: nodeName.fileAndComponent
+      basename: nodeName.file
     }))
-    .pipe(gulp.dest(`./src/${folder}s/${nodeName.directory}/`))
+    .pipe(gulp.dest(`./src/${folder}s/${nodeName.directory}/`));
 })
 

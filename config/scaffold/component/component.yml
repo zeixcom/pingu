@@ -1,2 +1,2 @@
 config:
-  name: {% NODE_NAME %}
+  name: {% COMP_NAME %}

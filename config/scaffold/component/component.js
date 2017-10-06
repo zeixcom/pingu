@@ -1,9 +1,9 @@
 /**
- * @name: {% NODE_NAME %}
+ * @name: {% COMP_NAME %}
  */
 
 import PinguComponent from '../../assets/scripts/helpers/PinguComponent';
 
-class {% NODE_NAME %} extends PinguComponent {
+class {% COMP_NAME %} extends PinguComponent {
 
 }
