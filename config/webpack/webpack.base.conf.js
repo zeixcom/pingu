@@ -1,12 +1,11 @@
 var path = require('path');
-// var utils = require('./utils.webpack.js');
 
 function resolve (dir) {
   return path.join(__dirname, '../../', dir)
 }
 
 module.exports = {
-  entry: ['./src/assets/main.js'],
+  entry: ['./src/assets/js/main.js'],
   output: {
     filename: '[name].bundle.js',
   },
