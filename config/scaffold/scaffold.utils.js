@@ -1,18 +1,19 @@
-var fs = require('fs-extra');
-var path = require('path');
-var yaml = require('js-yaml');
 var _ = require('lodash');
 
-exports.ADDABLE_NODES = ['Component', 'Layout', 'Page']
+exports.ADDABLE_NODES = ['Component', 'Layout', 'Page'];
 
 exports.FIND_REPLACES = [
   {
     label: 'NODE_NAME',
-    value: 'fileAndComponent'
+    value: 'file'
   },
   {
     label: 'CLASS_NAME',
     value: 'classWithPrefix'
+  },
+  {
+    label: 'COMP_NAME',
+    value: 'component',
   }
 ];
 
@@ -20,9 +21,10 @@ exports.normalizeNodeName = function(nodeName, nodeType) {
   var baseName = _.camelCase(nodeName);
 
   return {
-    directory: _.capitalize(baseName),
+    directory: _.upperFirst(baseName),
+    component: _.upperFirst(baseName),
     class: _.kebabCase(baseName),
-    fileAndComponent: baseName,
+    file: baseName,
     classWithPrefix: this.getNodeTypePrefix(nodeType) + _.kebabCase(baseName),
   };
 };
@@ -35,6 +37,5 @@ exports.getNodeTypePrefix = function(nodeType) {
       return 'p_';
     default:
       return '';
-  }
-}
-
+  };
+};
