@@ -1,4 +1,6 @@
 var _ = require('lodash');
+var fs = require('fs-extra');
+var path = require('path');
 
 exports.ADDABLE_NODES = ['Component', 'Layout', 'Page'];
 
@@ -15,6 +17,10 @@ exports.FIND_REPLACES = [
     label: 'COMP_NAME',
     value: 'component',
   }
+];
+
+exports.NON_NODE_DIRECTORIES = [
+  '.DS_Store'
 ];
 
 exports.normalizeNodeName = function(nodeName, nodeType) {
@@ -38,4 +44,27 @@ exports.getNodeTypePrefix = function(nodeType) {
     default:
       return '';
   };
+};
+
+exports.getAllNodesByNodeType = function(nodeType) {
+
+  // @TODO: Add directory handling
+  var directoryPath = `./src/${nodeType.toLowerCase()}s/`;
+  var isDirectory = fs.lstatSync(directoryPath).isDirectory();
+  var that = this;
+
+  var directories = [];
+
+  if (isDirectory) {
+    directories = fs.readdirSync(directoryPath).filter(function (dir) {
+      var isInNotANode = that.NON_NODE_DIRECTORIES.indexOf(dir);
+
+      var isADirectory = fs.lstatSync(path.join(directoryPath, dir)).isDirectory();
+
+      return isInNotANode === -1 && isADirectory;
+    });
+
+  }
+
+  return directories;
 };
