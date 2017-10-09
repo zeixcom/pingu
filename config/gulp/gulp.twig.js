@@ -9,6 +9,7 @@ gulp.task('twig', function() {
   var data = require('gulp-data');
   var path = require('path');
   var fs = require('fs');
+  var htmlhint = require('gulp-htmlhint');
 
   var utils = require('./gulp.utils');
   var filters = require('../twig/filters');
@@ -16,6 +17,8 @@ gulp.task('twig', function() {
 
   // @TODO: Replace to global path handling ('src/pages/');
   return gulp.src(['./src/pages/**/*.twig'])
+    .pipe(htmlhint('./.htmlhintrc'))
+    .pipe(htmlhint.failReporter())
     .pipe(data(function(file) {
       var filename = path.basename(file.path, path.extname(file.path));
 
