@@ -1,11 +1,15 @@
 var gulp = require('gulp');
 var prompt = require('gulp-prompt');
+var clean = require('gulp-clean');
+var gutil = require('gulp-util');
 
 var scaffoldUtils = require('./scaffold.utils.js');
 
 var nodeType = null;
 var node = null;
 var nodeFiles = [];
+
+var removeConfirmation = false;
 
 gulp.task('removePromptNodeType', function() {
   // @TODO: Add directory handling
@@ -33,12 +37,15 @@ gulp.task('removePromptModule', ['removePromptNodeType'], function() {
         message: 'Which one',
         choices: scaffoldUtils.getAllNodesByNodeType(nodeType)
       }
-    ), function(res) {
+    , function(res) {
       node = res.node;
-    });
+    }));
 });
 
 gulp.task('removeHandler', ['removePromptModule'], function() {
 
   // @TODO: Add directory handling
+  return gulp.src(`./src/${nodeType}s/${node}`, {read: false})
+    .pipe(prompt.confirm(`Do you really want to remove ${node}`))
+    .pipe(clean());
 });

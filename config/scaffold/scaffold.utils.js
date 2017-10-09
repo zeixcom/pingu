@@ -66,7 +66,5 @@ exports.getAllNodesByNodeType = function(nodeType) {
 
   }
 
-  console.log('directories', directories);
-
   return directories;
 };
