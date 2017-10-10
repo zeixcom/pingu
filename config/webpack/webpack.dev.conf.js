@@ -1,6 +1,5 @@
 var path = require('path');
 var baseWebpackConfig = require('./webpack.base.conf');
-<<<<<<< HEAD
 var utils = require('./webpack.utils');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
@@ -19,30 +18,30 @@ module.exports = merge(baseWebpackConfig, {
   module: {
     rules: [
       {
-	test: /\.scss$/,
-	use: ExtractTextPlugin.extract({
-	  fallback: 'style-loader',
-	  use: [
-	    {
-	      loader: 'css-loader',
-	      options: {
-		sourceMap: true
-	      }
-	    },
-	    {
-	      loader: 'sass-loader',
-	      options: {
-		sourceMap: true
-	      }
-	    },
-	    {
-	      loader: 'postcss-loader',
-	      options: {
-		sourceMap: 'inline'
-	      }
-	    }
-	  ]
-	}),
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: 'inline'
+              }
+            }
+          ]
+        }),
       },
     ]
   },
@@ -58,19 +57,5 @@ module.exports = merge(baseWebpackConfig, {
       filename: 'styles.css',
       allChunks: true,
     })
-=======
-var webpack = require('webpack');
-var merge = require('webpack-merge');
-
-module.exports = merge(baseWebpackConfig, {
-  devtool: 'cheap-module-eval-source-map',
-  output: {
-    path: path.resolve(__dirname, '../../.tmp'),
-    publicPath: './.tmp'
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
->>>>>>> PNG-9 add webpack
   ],
 });

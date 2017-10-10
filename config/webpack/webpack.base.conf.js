@@ -13,17 +13,17 @@ module.exports = {
   module: {
     rules: [
       {
-	test: /\.js$/,
-	loader: 'eslint-loader',
-	enforce: 'pre',
-	options: {
-	  formatter: require('eslint-formatter-pretty')
-	}
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        options: {
+          formatter: require('eslint-formatter-pretty')
+        }
       },
       {
-	test: /\.js$/,
-	loader: 'babel-loader',
-	exclude: '/node_modules/',
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: '/node_modules/',
       },
     ]
   }

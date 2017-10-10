@@ -16,11 +16,11 @@ gulp.task('browser-sync', function() {
     server: {
       baseDir: "./.tmp",
       middleware: [
-	webpackDevMiddleware(bundler, {
-	    publicPath: webpackDevConfig.output.publicPath,
-	    stats: { colors: true }
-	}),
-	webpackHotMiddleware(bundler)
+        webpackDevMiddleware(bundler, {
+            publicPath: webpackDevConfig.output.publicPath,
+            stats: { colors: true }
+        }),
+        webpackHotMiddleware(bundler)
       ]
     },
     files: [
