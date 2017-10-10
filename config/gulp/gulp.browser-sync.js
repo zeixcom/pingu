@@ -22,6 +22,10 @@ gulp.task('browser-sync', function() {
 	}),
 	webpackHotMiddleware(bundler)
       ]
-    }
+    },
+    files: [
+      './.tmp/*.css',
+      './.tmp/*.html'
+    ]
   })
 });

@@ -10,7 +10,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = merge(baseWebpackConfig, {
   watch: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map', // needs to be source-map for the sass files
   output: {
     // @TODO: Replace to global Path Handling
     path: path.resolve(__dirname, '../../.tmp'),
@@ -22,7 +22,26 @@ module.exports = merge(baseWebpackConfig, {
 	test: /\.scss$/,
 	use: ExtractTextPlugin.extract({
 	  fallback: 'style-loader',
-	  use: ['css-loader', 'sass-loader', 'postcss-loader']
+	  use: [
+	    {
+	      loader: 'css-loader',
+	      options: {
+		sourceMap: true
+	      }
+	    },
+	    {
+	      loader: 'sass-loader',
+	      options: {
+		sourceMap: true
+	      }
+	    },
+	    {
+	      loader: 'postcss-loader',
+	      options: {
+		sourceMap: 'inline'
+	      }
+	    }
+	  ]
 	}),
       },
     ]
