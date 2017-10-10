@@ -5,7 +5,8 @@ function resolve (dir) {
 }
 
 module.exports = {
-  entry: ['./src/assets/js/main.js'],
+  // @TODO: Replace to global Path Handling
+  entry: ['./src/assets/js/main.js', './src/assets/css/main.scss'],
   output: {
     filename: '[name].bundle.js',
   },
