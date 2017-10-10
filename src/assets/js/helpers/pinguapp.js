@@ -10,9 +10,9 @@ class PinguApp {
   }
 
   _registerComponents() {
-    document.querySelectorAll('[data-pingu]').forEach((element) => {
-      console.log(element);
-    });
+    // document.querySelectorAll('[data-pingu]').forEach((element) => {
+    //   element
+    // });
   }
 }
 
