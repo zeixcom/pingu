@@ -3,16 +3,21 @@ var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var browserSync = require('browser-sync');
-var webpackConfig = require('../webpack/webpack.dev.conf');
-var bundler = webpack(webpackConfig);
+var webpackDevConfig = require('../webpack/webpack.dev.conf');
+var bundler = webpack(webpackDevConfig);
 
 gulp.task('browser-sync', function() {
   browserSync.init({
+    port: 8004,
+    ui: {
+      port: 8006
+    },
+    open: 'local',
     server: {
       baseDir: "./.tmp",
       middleware: [
         webpackDevMiddleware(bundler, {
-            publicPath: webpackConfig.output.publicPath,
+            publicPath: webpackDevConfig.output.publicPath,
             stats: { colors: true }
         }),
         webpackHotMiddleware(bundler)
