@@ -34,7 +34,7 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     new StyleLintPlugin({ syntax: 'scss' }),
     new FriendlyErrorsPlugin(),
-    new ExtractTextPlugin({ // define where to save the file
+    new ExtractTextPlugin({
       filename: 'styles.css',
       allChunks: true,
     })
