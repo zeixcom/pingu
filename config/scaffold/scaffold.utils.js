@@ -4,6 +4,13 @@ var path = require('path');
 
 exports.ADDABLE_NODES = ['Component', 'Layout', 'Page'];
 
+exports.SCSS_PLACEHOLDER_DELIMITERS = [
+  '/* insert new ',
+  ' */'
+];
+
+exports.JS_AUTOIMPORT_REGEX = new RegExp('\/\/ autoimportcomponent', 'g');
+
 exports.FIND_REPLACES = [
   {
     label: 'NODE_NAME',
@@ -68,3 +75,12 @@ exports.getAllNodesByNodeType = function(nodeType) {
 
   return directories;
 };
+
+exports.getFileTypesToPipe = function(hasJS, hasSCSS) {
+  var fileTypes = ['twig', 'yml'];
+
+  hasJS ? fileTypes.push('js') : null;
+  hasSCSS ? fileTypes.push('scss') : null;
+
+  return fileTypes.join();
+}
