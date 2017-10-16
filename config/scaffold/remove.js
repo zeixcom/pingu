@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var prompt = require('gulp-prompt');
 var clean = require('gulp-clean');
 var gutil = require('gulp-util');
+var tap = require('gulp-tap');
+var path = require('path');
 
 var scaffoldUtils = require('./scaffold.utils.js');
 
@@ -11,41 +13,38 @@ var nodeFiles = [];
 
 var removeConfirmation = false;
 
-gulp.task('removePromptNodeType', function() {
+gulp.task('removePrompts', function() {
   // @TODO: Add directory handling
   return gulp.src('./config/scaffold/remove.js')
-    .pipe(prompt.prompt(
+    .pipe(prompt.prompt([
       {
         type: 'list',
         name: 'nodeType',
         message: 'What would you like to remove',
         choices: scaffoldUtils.ADDABLE_NODES
-      }
-    , function(res) {
-      nodeType = res.nodeType;
-    }));
-});
-
-gulp.task('removePromptModule', ['removePromptNodeType'], function() {
-
-  // @TODO: Add directory handling
-  return gulp.src('./config/scaffold/remove.js')
-    .pipe(prompt.prompt(
+      },
       {
         type: 'list',
         name: 'node',
         message: 'Which one',
-        choices: scaffoldUtils.getAllNodesByNodeType(nodeType)
+        choices: function (currSession) {
+          return scaffoldUtils.getAllNodesByNodeType(currSession.nodeType);
+        },
       }
-    , function(res) {
+    ], function(res) {
+      nodeType = res.nodeType;
       node = res.node;
     }));
 });
 
-gulp.task('removeHandler', ['removePromptModule'], function() {
+
+gulp.task('removeHandler', ['removePrompts'], function() {
 
   // @TODO: Add directory handling
   return gulp.src(`./src/${nodeType}s/${node}`, {read: false})
     .pipe(prompt.confirm(`Do you really want to remove ${node}`))
+    .pipe(tap(function () {
+      console.log('hello');
+    }))
     .pipe(clean());
 });

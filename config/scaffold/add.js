@@ -79,7 +79,7 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
           var spaceAst = parse('\n').value[0];
 
           var indexPlaceholder = _.findIndex(ast.value, {
-            value: `${nodeType.toUpperCase()}_PLACEHOLDER`
+            value: ` ${nodeType.toUpperCase()}_PLACEHOLDER `
           });
 
           ast.value.splice(indexPlaceholder, 0, spaceAst);
