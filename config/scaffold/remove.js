@@ -4,6 +4,7 @@ var clean = require('gulp-clean');
 var gutil = require('gulp-util');
 var tap = require('gulp-tap');
 var path = require('path');
+var fs = require('fs-extra');
 
 var scaffoldUtils = require('./scaffold.utils.js');
 var pathsHelper = require('../helpers/paths.helper');
@@ -15,7 +16,6 @@ var nodeFiles = [];
 var removeConfirmation = false;
 
 gulp.task('removePrompts', function() {
-  // @TODO: Add directory handling
   return gulp.src(`${pathsHelper.scaffold}/remove.js`)
     .pipe(prompt.prompt([
       {
@@ -34,16 +34,38 @@ gulp.task('removePrompts', function() {
       }
     ], function(res) {
       nodeType = res.nodeType;
-      node = res.node;
+      node = scaffoldUtils.normalizeNodeName(res.node);
+
     }));
 });
 
 
 gulp.task('removeHandler', ['removePrompts'], function() {
-  return gulp.src(`${pathsHelper.src}/${nodeType}s/${node}`, {read: false})
-    .pipe(prompt.confirm(`Do you really want to remove ${node}`))
+  return gulp.src(`${pathsHelper.src}/${nodeType}s/${node.directory}`, {read: false})
+    .pipe(prompt.confirm(`Do you really want to remove ${node.directory}`))
     .pipe(tap(function () {
-      console.log('hello');
-    }))
+      var hasSCSS = fs.existsSync(`${pathsHelper.src}/${nodeType}s/${node.directory}/${node.file}.scss`);
+      var hasJS = fs.existsSync(`${pathsHelper.src}/${nodeType}s/${node.directory}/${node.file}.js`);
+
+
+      if (hasSCSS) {
+        var scssFile = fs.readFileSync(pathsHelper.mainScss, 'utf8');
+
+        var scssResult = scssFile.replace(new RegExp(`@import .*${nodeType.toLowerCase()}s\/${node.directory}\/${node.file}';\n`, 'g'), '');
+
+        fs.writeFile(pathsHelper.mainScss, scssResult);
+      }
+
+      if (hasJS) {
+        var pinguJsFile = fs.readFileSync(pahtsHelper.pinguAppJs);
+
+        var jsResult = pinguJsFile.replace(
+          new RegExp(`import ${node.component} .*${nodeType.toLowerCase()}s\/${node.directory}\/${node.file}';\n`, 'g'),
+          ''
+        );
+
+        fs.writeFile(pathsHelper.pinguAppJs, jsResult);
+      }
+    }));
     .pipe(clean());
 });

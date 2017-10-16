@@ -71,7 +71,6 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
       switch(extension) {
         case '.scss':
 
-          // @TODO: Path Handling
           var fileRead = fs.readFileSync(pathsHelper.mainScss, 'utf8');
 
           var ast = parse(fileRead);
@@ -85,7 +84,6 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
           ast.value.splice(indexPlaceholder, 0, spaceAst);
           ast.value.splice(indexPlaceholder, 0, newAst);
 
-          // @TODO: Path Handling
           fs.writeFile(pathsHelper.mainScss, stringify(ast));
 
           break;

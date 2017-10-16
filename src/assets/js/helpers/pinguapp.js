@@ -5,7 +5,6 @@
  */
 
 import House from '../../../components/House/house';
-import House from '../../../components/House/house';
 // autoimportcomponent
 
 class PinguApp {
