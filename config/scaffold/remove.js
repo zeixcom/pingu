@@ -4,6 +4,7 @@ var clean = require('gulp-clean');
 var gutil = require('gulp-util');
 
 var scaffoldUtils = require('./scaffold.utils.js');
+var pathsHelper = require('../helpers/paths.helper');
 
 var nodeType = null;
 var node = null;
@@ -12,8 +13,7 @@ var nodeFiles = [];
 var removeConfirmation = false;
 
 gulp.task('removePromptNodeType', function() {
-  // @TODO: Add directory handling
-  return gulp.src('./config/scaffold/remove.js')
+  return gulp.src(`${pathsHelper.scaffold}/remove.js`)
     .pipe(prompt.prompt(
       {
         type: 'list',
@@ -27,9 +27,7 @@ gulp.task('removePromptNodeType', function() {
 });
 
 gulp.task('removePromptModule', ['removePromptNodeType'], function() {
-
-  // @TODO: Add directory handling
-  return gulp.src('./config/scaffold/remove.js')
+  return gulp.src(`${pathsHelper.scaffold}/remove.js`)
     .pipe(prompt.prompt(
       {
         type: 'list',
@@ -43,9 +41,7 @@ gulp.task('removePromptModule', ['removePromptNodeType'], function() {
 });
 
 gulp.task('removeHandler', ['removePromptModule'], function() {
-
-  // @TODO: Add directory handling
-  return gulp.src(`./src/${nodeType}s/${node}`, {read: false})
+  return gulp.src(`${pathsHelper.src}/${nodeType}s/${node}`, {read: false})
     .pipe(prompt.confirm(`Do you really want to remove ${node}`))
     .pipe(clean());
 });

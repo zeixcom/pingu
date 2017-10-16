@@ -1,12 +1,8 @@
 var path = require('path');
-
-function resolve (dir) {
-  return path.join(__dirname, '../../', dir)
-}
+var pathsHelper = require('../helpers/paths.helper');
 
 module.exports = {
-  // @TODO: Replace to global Path Handling
-  entry: ['./src/assets/js/main.js', './src/assets/css/main.scss'],
+  entry: [pathsHelper.mainJs, pathsHelper.mainScss],
   output: {
     filename: '[name].bundle.js',
   },
