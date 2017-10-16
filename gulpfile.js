@@ -5,11 +5,11 @@ requireDir('./config/gulp');
 requireDir('./config/scaffold');
 
 gulp.task('default', [
-    'twig',
-    'webpack',
-    'browser-sync'
-  ]
-);
+  'clean',
+  'twig',
+  'webpack',
+  'browser-sync'
+]);
 
 gulp.task('add', [
   'addGenerator'
