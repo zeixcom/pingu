@@ -1,4 +1,5 @@
 var path = require('path');
+var pathsHelper = require('../helpers/paths.helper');
 var baseWebpackConfig = require('./webpack.base.conf');
 var utils = require('./webpack.utils');
 var webpack = require('webpack');
@@ -11,9 +12,8 @@ module.exports = merge(baseWebpackConfig, {
   watch: true,
   devtool: 'source-map', // needs to be source-map for the sass files
   output: {
-    // @TODO: Replace to global Path Handling
-    path: path.resolve(__dirname, '../../.tmp'),
-    publicPath: './.tmp'
+    path: pathsHelper.tmp,
+    publicPath: pathsHelper.tmp
   },
   module: {
     rules: [

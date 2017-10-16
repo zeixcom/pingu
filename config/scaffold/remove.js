@@ -6,6 +6,7 @@ var tap = require('gulp-tap');
 var path = require('path');
 
 var scaffoldUtils = require('./scaffold.utils.js');
+var pathsHelper = require('../helpers/paths.helper');
 
 var nodeType = null;
 var node = null;
@@ -15,7 +16,7 @@ var removeConfirmation = false;
 
 gulp.task('removePrompts', function() {
   // @TODO: Add directory handling
-  return gulp.src('./config/scaffold/remove.js')
+  return gulp.src(`${pathsHelper.scaffold}/remove.js`)
     .pipe(prompt.prompt([
       {
         type: 'list',
@@ -39,9 +40,7 @@ gulp.task('removePrompts', function() {
 
 
 gulp.task('removeHandler', ['removePrompts'], function() {
-
-  // @TODO: Add directory handling
-  return gulp.src(`./src/${nodeType}s/${node}`, {read: false})
+  return gulp.src(`${pathsHelper.src}/${nodeType}s/${node}`, {read: false})
     .pipe(prompt.confirm(`Do you really want to remove ${node}`))
     .pipe(tap(function () {
       console.log('hello');

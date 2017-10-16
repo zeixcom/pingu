@@ -5,6 +5,7 @@ var webpackHotMiddleware = require('webpack-hot-middleware');
 var browserSync = require('browser-sync');
 var webpackDevConfig = require('../webpack/webpack.dev.conf');
 var bundler = webpack(webpackDevConfig);
+var pathsHelper = require('../helpers/paths.helper');
 
 gulp.task('browser-sync', function() {
   browserSync.init({
@@ -14,7 +15,7 @@ gulp.task('browser-sync', function() {
     },
     open: 'local',
     server: {
-      baseDir: "./.tmp",
+      baseDir: pathsHelper.tmp,
       middleware: [
         webpackDevMiddleware(bundler, {
             publicPath: webpackDevConfig.output.publicPath,
@@ -24,8 +25,8 @@ gulp.task('browser-sync', function() {
       ]
     },
     files: [
-      './.tmp/*.css',
-      './.tmp/*.html'
+      `${pathsHelper.tmp}/*.css`,
+      `${pathsHelper.tmp}/*.html`
     ]
   })
 });

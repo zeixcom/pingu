@@ -8,6 +8,7 @@ var _ = require('lodash');
 var { parse, stringify } = require('scss-parser');
 
 var scaffoldUtils = require('./scaffold.utils.js');
+var pathsHelper = require('../helpers/paths.helper');
 
 var nodeName = {};
 var nodeType = '';
@@ -15,9 +16,8 @@ var hasJS = true;
 var hasSCSS = true;
 
 gulp.task('addGeneratorPrompts', function() {
-  // @TODO: Add Directory handling
-  return gulp.src('./config/scaffold/add.js')
-    .pipe(prompt.prompt([{
+  return gulp.src(`${pathsHelper.scaffold}/add.js`)
+  .pipe(prompt.prompt([{
       type: 'list',
       name: 'nodeType',
       message: 'What would you like to add',
@@ -58,7 +58,7 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
   var folder = nodeType.toLowerCase();
   var fileTypes2Pipe = scaffoldUtils.getFileTypesToPipe(hasJS, hasSCSS);
 
-  return gulp.src(`./config/scaffold/${folder}/*.{${fileTypes2Pipe}}`)
+  return gulp.src(`${pathsHelper.scaffold}/${folder}/*.{js,twig,yml,scss}`)
     .pipe(tap(function(file, t) {
       var extension = path.extname(file.path);
 
@@ -72,7 +72,7 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
         case '.scss':
 
           // @TODO: Path Handling
-          var fileRead = fs.readFileSync('./src/assets/css/main.scss', 'utf8');
+          var fileRead = fs.readFileSync(pathsHelper.mainScss, 'utf8');
 
           var ast = parse(fileRead);
           var newAst = parse(`@import '../../${folder}s/${nodeName.directory}/${nodeName.file}';`).value[0];
@@ -86,14 +86,13 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
           ast.value.splice(indexPlaceholder, 0, newAst);
 
           // @TODO: Path Handling
-          fs.writeFile('./src/assets/css/main.scss', stringify(ast));
+          fs.writeFile(pathsHelper.mainScss, stringify(ast));
 
           break;
 
         case '.js':
 
-          // @TODO: Add directory handling
-          var fileRead = fs.readFileSync('./src/assets/js/helpers/pinguapp.js', 'utf8');
+          var fileRead = fs.readFileSync(pathsHelper.pinguAppJs, 'utf8');
 
           var result = fileRead.replace(scaffoldUtils.JS_AUTOIMPORT_REGEX, [
             `import ${nodeName.component} from '../../../${folder}s/${nodeName.directory}/${nodeName.file}';`,
@@ -101,8 +100,7 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
             '// autoimportcomponent',
           ].join(''));
 
-          // @TODO: Add directory handling
-          fs.writeFile('./src/assets/js/helpers/pinguapp.js', result);
+          fs.writeFile(pathsHelper.pinguAppJs, result);
 
           break;
 
@@ -113,7 +111,6 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
     .pipe(rename({
       basename: nodeName.file
     }))
-    // @TODO: Add Directory Handling
-    .pipe(gulp.dest(`./src/${folder}s/${nodeName.directory}/`));
+    .pipe(gulp.dest(`${pathsHelper.src}//${folder}s/${nodeName.directory}/`));
 })
 

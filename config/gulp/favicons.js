@@ -1,15 +1,14 @@
 var realFavicon = require('gulp-real-favicon');
 var fs = require('fs');
 var gulp = require('gulp');
+var pathsHelper = require('../helpers/paths.helper');
 
 var FAVICON_DATA_FILE = 'faviconData.json';
 
 gulp.task('favicon', function(done) {
   realFavicon.generateFavicon({
-    masterPicture: './src/assets/images/favicon/favicon.png',
-
-    //@TODO: Replace with proper path
-    dest: './.tmp/assets/images/favicon',
+    masterPicture: `${pathsHelper.images}/favicon/favicon.png`,
+    dest: `${pathsHelper.tmp}/assets/images/favicon`,
     iconsPath: '/',
     design: {
       ios: {
