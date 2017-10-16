@@ -6,14 +6,14 @@ var fs = require('fs-extra');
 var rename = require('gulp-rename');
 
 var scaffoldUtils = require('./scaffold.utils.js');
+var pathsHelper = require('../helpers/paths.helper');
 
 var nodeName = {};
 var nodeType = '';
 
 gulp.task('addGeneratorPrompts', function() {
-  // @TODO: Add Directory handling
-  return gulp.src('./config/scaffold/add.js')
-    .pipe(prompt.prompt([{
+  return gulp.src(`${pathsHelper.scaffold}/add.js`)
+  .pipe(prompt.prompt([{
       type: 'list',
       name: 'nodeType',
       message: 'What would you like to add',
@@ -31,7 +31,7 @@ gulp.task('addGeneratorPrompts', function() {
 gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
   var folder = nodeType.toLowerCase();
 
-  return gulp.src(`./config/scaffold/${folder}/*.{js,twig,yml,scss}`)
+  return gulp.src(`${pathsHelper.scaffold}/${folder}/*.{js,twig,yml,scss}`)
     .pipe(tap(function(file, t) {
       var extension = path.extname(file.path);
 
@@ -44,7 +44,6 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
     .pipe(rename({
       basename: nodeName.file
     }))
-    // @TODO: Add Directory Handling
-    .pipe(gulp.dest(`./src/${folder}s/${nodeName.directory}/`));
+    .pipe(gulp.dest(`${pathsHelper.src}//${folder}s/${nodeName.directory}/`));
 })
 

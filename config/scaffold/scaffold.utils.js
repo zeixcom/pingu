@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var fs = require('fs-extra');
 var path = require('path');
+var pathsHelper = require('../helpers/paths.helper');
 
 exports.ADDABLE_NODES = ['Component', 'Layout', 'Page'];
 
@@ -48,8 +49,7 @@ exports.getNodeTypePrefix = function(nodeType) {
 
 exports.getAllNodesByNodeType = function(nodeType) {
 
-  // @TODO: Add directory handling
-  var directoryPath = `./src/${nodeType.toLowerCase()}s/`;
+  var directoryPath = `${pathsHelper.src}/${nodeType.toLowerCase()}s/`;
   var isDirectory = fs.lstatSync(directoryPath).isDirectory();
   var that = this;
 
