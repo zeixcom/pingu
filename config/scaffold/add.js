@@ -98,7 +98,13 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
             '// autoimportcomponent',
           ].join(''));
 
-          fs.writeFile(pathsHelper.pinguAppJs, result);
+          var result2 = result.replace(scaffoldUtils.JS_COMPONENT_REGEX, [
+            `this.components.${nodeName.component} = ${nodeName.component}`,
+            '\n',
+            '// autoimporttothis'
+          ].join(''));
+
+          fs.writeFile(pathsHelper.pinguAppJs, result2);
 
           break;
 

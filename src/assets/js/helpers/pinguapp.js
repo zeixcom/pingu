@@ -10,6 +10,8 @@ import House from '../../../components/House/house';
 class PinguApp {
   constructor() {
     this.modules = {};
+
+    // addcomponenttothis
   }
 
   _registerComponents() {

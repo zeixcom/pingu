@@ -10,6 +10,8 @@ exports.SCSS_PLACEHOLDER_DELIMITERS = [
   ' */'
 ];
 
+exports.JS_COMPONENT_REGEX = new RegExp('\/\/ addcomponenttothis', 'g');
+
 exports.JS_AUTOIMPORT_REGEX = new RegExp('\/\/ autoimportcomponent', 'g');
 
 exports.FIND_REPLACES = [

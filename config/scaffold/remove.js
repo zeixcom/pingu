@@ -64,7 +64,12 @@ gulp.task('removeHandler', ['removePrompts'], function() {
           ''
         );
 
-        fs.writeFile(pathsHelper.pinguAppJs, jsResult);
+        var jsResult2 = jsResult.replace(
+          new RegExp(`this\.components\.${node.component} = ${node.component};\n`, 'g'),
+          ''
+        );
+
+        fs.writeFile(pathsHelper.pinguAppJs, jsResult2);
       }
     }))
     .pipe(clean());
