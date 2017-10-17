@@ -57,7 +57,7 @@ gulp.task('removeHandler', ['removePrompts'], function() {
       }
 
       if (hasJS) {
-        var pinguJsFile = fs.readFileSync(pahtsHelper.pinguAppJs);
+        var pinguJsFile = fs.readFileSync(pathsHelper.pinguAppJs);
 
         var jsResult = pinguJsFile.replace(
           new RegExp(`import ${node.component} .*${nodeType.toLowerCase()}s\/${node.directory}\/${node.file}';\n`, 'g'),
@@ -66,6 +66,6 @@ gulp.task('removeHandler', ['removePrompts'], function() {
 
         fs.writeFile(pathsHelper.pinguAppJs, jsResult);
       }
-    }));
+    }))
     .pipe(clean());
 });
