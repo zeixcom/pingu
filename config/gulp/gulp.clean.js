@@ -1,8 +1,10 @@
 var gulp = require('gulp');
-var del = require('del');
-var pathsHelper = require('../helpers/paths.helper');
+
 
 gulp.task('clean', function() {
+  var del = require('del');
+  var pathsHelper = require('../helpers/paths.helper');
+
   return del([
     // delete tmp folder
     pathsHelper.tmp
