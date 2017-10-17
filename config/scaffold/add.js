@@ -1,11 +1,4 @@
 var gulp = require('gulp');
-var prompt = require('gulp-prompt');
-var tap = require('gulp-tap');
-var path = require('path');
-var fs = require('fs-extra');
-var rename = require('gulp-rename');
-var _ = require('lodash');
-var { parse, stringify } = require('scss-parser');
 
 var scaffoldUtils = require('./scaffold.utils.js');
 var pathsHelper = require('../helpers/paths.helper');
@@ -16,6 +9,8 @@ var hasJS = true;
 var hasSCSS = true;
 
 gulp.task('addGeneratorPrompts', function() {
+  var prompt = require('gulp-prompt');
+
   return gulp.src(`${pathsHelper.scaffold}/add.js`)
   .pipe(prompt.prompt([{
       type: 'list',
@@ -55,6 +50,13 @@ gulp.task('addGeneratorPrompts', function() {
 });
 
 gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
+  var tap = require('gulp-tap');
+  var path = require('path');
+  var fs = require('fs-extra');
+  var rename = require('gulp-rename');
+  var _ = require('lodash');
+  var { parse, stringify } = require('scss-parser');
+
   var folder = nodeType.toLowerCase();
   var fileTypes2Pipe = scaffoldUtils.getFileTypesToPipe(hasJS, hasSCSS);
 

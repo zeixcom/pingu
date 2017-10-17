@@ -1,10 +1,4 @@
 var gulp = require('gulp');
-var prompt = require('gulp-prompt');
-var clean = require('gulp-clean');
-var gutil = require('gulp-util');
-var tap = require('gulp-tap');
-var path = require('path');
-var fs = require('fs-extra');
 
 var scaffoldUtils = require('./scaffold.utils.js');
 var pathsHelper = require('../helpers/paths.helper');
@@ -16,6 +10,8 @@ var nodeFiles = [];
 var removeConfirmation = false;
 
 gulp.task('removePrompts', function() {
+  var prompt = require('gulp-prompt');
+
   return gulp.src(`${pathsHelper.scaffold}/remove.js`)
     .pipe(prompt.prompt([
       {
@@ -35,12 +31,16 @@ gulp.task('removePrompts', function() {
     ], function(res) {
       nodeType = res.nodeType;
       node = scaffoldUtils.normalizeNodeName(res.node);
-
     }));
 });
 
 
+
 gulp.task('removeHandler', ['removePrompts'], function() {
+  var clean = require('gulp-clean');
+  var tap = require('gulp-tap');
+  var fs = require('fs-extra');
+
   return gulp.src(`${pathsHelper.src}/${nodeType}s/${node.directory}`, {read: false})
     .pipe(prompt.confirm(`Do you really want to remove ${node.directory}`))
     .pipe(tap(function () {
