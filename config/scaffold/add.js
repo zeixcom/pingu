@@ -1,10 +1,13 @@
 var gulp = require('gulp');
+var _ = require('lodash');
 
 var scaffoldUtils = require('./scaffold.utils.js');
 var pathsHelper = require('../helpers/paths.helper');
 
 var nodeName = {};
 var nodeType = '';
+var hasJS = true;
+var hasSCSS = true;
 
 gulp.task('addGeneratorPrompts', function() {
   var prompt = require('gulp-prompt');
@@ -19,9 +22,31 @@ gulp.task('addGeneratorPrompts', function() {
       type: 'input',
       name: 'nodeName',
       message: 'Name?'
+    },{
+      type: 'confirm',
+      name: 'hasJS',
+      message: 'Do you need a JavaScript file?',
+      when: function(currHash) {
+        return currHash.nodeType === 'Component';
+      }
+    },{
+      type: 'confirm',
+      name: 'hasSCSS',
+      message: 'Do you need a SCSS file?',
+      when: function(currHash) {
+        return currHash.nodeType === 'Page';
+      }
     }], function(res) {
       nodeName = scaffoldUtils.normalizeNodeName(res.nodeName, res.nodeType);
       nodeType = res.nodeType;
+
+      if (_.has(res, 'hasJS')) {
+        hasJS = res.hasJS;
+      }
+
+      if (_.has(res, 'hasSCSS')) {
+        hasSCSS = res.hasSCSS;
+      }
     }));
 });
 
@@ -30,10 +55,12 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
   var path = require('path');
   var fs = require('fs-extra');
   var rename = require('gulp-rename');
+  var { parse, stringify } = require('scss-parser');
 
   var folder = nodeType.toLowerCase();
+  var fileTypes2Pipe = scaffoldUtils.getFileTypesToPipe(hasJS, hasSCSS);
 
-  return gulp.src(`${pathsHelper.scaffold}/${folder}/*.{js,twig,yml,scss}`)
+  return gulp.src(`${pathsHelper.scaffold}/${folder}/*.{${fileTypes2Pipe}}`)
     .pipe(tap(function(file, t) {
       var extension = path.extname(file.path);
 
@@ -42,6 +69,50 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
 
         file.contents = Buffer.from(file.contents.toString().replace(regex, nodeName[replaceItem.value]));
       });
+
+      switch(extension) {
+        case '.scss':
+
+          var fileRead = fs.readFileSync(pathsHelper.mainScss, 'utf8');
+
+          var ast = parse(fileRead);
+          var newAst = parse(`@import '../../${folder}s/${nodeName.directory}/${nodeName.file}';`).value[0];
+          var spaceAst = parse('\n').value[0];
+
+          var indexPlaceholder = _.findIndex(ast.value, {
+            value: ` ${nodeType.toUpperCase()}_PLACEHOLDER `
+          });
+
+          ast.value.splice(indexPlaceholder, 0, spaceAst);
+          ast.value.splice(indexPlaceholder, 0, newAst);
+
+          fs.writeFile(pathsHelper.mainScss, stringify(ast));
+
+          break;
+
+        case '.js':
+
+          var fileRead = fs.readFileSync(pathsHelper.pinguAppJs, 'utf8');
+
+          var result = fileRead.replace(scaffoldUtils.JS_AUTOIMPORT_REGEX, [
+            `import ${nodeName.component} from '../../../${folder}s/${nodeName.directory}/${nodeName.file}';`,
+            '\n',
+            `// ${scaffoldUtils.JS_AUTOIMPORT_STRING}`,
+          ].join(''));
+
+          var result2 = result.replace(scaffoldUtils.JS_COMPONENT_REGEX, [
+            `this.components.${nodeName.component} = ${nodeName.component};`,
+            '\n',
+            `    // ${scaffoldUtils.JS_COMPONENT_STRING}`
+          ].join(''));
+
+          fs.writeFile(pathsHelper.pinguAppJs, result2);
+
+          break;
+
+        default:
+          break;
+      }
     }))
     .pipe(rename({
       basename: nodeName.file

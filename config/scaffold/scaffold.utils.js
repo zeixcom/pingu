@@ -5,6 +5,18 @@ var pathsHelper = require('../helpers/paths.helper');
 
 exports.ADDABLE_NODES = ['Component', 'Layout', 'Page'];
 
+exports.SCSS_PLACEHOLDER_DELIMITERS = [
+  '/* insert new ',
+  ' */'
+];
+
+exports.JS_COMPONENT_STRING = 'addcomponenttothis';
+exports.JS_AUTOIMPORT_STRING = 'autoimportcomponent';
+
+exports.JS_COMPONENT_REGEX = new RegExp(`\/\/ ${this.JS_COMPONENT_STRING}`, 'g');
+
+exports.JS_AUTOIMPORT_REGEX = new RegExp(`\/\/ ${this.JS_AUTOIMPORT_STRING}`, 'g');
+
 exports.FIND_REPLACES = [
   {
     label: 'NODE_NAME',
@@ -68,3 +80,12 @@ exports.getAllNodesByNodeType = function(nodeType) {
 
   return directories;
 };
+
+exports.getFileTypesToPipe = function(hasJS, hasSCSS) {
+  var fileTypes = ['twig', 'yml'];
+
+  hasJS ? fileTypes.push('js') : null;
+  hasSCSS ? fileTypes.push('scss') : null;
+
+  return fileTypes.join();
+}

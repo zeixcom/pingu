@@ -1,12 +1,17 @@
 /**
- * Init all components, TODO: autoinsert components
+ * Init all components, @TODO: autoinsert components
  *
  * @class PinguApp
  */
 
+
+// autoimportcomponent
+
 class PinguApp {
   constructor() {
-    this.modules = {};
+    this.components = {};
+
+    // addcomponenttothis
   }
 
   _registerComponents() {

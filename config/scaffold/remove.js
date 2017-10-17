@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var prompt = require('gulp-prompt');
+
 
 var scaffoldUtils = require('./scaffold.utils.js');
 var pathsHelper = require('../helpers/paths.helper');
@@ -9,42 +11,66 @@ var nodeFiles = [];
 
 var removeConfirmation = false;
 
-gulp.task('removePromptNodeType', function() {
-  var prompt = require('gulp-prompt');
-
+gulp.task('removePrompts', function() {
   return gulp.src(`${pathsHelper.scaffold}/remove.js`)
-    .pipe(prompt.prompt(
+    .pipe(prompt.prompt([
       {
         type: 'list',
         name: 'nodeType',
         message: 'What would you like to remove',
         choices: scaffoldUtils.ADDABLE_NODES
-      }
-    , function(res) {
-      nodeType = res.nodeType;
-    }));
-});
-
-gulp.task('removePromptModule', ['removePromptNodeType'], function() {
-  var prompt = require('gulp-prompt');
-
-  return gulp.src(`${pathsHelper.scaffold}/remove.js`)
-    .pipe(prompt.prompt(
+      },
       {
         type: 'list',
         name: 'node',
         message: 'Which one',
-        choices: scaffoldUtils.getAllNodesByNodeType(nodeType)
+        choices: function (currSession) {
+          return scaffoldUtils.getAllNodesByNodeType(currSession.nodeType);
+        },
       }
-    , function(res) {
-      node = res.node;
+    ], function(res) {
+      nodeType = res.nodeType;
+      node = scaffoldUtils.normalizeNodeName(res.node);
     }));
 });
 
-gulp.task('removeHandler', ['removePromptModule'], function() {
-  var clean = require('gulp-clean');
 
-  return gulp.src(`${pathsHelper.src}/${nodeType}s/${node}`, {read: false})
-    .pipe(prompt.confirm(`Do you really want to remove ${node}`))
+
+gulp.task('removeHandler', ['removePrompts'], function() {
+  var clean = require('gulp-clean');
+  var tap = require('gulp-tap');
+  var fs = require('fs-extra');
+
+  return gulp.src(`${pathsHelper.src}/${nodeType}s/${node.directory}`, {read: false})
+    .pipe(prompt.confirm(`Do you really want to remove ${node.directory}`))
+    .pipe(tap(function () {
+      var hasSCSS = fs.existsSync(`${pathsHelper.src}/${nodeType}s/${node.directory}/${node.file}.scss`);
+      var hasJS = fs.existsSync(`${pathsHelper.src}/${nodeType}s/${node.directory}/${node.file}.js`);
+
+
+      if (hasSCSS) {
+        var scssFile = fs.readFileSync(pathsHelper.mainScss, 'utf8');
+
+        var scssResult = scssFile.replace(new RegExp(`@import .*${nodeType.toLowerCase()}s\/${node.directory}\/${node.file}';\n`, 'g'), '');
+
+        fs.writeFile(pathsHelper.mainScss, scssResult);
+      }
+
+      if (hasJS) {
+        var pinguJsFile = fs.readFileSync(pathsHelper.pinguAppJs, 'utf8');
+
+        var jsResult = pinguJsFile.replace(
+          new RegExp(`import ${node.component} .*${nodeType.toLowerCase()}s\/${node.directory}\/${node.file}';\n`, 'g'),
+          ''
+        );
+
+        var jsResult2 = jsResult.replace(
+          new RegExp(`    this\.components\.${node.component} = ${node.component};\n`, 'g'),
+          ''
+        );
+
+        fs.writeFile(pathsHelper.pinguAppJs, jsResult2);
+      }
+    }))
     .pipe(clean());
 });
