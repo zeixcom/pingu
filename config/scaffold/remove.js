@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var prompt = require('gulp-prompt');
+
 
 var scaffoldUtils = require('./scaffold.utils.js');
 var pathsHelper = require('../helpers/paths.helper');
@@ -10,8 +12,6 @@ var nodeFiles = [];
 var removeConfirmation = false;
 
 gulp.task('removePrompts', function() {
-  var prompt = require('gulp-prompt');
-
   return gulp.src(`${pathsHelper.scaffold}/remove.js`)
     .pipe(prompt.prompt([
       {

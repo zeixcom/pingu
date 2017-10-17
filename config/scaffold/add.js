@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var _ = require('lodash');
 
 var scaffoldUtils = require('./scaffold.utils.js');
 var pathsHelper = require('../helpers/paths.helper');
@@ -54,7 +55,6 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
   var path = require('path');
   var fs = require('fs-extra');
   var rename = require('gulp-rename');
-  var _ = require('lodash');
   var { parse, stringify } = require('scss-parser');
 
   var folder = nodeType.toLowerCase();
