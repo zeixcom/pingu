@@ -60,7 +60,7 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
   var folder = nodeType.toLowerCase();
   var fileTypes2Pipe = scaffoldUtils.getFileTypesToPipe(hasJS, hasSCSS);
 
-  return gulp.src(`${pathsHelper.scaffold}/${folder}/*.{js,twig,yml,scss}`)
+  return gulp.src(`${pathsHelper.scaffold}/${folder}/*.{${fileTypes2Pipe}}`)
     .pipe(tap(function(file, t) {
       var extension = path.extname(file.path);
 
