@@ -3,7 +3,7 @@ var gulp = require('gulp');
 gulp.task('webpack', function() {
   var webpack = require('webpack-stream');
   var path = require('path');
-  var webpackConfig = require('../webpack/webpack.dev.conf');
+  var webpackConfig = process.env.NODE_ENV === 'development' ? require('../webpack/webpack.dev.conf') : require('../webpack/webpack.prod.conf');
   var pathsHelper = require('../helpers/paths.helper');
 
   return gulp.src([pathsHelper.src])

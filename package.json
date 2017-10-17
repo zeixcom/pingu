@@ -52,5 +52,10 @@
   },
   "dependencies": {
     "lodash": "^4.17.4"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development gulp",
+    "start": "NODE_ENV=development gulp",
+    "build": "NODE_ENV=production gulp"
   }
 }
