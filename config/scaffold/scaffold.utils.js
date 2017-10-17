@@ -10,9 +10,12 @@ exports.SCSS_PLACEHOLDER_DELIMITERS = [
   ' */'
 ];
 
-exports.JS_COMPONENT_REGEX = new RegExp('\/\/ addcomponenttothis', 'g');
+exports.JS_COMPONENT_STRING = 'addcomponenttothis';
+exports.JS_AUTOIMPORT_STRING = 'autoimportcomponent';
 
-exports.JS_AUTOIMPORT_REGEX = new RegExp('\/\/ autoimportcomponent', 'g');
+exports.JS_COMPONENT_REGEX = new RegExp(`\/\/ ${this.JS_COMPONENT_STRING}`, 'g');
+
+exports.JS_AUTOIMPORT_REGEX = new RegExp(`\/\/ ${this.JS_AUTOIMPORT_STRING}`, 'g');
 
 exports.FIND_REPLACES = [
   {

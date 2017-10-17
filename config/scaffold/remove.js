@@ -59,15 +59,13 @@ gulp.task('removeHandler', ['removePrompts'], function() {
       if (hasJS) {
         var pinguJsFile = fs.readFileSync(pathsHelper.pinguAppJs, 'utf8');
 
-        console.log('pinguJsFile', pinguJsFile);
-
         var jsResult = pinguJsFile.replace(
           new RegExp(`import ${node.component} .*${nodeType.toLowerCase()}s\/${node.directory}\/${node.file}';\n`, 'g'),
           ''
         );
 
         var jsResult2 = jsResult.replace(
-          new RegExp(`this\.components\.${node.component} = ${node.component};\n`, 'g'),
+          new RegExp(`    this\.components\.${node.component} = ${node.component};\n`, 'g'),
           ''
         );
 

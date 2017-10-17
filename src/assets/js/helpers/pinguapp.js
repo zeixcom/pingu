@@ -4,13 +4,14 @@
  * @class PinguApp
  */
 
+
 // autoimportcomponent
 
 class PinguApp {
   constructor() {
     this.components = {};
 
-    // autoimporttothis
+    // addcomponenttothis
   }
 
   _registerComponents() {
