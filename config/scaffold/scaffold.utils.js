@@ -88,4 +88,11 @@ exports.getFileTypesToPipe = function(hasJS, hasSCSS) {
   hasSCSS ? fileTypes.push('scss') : null;
 
   return fileTypes.join();
-}
+};
+
+exports.isNodeAlreadyExisting = function(nodeType, nodeName) {
+  var nodesByNodeType = this.getAllNodesByNodeType(nodeType);
+  var nodeNameNormalized = _.upperFirst(_.camelCase(nodeName));
+
+  return nodesByNodeType.indexOf(nodeNameNormalized) === -1;
+};
