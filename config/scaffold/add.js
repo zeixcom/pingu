@@ -21,7 +21,10 @@ gulp.task('addGeneratorPrompts', function() {
     },{
       type: 'input',
       name: 'nodeName',
-      message: 'Name?'
+      message: 'Name?',
+      validate: function(thisAnswer, currHash) {
+        return scaffoldUtils.isNodeAlreadyExisting(currHash.nodeType, thisAnswer) ? true : 'Oops, this node already exists';
+      }
     },{
       type: 'confirm',
       name: 'hasJS',
