@@ -15,6 +15,7 @@ gulp.task('twig', function() {
   var utils = require('./gulp.utils');
   var filters = require('../twig/filters');
   var pathsHelper = require('../helpers/paths.helper');
+  var isDev = process.env.NODE_ENV === 'development';
 
   return gulp.src([`${pathsHelper.pages}/**/*.twig`])
     .pipe(htmlhint('./.htmlhintrc'))
@@ -37,6 +38,6 @@ gulp.task('twig', function() {
       {dirname: ''}
     ))
     .pipe(
-      gulp.dest(pathsHelper.tmp)
+      gulp.dest(isDev ? pathsHelper.tmp : pathsHelper.build)
     );
 });
