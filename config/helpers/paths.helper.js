@@ -23,5 +23,9 @@ module.exports = {
   css: resolveApp('src/assets/css'),
   mainJs: resolveApp('src/assets/js/main.js'),
   mainScss: resolveApp('src/assets/css/main.scss'),
-  pinguAppJs: resolveApp('src/assets/js/helpers/PinguApp.js')
+  pinguAppJs: resolveApp('src/assets/js/helpers/PinguApp.js'),
+  relativePaths: {
+    js: 'assets/js',
+    css: 'assets/js'
+  }
 };

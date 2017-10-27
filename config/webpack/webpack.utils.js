@@ -7,9 +7,6 @@ exports.config = {
       NODE_ENV: '"production"'
     },
     index: `${pathsHelper.build}/index.html`,
-    assetsRoot: pathsHelper.build,
-    assetsSubDirectory: 'assets',
-    assetsPublicPath: '/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
