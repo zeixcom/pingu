@@ -54,7 +54,7 @@ module.exports = merge(baseWebpackConfig, {
     new StyleLintPlugin({ syntax: 'scss' }),
     new FriendlyErrorsPlugin(),
     new ExtractTextPlugin({
-      filename: 'styles.css',
+      filename: '[name]',
       allChunks: true,
     })
   ],
