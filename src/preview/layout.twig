@@ -1,15 +1,13 @@
 <html>
   <head>
-    <title>{% title %}</title>
-    <link rel="stylesheet" href="/assets/preview.styles.css">
-    <script src="/assets/preview.main.css"></script>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/preview/assets/css/pew.css">
+    <script src="/preview/assets/js/pew.bundle.js"></script>
     {% block component_scripts %}{% endblock %}
   </head>
   <body>
-    <main>
-      <aside>
-        {% include 'sidebar.twig' %}
-      </aside>
+    <main class="pew_main">
+      {% include 'sidebar.twig' %}
       <div class="pew_content">
         {% block content %}{% endblock %}
       </div>
