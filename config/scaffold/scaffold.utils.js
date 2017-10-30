@@ -62,23 +62,28 @@ exports.getNodeTypePrefix = function(nodeType) {
 exports.getAllNodesByNodeType = function(nodeType) {
 
   var directoryPath = `${pathsHelper.src}/${nodeType.toLowerCase()}s/`;
-  var isDirectory = fs.lstatSync(directoryPath).isDirectory();
-  var that = this;
 
-  var directories = [];
+  if (fs.existsSync(directoryPath)) {
+    var isDirectory = fs.lstatSync(directoryPath).isDirectory();
+    var that = this;
 
-  if (isDirectory) {
-    directories = fs.readdirSync(directoryPath).filter(function (dir) {
-      var isInNotANode = that.NON_NODE_DIRECTORIES.indexOf(dir);
+    var directories = [];
 
-      var isADirectory = fs.lstatSync(path.join(directoryPath, dir)).isDirectory();
+    if (isDirectory) {
+      directories = fs.readdirSync(directoryPath).filter(function (dir) {
+        var isInNotANode = that.NON_NODE_DIRECTORIES.indexOf(dir);
 
-      return isInNotANode === -1 && isADirectory;
-    });
+        var isADirectory = fs.lstatSync(path.join(directoryPath, dir)).isDirectory();
 
+        return isInNotANode === -1 && isADirectory;
+      });
+
+    }
+
+    return directories;
   }
 
-  return directories;
+  return [];
 };
 
 exports.getFileTypesToPipe = function(hasJS, hasSCSS) {

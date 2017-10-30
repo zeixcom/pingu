@@ -9,7 +9,7 @@ requireDir('./config/scaffold');
 gulp.task('default', function() {
   runSequence(
     'clean',
-    'twig',
+    ['twig', 'preview'],
     'browser-sync',
     'webpack'
   );
