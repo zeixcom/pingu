@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>{% title %}</title>
+    <link rel="stylesheet" href="/assets/preview.styles.css">
+    <script src="/assets/preview.main.css"></script>
+    {% block component_scripts %}{% endblock %}
+  </head>
+  <body>
+    <main>
+      <aside>
+        {% include 'sidebar.twig' %}
+      </aside>
+      <div class="pew_content">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </body>
+</html>
