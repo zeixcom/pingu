@@ -6,7 +6,7 @@
     <table>
       {% for page in pages %}
         <tr>
-          <td>{{ page.title }}</td>
+          <td><a href="{{ page.url }}">{{ page.title }}</a></td>
           <td>{{ page.fileName }}</td>
           <td>{{ page.description }}</td>
           <td>{{ page.status }}</td>

@@ -41,6 +41,7 @@ gulp.task('twig', function() {
 
           pageSpecificData = pageYMLData.config;
           pageSpecificData.fileName = `${_.camelCase(page)}.twig`
+          pageSpecificData.url = `/${_.camelCase(page)}.html`;
 
           pages.push(pageSpecificData);
         });
