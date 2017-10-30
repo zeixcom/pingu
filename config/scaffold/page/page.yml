@@ -1,3 +1,5 @@
 config:
   layout: base
   name: {% COMP_NAME %}
+  description: This is a description
+  status: w.i.p
