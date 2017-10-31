@@ -11,7 +11,7 @@ gulp.task('default', function() {
     'clean',
     'twig',
     'browser-sync',
-    'webpack'
+    ['watch', 'webpack']
   );
 });
 
