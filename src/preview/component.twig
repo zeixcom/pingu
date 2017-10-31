@@ -1,6 +1,20 @@
 {% extends './layout.twig' %}
 
+{% block title %}{{ config.name }}{% endblock %}
+
 {% block content %}
   <a class="pew_breadcrumb">Pingu / Components</a>
-  <h1 class="pew_title">{{ general.name }}</h1>
+  <h1 class="pew_title">{{ config.name }}</h1>
+
+  <div class="pew_preview">
+    <!-- AUTOINSERT COMPONENT -->
+  </div>
+
+  <div class="pew_block">
+    <h2 class="pew_subtitle">Description</h2>
+    <p>
+      <!-- AUTOINSERT DESCRIPTION -->
+    </p>
+  </div>
+
 {% endblock %}

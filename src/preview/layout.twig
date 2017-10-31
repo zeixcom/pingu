@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>{{ general.name }}</title>
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="/assets/preview.styles.css">
     <script src="/assets/preview.main.css"></script>
     {% block component_scripts %}{% endblock %}

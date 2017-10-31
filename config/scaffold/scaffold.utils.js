@@ -87,7 +87,7 @@ exports.getAllNodesByNodeType = function(nodeType) {
 };
 
 exports.getFileTypesToPipe = function(hasJS, hasSCSS) {
-  var fileTypes = ['twig', 'yml'];
+  var fileTypes = ['twig', 'yml', 'md'];
 
   hasJS ? fileTypes.push('js') : null;
   hasSCSS ? fileTypes.push('scss') : null;
