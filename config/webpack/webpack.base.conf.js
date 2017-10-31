@@ -2,9 +2,14 @@ var path = require('path');
 var pathsHelper = require('../helpers/paths.helper');
 
 module.exports = {
-  entry: [pathsHelper.mainJs, pathsHelper.mainScss],
+  entry: {
+    [pathsHelper.webpackEntries.js]: pathsHelper.mainJs,
+    [pathsHelper.webpackEntries.css]: pathsHelper.mainScss,
+    [pathsHelper.webpackEntries.previewJs]: pathsHelper.previewMainJs,
+    [pathsHelper.webpackEntries.previewCss]: pathsHelper.previewMainScss
+  },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name]',
   },
   module: {
     rules: [
