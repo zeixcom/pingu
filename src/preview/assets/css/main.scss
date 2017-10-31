@@ -1,3 +1,29 @@
-.preview {
-  background: #000;
+/**
+ * LAYOUT
+ */
+
+body {
+  margin: 0;
+}
+
+.pew_main {
+  display: flex;
+}
+
+.pew_sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #000;
+}
+
+.pew_content {
+  width: calc(100% - 250px);
+}
+
+/**
+ * COMPONENTS
+ */
+
+.pew_table {
+  width: 100%;
 }

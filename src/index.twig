@@ -1,17 +1,18 @@
-<html>
-  <head>
-    <title>Pingu</title>
-  </head>
-  <body>
-    <table>
-      {% for page in pages %}
-        <tr>
-          <td><a href="{{ page.url }}">{{ page.title }}</a></td>
-          <td>{{ page.fileName }}</td>
-          <td>{{ page.description }}</td>
-          <td>{{ page.status }}</td>
-        </tr>
-      {% endfor %}
-    </table>
-  </body>
-</html>
+{% extends 'preview/layout.twig' %}
+
+{% block title %}
+  Übersichtsseite
+{% endblock %}
+
+{% block content %}
+  <table class="pew_table">
+    {% for page in pages %}
+      <tr>
+        <td><a href="{{ page.url }}">{{ page.title }}</a></td>
+        <td>{{ page.fileName }}</td>
+        <td>{{ page.description }}</td>
+        <td>{{ page.status }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

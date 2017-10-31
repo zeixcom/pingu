@@ -27,8 +27,9 @@ gulp.task('browser-sync', function() {
       ]
     },
     files: [
-      `${pathsHelper.tmp}/*.css`,
-      `${pathsHelper.tmp}/*.html`
+      `${pathsHelper.tmp}/*.html`,
+      `${pathsHelper.tmp}/**/*.html`,
+      `${pathsHelper.tmp}/**/*.css`
     ]
   })
 });

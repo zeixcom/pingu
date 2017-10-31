@@ -24,8 +24,16 @@ module.exports = {
   mainJs: resolveApp('src/assets/js/main.js'),
   mainScss: resolveApp('src/assets/css/main.scss'),
   pinguAppJs: resolveApp('src/assets/js/helpers/PinguApp.js'),
+  previewMainScss: resolveApp('src/preview/assets/css/main.scss'),
+  previewMainJs: resolveApp('src/preview/assets/js/main.js'),
   relativePaths: {
     js: 'assets/js',
     css: 'assets/js'
+  },
+  webpackEntries: {
+    js: 'assets/js/main.bundle.js',
+    css: 'assets/css/styles.css',
+    previewJs: 'preview/assets/js/pew.bundle.js',
+    previewCss: 'preview/assets/css/pew.css'
   }
 };
