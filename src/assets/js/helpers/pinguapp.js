@@ -5,12 +5,14 @@
  */
 
 
+import Bridge from '../../../components/Bridge/bridge';
 // autoimportcomponent
 
 class PinguApp {
   constructor() {
     this.components = {};
 
+    this.components.Bridge = Bridge;
     // addcomponenttothis
   }
 

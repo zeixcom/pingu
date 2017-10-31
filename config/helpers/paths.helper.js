@@ -17,6 +17,7 @@ module.exports = {
   components: resolveApp('src/components'),
   pages: resolveApp('src/pages'),
   layouts: resolveApp('src/layouts'),
+  preview: resolveApp('src/preview'),
   assets: resolveApp('src/assets'),
   images: resolveApp('src/assets/images'),
   js: resolveApp('src/assets/js'),

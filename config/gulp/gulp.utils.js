@@ -31,3 +31,6 @@ exports.concatPageDataWithLayoutData = function(data) {
 
   return mergedData;
 }
+
+exports.PREVIEW_COMPONENT_REGEX = '<!-- AUTOINSERT COMPONENT -->';
+exports.PREVIEW_DESCRIPTION_REGEX = '<!-- AUTOINSERT DESCRIPTION -->';
