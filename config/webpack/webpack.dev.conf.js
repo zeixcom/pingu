@@ -31,7 +31,8 @@ module.exports = merge(baseWebpackConfig, {
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: true
+                sourceMap: true,
+                includePaths: ['node_modules']
               }
             },
             {
