@@ -15,17 +15,13 @@ class PinguApp {
     this.components.Bridge = Bridge;
     // addcomponenttothis
 
-    this._registerComponents();
+    this.registerComponents();
   }
 
-  _registerComponents() {
-    // document.querySelectorAll('[data-pingu]').forEach((element) => {
-    //   element
-    // });
-
-    document.querySelectorAll('[data-pingu]').forEach((element) {
-      var compName = element.getAttribute('data-pingu');
-      var Component = this.components[compName];
+  registerComponents() {
+    document.querySelectorAll('[data-pingu]').forEach((element) => {
+      const compName = element.getAttribute('data-pingu');
+      const Component = this.components[compName];
 
       new Component();
     });

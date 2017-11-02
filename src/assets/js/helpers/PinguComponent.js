@@ -2,4 +2,10 @@
  * This is just an example file
  */
 
-export const NAME = test;
+class PinguComponent {
+  constructor() {
+    console.log('extended');
+  }
+}
+
+export default PinguComponent;
