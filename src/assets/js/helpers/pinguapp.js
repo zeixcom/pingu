@@ -1,5 +1,5 @@
 /**
- * Init all components, @TODO: autoinsert components
+ * Init all components
  *
  * @class PinguApp
  */
@@ -14,12 +14,21 @@ class PinguApp {
 
     this.components.Bridge = Bridge;
     // addcomponenttothis
+
+    this._registerComponents();
   }
 
   _registerComponents() {
     // document.querySelectorAll('[data-pingu]').forEach((element) => {
     //   element
     // });
+
+    document.querySelectorAll('[data-pingu]').forEach((element) {
+      var compName = element.getAttribute('data-pingu');
+      var Component = this.components[compName];
+
+      new Component();
+    });
   }
 }
 
