@@ -5,14 +5,12 @@
  */
 
 
-import Bridge from '../../../components/Bridge/bridge';
 // autoimportcomponent
 
 class PinguApp {
   constructor() {
     this.components = {};
 
-    this.components.Bridge = Bridge;
     // addcomponenttothis
 
     this.registerComponents();
@@ -23,7 +21,7 @@ class PinguApp {
       const compName = element.getAttribute('data-pingu');
       const Component = this.components[compName];
 
-      new Component();
+      new Component(element);
     });
   }
 }
