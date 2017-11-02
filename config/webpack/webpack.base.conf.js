@@ -11,6 +11,9 @@ module.exports = {
   output: {
     filename: '[name]',
   },
+  resolve: {
+    modules: ['node_modules']
+  },
   module: {
     rules: [
       {
