@@ -2,3 +2,4 @@ config:
   name: Bridge
   description: This is a description
   status: w.i.p
+label: This is a bridge
