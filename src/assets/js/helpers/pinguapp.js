@@ -1,25 +1,31 @@
 /**
- * Init all components, @TODO: autoinsert components
+ * Init all components
  *
  * @class PinguApp
  */
 
 
-import Bridge from '../../../components/Bridge/bridge';
 // autoimportcomponent
 
 class PinguApp {
   constructor() {
     this.components = {};
 
-    this.components.Bridge = Bridge;
     // addcomponenttothis
+
+    this.registerComponents();
   }
 
-  _registerComponents() {
-    // document.querySelectorAll('[data-pingu]').forEach((element) => {
-    //   element
-    // });
+  registerComponents() {
+    document.querySelectorAll('[data-pingu]').forEach((element) => {
+      const pinguAttributes = element.getAttribute('data-pingu').split(' ');
+
+      pinguAttributes.forEach((compName) => {
+        const Component = this.components[compName];
+
+        new Component(element);
+      });
+    });
   }
 }
 
