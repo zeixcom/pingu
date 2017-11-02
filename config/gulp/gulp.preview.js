@@ -9,9 +9,10 @@ gulp.task('preview', function() {
   var rename = require('gulp-rename');
   var yaml = require('js-yaml');
   var path = require('path');
-  var fs = require('fs-extra');
+  var fs = require('fs');
   var replaceExt = require('replace-ext');
   var showdown = require('showdown');
+  var escape = require('escape-html');
 
   var pathsHelper = require('../helpers/paths.helper');
   var isDev = process.env.NODE_ENV === 'development';
@@ -20,8 +21,11 @@ gulp.task('preview', function() {
   return gulp.src(`${pathsHelper.components}/**/*.twig`)
     .pipe(tap(function (file) {
       var filename = path.basename(file.path, path.extname(file.path));
-      var componentData = yaml.safeLoad(fs.readFileSync(replaceExt(file.path, '.yml')));
+      var yamlCode = fs.readFileSync(replaceExt(file.path, '.yml'), 'utf8');
+      var componentData = yaml.safeLoad(yamlCode);
       var twigCode = fs.readFileSync(file.path, 'utf8');
+      var jsCode = fs.readFileSync(replaceExt(file.path, '.js'), 'utf8');
+      var scssCode = fs.readFileSync(replaceExt(file.path, '.scss'), 'utf8');
       var markdown = fs.readFileSync(replaceExt(file.path, '.md'), 'utf8');
       var converter = new showdown.Converter();
       var html;
@@ -29,6 +33,13 @@ gulp.task('preview', function() {
       var data;
 
       data = componentData;
+
+      data.code = {
+        twig: escape(twigCode),
+        js: jsCode,
+        scss: scssCode,
+        yaml: yamlCode
+      };
 
       //Generate the html of the component itsself
       compHtml = twig({
