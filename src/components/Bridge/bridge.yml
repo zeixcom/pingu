@@ -1,0 +1,5 @@
+config:
+  name: Bridge
+  description: This is a description
+  status: w.i.p
+bridge: defaultData[bridge]

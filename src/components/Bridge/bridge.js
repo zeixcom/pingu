@@ -1,15 +1,17 @@
 /**
- * @name: {% COMP_NAME %}
+ * @name: Bridge
  */
 
 import PinguComponent from '../../assets/js/helpers/PinguComponent';
 
-class {% COMP_NAME %} extends PinguComponent {
+class Bridge extends PinguComponent {
   constructor($el) {
     const defaultOpts = {
       classes: {
-        dom: {},
-        state: {},
+        dom: {
+          text: '.bridge__text',
+          house: '.bridge__house',
+        },
       },
     };
 
@@ -19,4 +21,4 @@ class {% COMP_NAME %} extends PinguComponent {
   }
 }
 
-export default {% COMP_NAME %};
+export default Bridge;
