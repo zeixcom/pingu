@@ -122,7 +122,7 @@ class PinguComponent {
    * Removes a given event listener by name
    * @param {string} listenerName
    */
-  removeEventListener(listenerName) {
+  removeListener(listenerName) {
     const listener = this.listeners[listenerName];
 
     listener.node.removeEventListener(listener.eventType, listener.handler);
@@ -153,6 +153,12 @@ class PinguComponent {
    * Destroys the object
    */
   destroy() {
+    const listeners = Object.keys(this.listeners);
+
+    listeners.forEach((listenerName) => {
+      this.removeListener(listenerName);
+    });
+
     delete window.pingu.components[this.name].instances[this.uuid];
   }
 }
