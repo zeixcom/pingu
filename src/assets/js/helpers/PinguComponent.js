@@ -103,7 +103,7 @@ class PinguComponent {
    * @param {string} listenerName
    * @param {Node} node
    * @param {string} eventType
-   * @param {fn} handler
+   * @param {function} handler
    * @param {object} options
    */
   addListener(listenerName, node, eventType, handler, options) {
@@ -125,6 +125,19 @@ class PinguComponent {
     const listener = this.listeners[listenerName];
 
     listener.node.removeEventListener(listener.eventType, listener.handler);
+  }
+
+  /**
+   *
+   * @param {string} eventName
+   * @param {*} eventData
+   * @param {Node} node
+   */
+  dispatchCustomEvent(eventName, eventData, node) {
+    const activeNode = typeof node === typeof undefined ? window : node;
+    const event = new CustomEvent(`${this.name}.${eventName}`, eventData);
+
+    activeNode.dispatchEvent(event);
   }
 
   /**

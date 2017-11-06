@@ -29,6 +29,7 @@
     "window": true,
     "Vue": true,
     "_": true,
-    "localStorage": true
+    "localStorage": true,
+    "CustomEvent": true
   }
 }

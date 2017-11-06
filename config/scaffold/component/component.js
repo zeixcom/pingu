@@ -11,6 +11,7 @@ class {% COMP_NAME %} extends PinguComponent {
         dom: {},
         state: {},
       },
+      customEvents: {},
     };
 
     super($el, defaultOpts);
