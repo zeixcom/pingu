@@ -5,12 +5,14 @@
  */
 
 
+import Header from '../../../components/Header/header';
 // autoimportcomponent
 
 class PinguApp {
   constructor() {
     this.components = {};
 
+    this.components.Header = Header;
     // addcomponenttothis
 
     this.registerComponents();
