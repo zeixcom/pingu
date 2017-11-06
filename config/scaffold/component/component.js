@@ -14,9 +14,11 @@ class {% COMP_NAME %} extends PinguComponent {
       customEvents: {},
     };
 
-    super($el, defaultOpts);
+    const defaultData = {};
 
-    this.log('{% COMP_NAME %} loaded');
+    super($el, defaultOpts, defaultData);
+
+    this.log('Bridge loaded');
   }
 }
 

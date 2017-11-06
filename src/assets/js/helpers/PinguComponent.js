@@ -5,9 +5,10 @@ import uniqueId from 'lodash/uniqueId';
 import kebabCase from 'lodash/kebabCase';
 
 class PinguComponent {
-  constructor($el, _defaultOptions) {
+  constructor($el, _defaultOptions, _defaultData) {
     this.name = this.constructor.name;
     this.options = Object.assign({}, _defaultOptions);
+    this.data = Object.assign({}, _defaultData);
 
     this.log = window.pingu.logger(this.name);
     this.listeners = {};
