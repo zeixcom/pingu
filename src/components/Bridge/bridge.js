@@ -12,6 +12,9 @@ class Bridge extends PinguComponent {
           text: '.bridge__text',
           house: '.bridge__house',
         },
+        state: {
+          active: 'active',
+        },
       },
     };
 

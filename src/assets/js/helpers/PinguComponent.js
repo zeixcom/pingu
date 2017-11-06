@@ -2,6 +2,7 @@
  * This is just an example file
  */
 import uniqueId from 'lodash/uniqueId';
+import kebabCase from 'lodash/kebabCase';
 
 class PinguComponent {
   constructor($el, _defaultOptions) {
@@ -9,6 +10,7 @@ class PinguComponent {
     this.options = Object.assign({}, _defaultOptions);
 
     this.log = window.pingu.logger(this.name);
+    this.listeners = {};
 
     this.uuid = uniqueId(this.name);
 
@@ -48,20 +50,81 @@ class PinguComponent {
   }
 
   /**
-   * Add modifier classes to any given node
+   * Creates the proper regex and returns the match
    * @param {string} modifier
    * @param {Node} node
+   * @param {boolean} isAdd (if it's adding modifier)
+   */
+  regexOnNode(modifier, node, isAdd) {
+    const add2Regex = isAdd ? '' : `--${modifier}`;
+    const regex = new RegExp(`${kebabCase(this.name)}[^\\s]*${add2Regex}`, 'g');
+    const classAttribute = node.getAttribute('class');
+
+    return classAttribute.match(regex)[0];
+  }
+
+  /**
+   * Checks if the node param is a NodeList or undefined
+   * @param {Node|undefined} node
+   */
+  checkSelectedNode(node) {
+    if (typeof node === typeof NodeList) this.error('Modifiers cannot be added on a NodeList');
+
+    return typeof node === typeof undefined ? this.nodes.el : node;
+  }
+
+  /**
+   * Add modifier classes to any given node
+   * @param {string} modifier
+   * @param {Node|undefined} node
    */
   addModifier(modifier, node) {
-    if (typeof node === typeof []) this.error('Modifiers cannot be added on a NodeList');
-
-    const selectedNode = typeof node === typeof undefined ? this.nodes.el : node;
-    const regex = new RegExp(`${this.name}__[^\s]+`, 'g'); //eslint-disable-line
-    const classAttribute = selectedNode.getAttribute('class');
-    const regexMatch = classAttribute.match(regex)[0];
+    const selectedNode = this.checkSelectedNode(node);
+    const regexMatch = this.regexOnNode(modifier, selectedNode, true);
     const newClassName = `${regexMatch}--${modifier}`;
 
-    node.classList.add(newClassName);
+    selectedNode.classList.add(newClassName);
+  }
+
+  /**
+   * Removes modifier class on given node, if no node is given, then use base element
+   * @param {string} modifier
+   * @param {Node|undefined} node
+   */
+  removeModifier(modifier, node) {
+    const selectedNode = this.checkSelectedNode(node);
+    const regexMatch = this.regexOnNode(modifier, selectedNode, false);
+
+    selectedNode.classList.remove(regexMatch);
+  }
+
+  /**
+   * Adds and saves an event listener
+   * @param {string} listenerName
+   * @param {Node} node
+   * @param {string} eventType
+   * @param {fn} handler
+   * @param {object} options
+   */
+  addListener(listenerName, node, eventType, handler, options) {
+    node.addEventListener(eventType, handler, options);
+
+    this.listeners[listenerName] = {
+      node,
+      eventType,
+      handler,
+      options,
+    };
+  }
+
+  /**
+   * Removes a given event listener by name
+   * @param {string} listenerName
+   */
+  removeEventListener(listenerName) {
+    const listener = this.listeners[listenerName];
+
+    listener.node.removeEventListener(listener.eventType, listener.handler);
   }
 
   /**
