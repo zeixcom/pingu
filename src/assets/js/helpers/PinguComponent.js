@@ -52,7 +52,8 @@ class PinguComponent {
   }
 
   /**
-   * Parsing plugin options from the dom element
+   * Parsing the options from html-attribute
+   * @param {node} the base element of the component
    */
   parseOptions($el) {
     const attributeName = `data-${kebabCase(this.name)}-options`;
