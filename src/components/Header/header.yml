@@ -1,5 +1,5 @@
 config:
-  name: {% COMP_NAME %}
+  name: Header
   description: This is a description
   status: w.i.p
 _options:
