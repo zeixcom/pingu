@@ -6,7 +6,7 @@
 
 import bows from 'bows';
 
-import Bridge from '../../../components/Bridge/bridge';
+import Header from '../../../components/Header/header';
 // autoimportcomponent
 
 class PinguApp {
@@ -20,7 +20,7 @@ class PinguApp {
 
     this.components = {};
 
-    this.components.Bridge = Bridge;
+    this.components.Header = Header;
     // addcomponenttothis
 
     this.registerComponents();

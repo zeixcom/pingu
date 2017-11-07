@@ -1,5 +1,6 @@
 config:
-  name: Bridge
+  name: Header
   description: This is a description
   status: w.i.p
-bridge: defaultData[bridge]
+_options:
+  length: 3

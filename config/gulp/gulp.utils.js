@@ -1,6 +1,8 @@
 var yaml = require('js-yaml');
 var fs = require('fs');
-var _ = require('lodash');
+var merge = require('lodash/merge');
+var has = require('lodash/has');
+
 
 var regexDefaultData = /defaultData\[(.*)\]/g;
 var pathsHelper = require('../helpers/paths.helper');
@@ -16,6 +18,12 @@ exports.checkAndLoadDefaultComponentData = function(data) {
         var compName =  defaultDataMatch[defaultDataMatch.length - 1];
         var compDataFile = yaml.safeLoad(fs.readFileSync(`${pathsHelper.components}/${compName}/${compName}.yml`, 'utf8'));
 
+        if (has(compDataFile, '_options')) {
+          compDataFile.options = JSON.stringify(compDataFile._options);
+
+          delete compDataFile._options;
+        }
+
         data[key] = compDataFile;
       }
     }
@@ -27,7 +35,7 @@ exports.checkAndLoadDefaultComponentData = function(data) {
 exports.concatPageDataWithLayoutData = function(data) {
   var layout = data.config.layout;
   var layoutData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.layouts}/${layout}/${layout}.yml`, 'utf8'));
-  var mergedData = _.merge({}, data, layoutData);
+  var mergedData = merge({}, data, layoutData);
 
   return mergedData;
 }
