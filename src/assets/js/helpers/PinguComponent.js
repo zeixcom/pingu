@@ -7,16 +7,17 @@ import kebabCase from 'lodash/kebabCase';
 class PinguComponent {
   constructor($el, _defaultOptions, _defaultData) {
     this.name = this.constructor.name;
-    this.options = Object.assign({}, _defaultOptions);
-    this.data = Object.assign({}, _defaultData);
 
-    this.log = window.pingu.logger(this.name);
-    this.listeners = {};
+    this.options = Object.assign({}, _defaultOptions, this.parseOptions($el));
+    this.data = Object.assign({}, _defaultData);
 
     this.uuid = uniqueId(this.name);
 
     this.registerInWindow();
     this.registerNodes($el);
+
+    this.log = window.pingu.logger(this.name);
+    this.listeners = {};
   }
 
   /**
@@ -48,6 +49,19 @@ class PinguComponent {
         }
       }
     });
+  }
+
+  /**
+   * Parsing plugin options from the dom element
+   */
+  parseOptions($el) {
+    const attributeName = `data-${kebabCase(this.name)}-options`;
+
+    if ($el.hasAttribute(attributeName)) {
+      return JSON.parse($el.getAttribute(attributeName));
+    }
+
+    return {};
   }
 
   /**
