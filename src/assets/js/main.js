@@ -1,4 +1,4 @@
-import PinguApp from './helpers/PinguApp';
+import PinguApp from './helpers/pinguapp';
 
 new PinguApp();
 

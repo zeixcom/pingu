@@ -5,9 +5,21 @@
 import PinguComponent from '../../assets/js/helpers/PinguComponent';
 
 class {% COMP_NAME %} extends PinguComponent {
-  constructor() {
-    super();
+  constructor(el) {
+    const defaultOpts = {
+      classes: {
+        dom: {},
+        state: {},
+      },
+      customEvents: {},
+    };
 
-    console.log('{% COMP_NAME %} loaded');
+    const defaultData = {};
+
+    super(el, defaultOpts, defaultData);
+
+    this.log('Bridge loaded');
   }
 }
+
+export default {% COMP_NAME %};

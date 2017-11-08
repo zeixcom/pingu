@@ -57,6 +57,7 @@
     "webpack-stream": "^4.0.0"
   },
   "dependencies": {
+    "bows": "^1.7.0",
     "lodash": "^4.17.4",
     "prismjs": "^1.8.3"
   },

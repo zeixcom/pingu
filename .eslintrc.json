@@ -28,6 +28,8 @@
     "document": true,
     "window": true,
     "Vue": true,
-    "_": true
+    "_": true,
+    "localStorage": true,
+    "CustomEvent": true
   }
 }
