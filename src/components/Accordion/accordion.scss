@@ -6,10 +6,13 @@
 .accordion {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0.67em;
+
+  background: $grey;
 
   &__item {
-    border: 1px solid $black;
+    border-bottom: 1px solid darken($white, 22%);
+    background: $white;
   }
 
   &__trigger {
@@ -19,15 +22,35 @@
     border-radius: 0;
     background: none;
 
+    font-size: 1rem;
+    width: 100%;
+    text-align: left;
+
+    padding: 0.75em;
+
+    cursor: pointer;
+
     &:focus {
       outline: none;
+    }
+
+    &:hover {
+      background: darken($white, 10%);
     }
   }
 
   &__panel {
+    overflow: hidden;
 
     &[ aria-hidden='true' ] {
-      display: none;
+      max-height: 0;
     }
+  }
+
+  &__panel-content {
+    display: block;
+
+    overflow: auto;
+    padding: 1em;
   }
 }

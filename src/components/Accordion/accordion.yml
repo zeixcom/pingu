@@ -3,7 +3,7 @@ config:
   description: This is a description
   status: w.i.p
 _options:
-  multipleOpen: false
+  multipleOpen: true
 items:
   - title: 1. Akkordion Inhalt
     content: <p>Das ist der Inhalt des 1. Akkordions</p>

@@ -2,6 +2,9 @@
  * @name: Accordion
  */
 
+import anime from 'animejs';
+import ecr from 'element-client-rect';
+
 import PinguComponent from '../../assets/js/helpers/PinguComponent';
 
 class Accordion extends PinguComponent {
@@ -12,6 +15,7 @@ class Accordion extends PinguComponent {
           item: '.accordion__item',
           trigger: '.accordion__trigger',
           panel: '.accordion__panel',
+          panelContent: '.accordion__panel-content',
         },
         state: {
           open: 'open',
@@ -19,6 +23,10 @@ class Accordion extends PinguComponent {
       },
       customEvents: {},
       multipleOpen: false,
+      animation: {
+        duration: 500,
+        easing: 'linear',
+      },
     };
 
     const defaultData = {};
@@ -66,6 +74,13 @@ class Accordion extends PinguComponent {
 
     node.setAttribute('aria-expanded', true);
     elements.panel.setAttribute('aria-hidden', false);
+
+    anime({
+      targets: elements.panel,
+      maxHeight: ecr(elements.panelContent).height,
+      duration: this.options.animation.duration,
+      easing: this.options.animation.easing,
+    });
   }
 
   /**
@@ -78,6 +93,13 @@ class Accordion extends PinguComponent {
 
     node.setAttribute('aria-expanded', false);
     elements.panel.setAttribute('aria-hidden', true);
+
+    anime({
+      targets: elements.panel,
+      maxHeight: 0,
+      duration: this.options.animation.duration,
+      easing: this.options.animation.easing,
+    });
   }
 
   /**
@@ -94,13 +116,16 @@ class Accordion extends PinguComponent {
   }
 
   /**
-   *
+   * Get all elements necessary according to the triggered button
    * @param {Node} triggered button
    */
   getMatchingElements(node) {
+    const item = node.parentNode;
+
     return {
-      item: node.parentNode,
-      panel: node.nextElementSibling,
+      item,
+      panel: item.querySelector(this.options.classes.dom.panel),
+      panelContent: item.querySelector(this.options.classes.dom.panelContent),
     };
   }
 }
