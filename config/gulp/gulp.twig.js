@@ -15,7 +15,7 @@ gulp.task('twig', function() {
 
   var utils = require('./gulp.utils');
   var scaffoldUtils = require('../scaffold/scaffold.utils');
-  var filters = require('../twig/filters');
+  var extensions = require('../twig/extensions');
   var pathsHelper = require('../helpers/paths.helper');
   var isDev = process.env.NODE_ENV === 'development';
 
@@ -50,7 +50,8 @@ gulp.task('twig', function() {
       }
     }))
     .pipe(twig({
-      filters: filters.FILTERS
+      filters: extensions.FILTERS,
+      functions: extensions.FUNCTIONS
     }))
     .pipe(rename(
       {dirname: ''}

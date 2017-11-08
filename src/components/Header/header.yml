@@ -1,6 +1,0 @@
-config:
-  name: Header
-  description: This is a description
-  status: w.i.p
-_options:
-  length: 3

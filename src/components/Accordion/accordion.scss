@@ -1,0 +1,33 @@
+/*
+  @name: Accordion
+*/
+
+
+.accordion {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    border: 1px solid $black;
+  }
+
+  &__trigger {
+    display: block;
+
+    border: none;
+    border-radius: 0;
+    background: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__panel {
+
+    &[ aria-hidden='true' ] {
+      display: none;
+    }
+  }
+}

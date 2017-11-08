@@ -57,7 +57,9 @@ class PinguComponent {
     const attributeName = `data-${kebabCase(this.name)}-options`;
 
     if (el.hasAttribute(attributeName)) {
-      return JSON.parse(el.getAttribute(attributeName));
+      const options = el.getAttribute(attributeName);
+
+      if (options.length > 0) return JSON.parse(el.getAttribute(attributeName));
     }
 
     return {};
@@ -74,7 +76,7 @@ class PinguComponent {
     const regex = new RegExp(`${kebabCase(this.name)}[^\\s]*${add2Regex}`, 'g');
     const classAttribute = node.getAttribute('class');
 
-    return classAttribute.match(regex)[0];
+    return classAttribute.match(regex);
   }
 
   /**
@@ -95,7 +97,7 @@ class PinguComponent {
   addModifier(modifier, node) {
     const selectedNode = this.checkSelectedNode(node);
     const regexMatch = this.regexOnNode(modifier, selectedNode, true);
-    const newClassName = `${regexMatch}--${modifier}`;
+    const newClassName = `${regexMatch[0]}--${modifier}`;
 
     selectedNode.classList.add(newClassName);
   }
@@ -109,7 +111,44 @@ class PinguComponent {
     const selectedNode = this.checkSelectedNode(node);
     const regexMatch = this.regexOnNode(modifier, selectedNode, false);
 
-    selectedNode.classList.remove(regexMatch);
+    selectedNode.classList.remove(regexMatch[0]);
+  }
+
+  /**
+   * Checks if a given node (or el) has a modifier
+   * @param {string} modifier
+   * @param {Node} node
+   */
+  hasModifier(modifier, node) {
+    const selectedNode = this.checkSelectedNode(node);
+    const regexMatch = this.regexOnNode(modifier, selectedNode, false);
+
+    return regexMatch !== null;
+  }
+
+  /**
+   * Iterates over all nodes and returns all nodes, with the given Element
+   * @param {string} modifier
+   * @param {string} only of given key
+   */
+  getNodesByModifier(modifier, nodeType) {
+    const nodeKeys = Object.keys(this.nodes);
+    const foundNodes = [];
+    const onlyByKey = typeof nodeType !== typeof undefined;
+
+    nodeKeys.forEach((key) => {
+      const nodes = this.nodes[key];
+      const nodeList = typeof nodes.forEach === 'function' ? nodes : [nodes];
+
+      nodeList.forEach((node) => {
+        const regexMatch = this.regexOnNode(modifier, node, false);
+        const isCorrectKey = onlyByKey ? key === nodeType : true;
+
+        if (regexMatch !== null && isCorrectKey) foundNodes.push(node);
+      });
+    });
+
+    return foundNodes;
   }
 
   /**
@@ -121,14 +160,29 @@ class PinguComponent {
    * @param {object} options
    */
   addListener(listenerName, node, eventType, handler, options) {
-    node.addEventListener(eventType, handler, options);
+    const isNodeList = typeof node === 'object';
 
-    this.listeners[listenerName] = {
-      node,
-      eventType,
-      handler,
-      options,
-    };
+    if (!isNodeList) {
+      node.addEventListener(eventType, handler, options);
+
+      this.listeners[listenerName] = {
+        node,
+        eventType,
+        handler,
+        options,
+      };
+    } else {
+      node.forEach((nodeElement, index) => {
+        nodeElement.addEventListener(eventType, handler, options);
+
+        this.listeners[`${listenerName}${index}`] = {
+          nodeElement,
+          eventType,
+          handler,
+          options,
+        };
+      });
+    }
   }
 
   /**
