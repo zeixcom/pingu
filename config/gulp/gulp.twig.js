@@ -30,6 +30,8 @@ gulp.task('twig', function() {
         var concatedData = utils.concatPageDataWithLayoutData(pageData);
         var finalizedData = utils.checkAndLoadDefaultComponentData(concatedData);
 
+        finalizedData.isDev = isDev;
+
         return finalizedData;
       } else {
         var pagesRaw = scaffoldUtils.getAllNodesByNodeType('page');
@@ -46,7 +48,7 @@ gulp.task('twig', function() {
           pages.push(pageSpecificData);
         });
 
-        return { pages };
+        return { pages, isDev };
       }
     }))
     .pipe(twig({

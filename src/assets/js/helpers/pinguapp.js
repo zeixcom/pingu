@@ -14,9 +14,10 @@ class PinguApp {
     window.pingu = {
       logger: bows,
       components: {},
+      debug: document.documentElement.classList.contains('dev'),
     };
 
-    localStorage.debug = true;
+    localStorage.debug = window.pingu.debug;
 
     this.components = {};
 
