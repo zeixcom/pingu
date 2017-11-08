@@ -5,16 +5,16 @@ import uniqueId from 'lodash/uniqueId';
 import kebabCase from 'lodash/kebabCase';
 
 class PinguComponent {
-  constructor($el, _defaultOptions, _defaultData) {
+  constructor(el, _defaultOptions, _defaultData) {
     this.name = this.constructor.name;
 
-    this.options = Object.assign({}, _defaultOptions, this.parseOptions($el));
+    this.options = Object.assign({}, _defaultOptions, this.parseOptions(el));
     this.data = Object.assign({}, _defaultData);
 
     this.uuid = uniqueId(this.name);
 
     this.registerInWindow();
-    this.registerNodes($el);
+    this.registerNodes(el);
 
     this.log = window.pingu.logger(this.name);
     this.listeners = {};
@@ -29,14 +29,12 @@ class PinguComponent {
 
   /**
    * Registering all the nodes, automatic grabbed by the options
-   * @param {$el} the element of the component
+   * @param {el} the element of the component
    */
-  registerNodes($el) {
+  registerNodes(el) {
     const nodeClasses = this.options.classes.dom;
 
-    this.nodes = {
-      el: $el,
-    };
+    this.nodes = { el };
 
     Object.keys(nodeClasses).forEach((key) => {
       if (Object.prototype.hasOwnProperty.call(nodeClasses, key)) {
@@ -55,11 +53,11 @@ class PinguComponent {
    * Parsing the options from html-attribute
    * @param {node} the base element of the component
    */
-  parseOptions($el) {
+  parseOptions(el) {
     const attributeName = `data-${kebabCase(this.name)}-options`;
 
-    if ($el.hasAttribute(attributeName)) {
-      return JSON.parse($el.getAttribute(attributeName));
+    if (el.hasAttribute(attributeName)) {
+      return JSON.parse(el.getAttribute(attributeName));
     }
 
     return {};

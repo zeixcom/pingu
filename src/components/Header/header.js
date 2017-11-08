@@ -5,7 +5,7 @@
 import PinguComponent from '../../assets/js/helpers/PinguComponent';
 
 class Header extends PinguComponent {
-  constructor($el) {
+  constructor(el) {
     const defaultOptions = {
       classes: {
         dom: {},
@@ -17,7 +17,7 @@ class Header extends PinguComponent {
     const defaultData = {
     };
 
-    super($el, defaultOptions, defaultData);
+    super(el, defaultOptions, defaultData);
 
     this.log('Header loaded');
   }

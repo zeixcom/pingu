@@ -5,7 +5,7 @@
 import PinguComponent from '../../assets/js/helpers/PinguComponent';
 
 class {% COMP_NAME %} extends PinguComponent {
-  constructor($el) {
+  constructor(el) {
     const defaultOpts = {
       classes: {
         dom: {},
@@ -16,7 +16,7 @@ class {% COMP_NAME %} extends PinguComponent {
 
     const defaultData = {};
 
-    super($el, defaultOpts, defaultData);
+    super(el, defaultOpts, defaultData);
 
     this.log('Bridge loaded');
   }
