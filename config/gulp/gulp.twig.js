@@ -27,8 +27,6 @@ gulp.task('twig', function() {
       if (filename !== 'index') {
         var pageData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.pages}/${filename}/${filename}.yml`, 'utf8'));
 
-        console.log('pageData', pageData);
-
         var concatedData = utils.concatPageDataWithLayoutData(pageData);
         var finalizedData = utils.checkAndLoadDefaultComponentData(concatedData);
 

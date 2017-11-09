@@ -9,7 +9,6 @@ var pathsHelper = require('../helpers/paths.helper');
 
 exports.checkAndLoadDefaultComponentData = function(data) {
   var keys = Object.keys(data);
-  console.log('data', data);
 
   keys.forEach((key) => {
     var paramValue = data[key];
@@ -17,8 +16,6 @@ exports.checkAndLoadDefaultComponentData = function(data) {
     if (has(paramValue, 'extends')) {
       var extendComp = paramValue.extends;
       var compDefaultData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.components}/${extendComp}/${extendComp}.yml`, 'utf8'));
-
-      console.log('paramValue', paramValue);
 
       var mergedData = merge({}, compDefaultData, paramValue);
 
