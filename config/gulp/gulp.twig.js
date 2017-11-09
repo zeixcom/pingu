@@ -11,8 +11,7 @@ gulp.task('twig', function() {
   var path = require('path');
   var fs = require('fs');
   var htmlhint = require('gulp-htmlhint');
-  var _ = require('lodash');
-
+  var camelCase = require('lodash/camelCase');
   var utils = require('./gulp.utils');
   var scaffoldUtils = require('../scaffold/scaffold.utils');
   var extensions = require('../twig/extensions');
@@ -27,6 +26,9 @@ gulp.task('twig', function() {
 
       if (filename !== 'index') {
         var pageData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.pages}/${filename}/${filename}.yml`, 'utf8'));
+
+        console.log('pageData', pageData);
+
         var concatedData = utils.concatPageDataWithLayoutData(pageData);
         var finalizedData = utils.checkAndLoadDefaultComponentData(concatedData);
 
@@ -38,12 +40,12 @@ gulp.task('twig', function() {
         var pages = [];
 
         pagesRaw.forEach((page) => {
-          var pageYMLData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.pages}/${page}/${_.camelCase(page)}.yml`, 'utf8'));
+          var pageYMLData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.pages}/${page}/${camelCase(page)}.yml`, 'utf8'));
           var pageSpecificData = {};
 
           pageSpecificData = pageYMLData.config;
-          pageSpecificData.fileName = `${_.camelCase(page)}.twig`
-          pageSpecificData.url = `/${_.camelCase(page)}.html`;
+          pageSpecificData.fileName = `${camelCase(page)}.twig`
+          pageSpecificData.url = `/${camelCase(page)}.html`;
 
           pages.push(pageSpecificData);
         });

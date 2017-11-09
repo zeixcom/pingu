@@ -5,4 +5,7 @@ config:
   status: approved
 exampleText: Das ist ein Beispieltext
 buttonLabel: Das ist ein Buttonlabel
-accordion: defaultData[accordion]
+accordion:
+  _options:
+    multipleOpen: false
+  extends: accordion

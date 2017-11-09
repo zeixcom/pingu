@@ -8,26 +8,31 @@ var regexDefaultData = /defaultData\[(.*)\]/g;
 var pathsHelper = require('../helpers/paths.helper');
 
 exports.checkAndLoadDefaultComponentData = function(data) {
+  var keys = Object.keys(data);
+  console.log('data', data);
 
-  for (var key in data) {
-    if (data.hasOwnProperty(key)) {
-      var paramValue = data[key];
-      var defaultDataMatch = regexDefaultData.exec(paramValue);
+  keys.forEach((key) => {
+    var paramValue = data[key];
 
-      if (defaultDataMatch !== null) {
-        var compName =  defaultDataMatch[defaultDataMatch.length - 1];
-        var compDataFile = yaml.safeLoad(fs.readFileSync(`${pathsHelper.components}/${compName}/${compName}.yml`, 'utf8'));
+    if (has(paramValue, 'extends')) {
+      var extendComp = paramValue.extends;
+      var compDefaultData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.components}/${extendComp}/${extendComp}.yml`, 'utf8'));
 
-        if (has(compDataFile, '_options')) {
-          compDataFile.options = JSON.stringify(compDataFile._options);
+      console.log('paramValue', paramValue);
 
-          delete compDataFile._options;
-        }
+      var mergedData = merge({}, compDefaultData, paramValue);
 
-        data[key] = compDataFile;
+      if (has(mergedData, '_options')) {
+        mergedData.options = JSON.stringify(mergedData._options);
+
+        delete mergedData._options;
       }
+
+      delete mergedData.extends;
+
+      data[key] = mergedData;
     }
-  }
+  });
 
   return data;
 }
