@@ -5,4 +5,4 @@ config:
   status: approved
 exampleText: Das ist ein Beispieltext
 buttonLabel: Das ist ein Buttonlabel
-header: defaultData[header]
+accordion: defaultData[accordion]

@@ -1,0 +1,13 @@
+config:
+  name: Accordion
+  description: This is a description
+  status: w.i.p
+_options:
+  multipleOpen: true
+items:
+  - title: 1. Akkordion Inhalt
+    content: <p>Das ist der Inhalt des 1. Akkordions</p>
+  - title: 2. Akkordion
+    content: <ul><li>Listen item 1</li><li>Listen item 2</li><li>listen item 3</li></ul>
+  - title: 3. Akkordion
+    content: <form><fieldset><input type="text"/></fieldset><button type="submit">Senden</button></form>
