@@ -3,13 +3,15 @@
  */
 import uniqueId from 'lodash/uniqueId';
 import kebabCase from 'lodash/kebabCase';
+import merge from 'lodash/merge';
 
 class PinguComponent {
   constructor(el, _defaultOptions, _defaultData) {
     this.name = this.constructor.name;
 
-    this.options = Object.assign({}, _defaultOptions, this.parseOptions(el));
-    this.data = Object.assign({}, _defaultData);
+    this.options = merge({}, _defaultOptions, this.parseOptions(el));
+    // @TODO: TBD do we need this? really?
+    this.data = merge({}, _defaultData);
 
     this.uuid = uniqueId(this.name);
 
