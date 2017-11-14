@@ -88,6 +88,10 @@ andlog@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/andlog/-/andlog-1.0.0.tgz#25b39047ac9c1e5f6b2c8e4cdb5e7bf9e65e534b"
 
+animejs@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/animejs/-/animejs-2.2.0.tgz#35eefdfc535b81949c9cb06f0b3e60c02e6fdc80"
+
 ansi-escapes@^1.1.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-1.4.0.tgz#d3a8a83b319aa67793662b13e761c7911422306e"
@@ -1109,6 +1113,12 @@ boom@5.x.x:
   resolved "https://registry.yarnpkg.com/boom/-/boom-5.2.0.tgz#5dd9da6ee3a5f302077436290cb717d3f4a54e02"
   dependencies:
     hoek "4.x.x"
+
+bounding-client-rect@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/bounding-client-rect/-/bounding-client-rect-1.0.5.tgz#99e2cd2602d07f22ea3beee420534504fd4424cf"
+  dependencies:
+    get-document "1"
 
 bows@^1.7.0:
   version "1.7.0"
@@ -2164,6 +2174,21 @@ electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.24:
   version "1.3.26"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.26.tgz#996427294861a74d9c7c82b9260ea301e8c02d66"
 
+element-client-rect@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/element-client-rect/-/element-client-rect-1.0.4.tgz#a246f95df1c45ae815ec8f92536e1c013888ca5b"
+  dependencies:
+    bounding-client-rect "^1.0.5"
+    element-style "^0.1.1"
+    get-document "^1.0.0"
+    within-element "^0.1.0"
+
+element-style@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/element-style/-/element-style-0.1.1.tgz#9f6c7d93e1bdc97013532ff6c372a8e71317c7cb"
+  dependencies:
+    kebab-case "^1.0.0"
+
 elliptic@^6.0.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.4.0.tgz#cac9af8762c85836187003c8dfe193e5e2eae5df"
@@ -2984,6 +3009,10 @@ gaze@^1.0.0:
 get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
+
+get-document@1, get-document@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/get-document/-/get-document-1.0.0.tgz#4821bce66f1c24cb0331602be6cb6b12c4f01c4b"
 
 get-stdin@^4.0.1:
   version "4.0.1"
@@ -4020,6 +4049,10 @@ jsx-ast-utils@^2.0.0:
   resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-2.0.1.tgz#e801b1b39985e20fffc87b40e3748080e2dcac7f"
   dependencies:
     array-includes "^3.0.3"
+
+kebab-case@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/kebab-case/-/kebab-case-1.0.0.tgz#3f9e4990adcad0c686c0e701f7645868f75f91eb"
 
 kind-of@^2.0.1:
   version "2.0.1"
@@ -7218,6 +7251,10 @@ window-size@^0.1.2:
 window-size@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.2.0.tgz#b4315bb4214a3d7058ebeee892e13fa24d98b075"
+
+within-element@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/within-element/-/within-element-0.1.0.tgz#b610be314fb588bf21d7bd733906e437f30e2b95"
 
 wordwrap@0.0.2:
   version "0.0.2"

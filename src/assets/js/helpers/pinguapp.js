@@ -6,7 +6,7 @@
 
 import bows from 'bows';
 
-import Header from '../../../components/Header/header';
+import Accordion from '../../../components/Accordion/accordion';
 // autoimportcomponent
 
 class PinguApp {
@@ -21,7 +21,7 @@ class PinguApp {
 
     this.components = {};
 
-    this.components.Header = Header;
+    this.components.Accordion = Accordion;
     // addcomponenttothis
 
     this.registerComponents();
