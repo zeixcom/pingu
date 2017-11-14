@@ -2,7 +2,7 @@
   <head>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="/preview/assets/css/pew.css">
-    <script src="/preview/assets/js/pew.bundle.js"></script>
+    <!-- <link rel="stylesheet" href="http://overpass-30e2.kxcdn.com/overpass.css"> -->
     {% block component_scripts %}{% endblock %}
   </head>
   <body>
@@ -12,5 +12,6 @@
         {% block content %}{% endblock %}
       </div>
     </main>
+    <script src="/preview/assets/js/pew.bundle.js"></script>
   </body>
 </html>

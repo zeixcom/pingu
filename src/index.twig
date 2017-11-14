@@ -4,15 +4,48 @@
   Übersichtsseite
 {% endblock %}
 
+<!-- @TODO: project name should come from the config.yaml -->
+{% set projectName = 'Pingu for the win' %}
+
 {% block content %}
-  <table class="pew_table">
-    {% for page in pages %}
-      <tr>
-        <td><a href="{{ page.url }}">{{ page.title }}</a></td>
-        <td>{{ page.fileName }}</td>
-        <td>{{ page.description }}</td>
-        <td>{{ page.status }}</td>
-      </tr>
-    {% endfor %}
-  </table>
+  <h1 class="pew_title">
+    <span class="pew_title__project">{{projectName}}</span>
+    <span class="pew_title__seperator">/</span>
+    <span class="pew_title__site">
+    </span>
+  </h1>
+
+  <!-- Pages Overview -->
+  <section id="pages" class="pew_content__item">
+    <table class="pew_table">
+      {% for page in pages %}
+        <tr>
+          <td><a href="{{ page.url }}">{{ page.title }}</a></td>
+          <td>{{ page.fileName }}</td>
+          <td>{{ page.description }}</td>
+          <td>{{ page.status }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <!-- Components Overview -->
+  <section id="components" class="pew_content__item">
+    <table class="pew_table">
+      {% for component in components %}
+        <tr>
+          <td><a href="{{ component.url }}">{{ component.title }}</a></td>
+          <td>{{ component.fileName }}</td>
+          <td>{{ component.description }}</td>
+          <td>{{ component.status }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <!-- Styleguide -->
+  <section id="styleguide" class="pew_content__item">
+
+  </section>
+
 {% endblock %}
