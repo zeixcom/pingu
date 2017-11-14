@@ -23,6 +23,12 @@ $spacing--base: 1.333rem; // 24px
 $spacing--half: $spacing--base / 2; // 12px
 $spacing--double: $spacing--base * 2; // 48px
 
+$duration--hover: 350ms;
+$duration--backgrounds: 650ms;
+$duration--content: 1s;
+
+$cubic-bezier--slide: cubic-bezier(0.52, 0.01, 0.16, 1);
+
 /**
  * LAYOUT
  */
@@ -59,9 +65,9 @@ body {
   overflow: hidden;
   width: 250px;
 
-  transition: width 650ms cubic-bezier(0.52, 0.01, 0.16, 1);
+  transition: width $duration--backgrounds $cubic-bezier--slide;
 
-  transform: translate3d(0);
+  transform: translate3d(0, 0, 0);
 
   &__image {
     width: 100%;
@@ -80,14 +86,13 @@ body {
   }
 
   &__text {
-    transition: 333ms ease;
+    transition: $duration--hover ease;
     transition-property: opacity, transform;
   }
 
   &__icon {
     fill: $sidebar--link-color;
-    transition: 350ms ease;
-    transition-property: fill;
+    transition: fill $duration--hover ease;
     margin-right: $paragraph--base;
   }
 
@@ -99,7 +104,7 @@ body {
     box-shadow: inset 0 0 0 0 $sidebar--link-color;
 
 
-    transition: color 333ms ease, box-shadow 333ms cubic-bezier(0.52, 0.01, 0.16, 1);
+    transition: color $duration--hover ease, box-shadow $duration--hover $cubic-bezier--slide;
   }
 
   &__item--active {
@@ -111,7 +116,7 @@ body {
     .pew_sidebar__link {
       color: $sidebar--link-color-active;
       box-shadow: inset 4px 0 0 0 $sidebar--link-color;
-      transition: color 333ms ease, box-shadow 333ms 333ms cubic-bezier(0.52, 0.01, 0.16, 1);
+      transition: color $duration--hover ease, box-shadow $duration--hover $duration--hover $cubic-bezier--slide;
     }
   }
 
@@ -138,7 +143,7 @@ body {
     &-icon {
       fill: $sidebar--link-color;
       transform: scale(-1);
-      transition: 350ms ease;
+      transition: $duration--hover ease;
       transition-property: fill, transform;
     }
   }
@@ -186,14 +191,14 @@ body {
     visibility: hidden;
 
     transform: translateX(1rem);
-    transition: opacity 0ms, transform 0ms;
+    transition: opacity 0, transform 0;
 
     &--shown {
       opacity: 1;
       height: auto;
       visibility: visible;
       transform: translateX(0);
-      transition: opacity 1s ease, transform 1s ease;
+      transition: opacity $duration--content ease, transform $duration--content ease;
     }
   }
 }
@@ -213,11 +218,14 @@ body {
     text-transform: uppercase;
   }
 
-  &__seperator {
-    color: $color--brand;
-  }
-
   &__site {
+
+    &:before {
+      content: '/';
+      display: inline-block;
+      color: $color--brand;
+      margin-right: $spacing--half;
+    }
 
     &-title {
       display: inline-block;
@@ -227,7 +235,7 @@ body {
       &--shown {
         transform: translateX(0);
         opacity: 1;
-        transition: opacity 950ms ease, transform 950ms ease;
+        transition: opacity ($duration--content - 50ms) ease, transform ($duration--content - 50ms) ease;
       }
     }
   }
