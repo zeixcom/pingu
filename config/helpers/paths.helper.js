@@ -37,7 +37,8 @@ module.exports = {
   buildPreviewAssets: resolveApp(buildFolder + '/preview/assets'),
   relativePaths: {
     js: 'assets/js',
-    css: 'assets/js'
+    css: 'assets/js',
+    previewComponent: 'preview/components',
   },
   webpackEntries: {
     js: 'assets/js/main.bundle.js',

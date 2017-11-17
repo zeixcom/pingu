@@ -10,6 +10,8 @@ gulp.task('preview', function() {
   var yaml = require('js-yaml');
   var path = require('path');
   var fs = require('fs');
+  var camelCase = require('lodash/camelCase');
+  var scaffoldUtils = require('../scaffold/scaffold.utils');
   var replaceExt = require('replace-ext');
   var showdown = require('showdown');
   var escape = require('escape-html');
@@ -31,8 +33,17 @@ gulp.task('preview', function() {
       var html;
       var compHtml;
       var data;
+      var componentsRaw = scaffoldUtils.getAllNodesByNodeType('component');
 
       data = componentData;
+
+      data.components = componentsRaw.map((component) => {
+        return {
+          name: component,
+          url: `/${pathsHelper.relativePaths.previewComponent}/${camelCase(component)}.html`,
+          active: component === componentData.config.name,
+        };
+      });
 
       data.code = {
         twig: escape(twigCode),
