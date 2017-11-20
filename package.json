@@ -60,6 +60,7 @@
   "dependencies": {
     "animejs": "^2.2.0",
     "bows": "^1.7.0",
+    "dialog-typography": "^1.1.1",
     "element-client-rect": "^1.0.4",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
