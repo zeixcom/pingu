@@ -4,6 +4,11 @@
 @import 'utils/colors';
 
 /**
+ * VENDORS
+ */
+@import '~normalize.css/normalize.css';
+
+/**
  * LAYOUTS
  */
 /* LAYOUT_PLACEHOLDER */
@@ -13,9 +18,16 @@
  */
 
 @import '../../components/Accordion/accordion';
+@import '../../components/Test/test';
+@import '../../components/Component2/component2';
+@import '../../components/Component3/component3';
+@import '../../components/Slider/slider';
+@import '../../components/Test3/test3';
 /* COMPONENT_PLACEHOLDER */
 
 /**
  * PAGES
  */
+@import '../../pages/Detail/detail';
+@import '../../pages/BlogUbersichtVersion2/blogUbersichtVersion2';
 /* PAGE_PLACEHOLDER */
