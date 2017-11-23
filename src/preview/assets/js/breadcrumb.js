@@ -24,19 +24,19 @@ export default class Breadcrumb {
 
     this.classes = {
       dom: {
-        trigger: 'pew_breadcrumb__trigger',
+        panelTrigger: 'pew_breadcrumb__panel-trigger',
         item: 'pew_breadcrumb__item',
         panel: 'pew_breadcrumb__panel',
       },
       state: {
-        triggerActive: 'pew_breadcrumb__trigger--active',
+        triggerActive: 'pew_breadcrumb__panel-trigger--active',
         panelShown: 'pew_breadcrumb__panel--shown',
         panelsOpen: 'pew_breadcrumb__panels--open',
       },
     };
 
     this.nodes = {
-      triggers: this.el.querySelectorAll(`.${this.classes.dom.trigger}`),
+      panelTriggers: this.el.querySelectorAll(`.${this.classes.dom.panelTrigger}`),
       panels: this.el.querySelectorAll(`.${this.classes.dom.panel}`),
       panelWrapper: this.el.querySelector(`.${this.classes.dom.panel}s`),
     };
@@ -48,7 +48,7 @@ export default class Breadcrumb {
    * @memberof Breadcrumb
    */
   initListeners() {
-    this.nodes.triggers.forEach((trigger, index) => {
+    this.nodes.panelTriggers.forEach((trigger, index) => {
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
         if (trigger.classList.contains(this.classes.state.triggerActive)) {
@@ -69,11 +69,11 @@ export default class Breadcrumb {
    */
   show(shownIndex) {
     const panel = this.nodes.panels[shownIndex];
-    const trigger = this.nodes.triggers[shownIndex];
+    const trigger = this.nodes.panelTriggers[shownIndex];
     const panelStyle = window.getComputedStyle(panel);
 
     // hide other triggers bzw panels
-    this.nodes.triggers.forEach((element, index) => {
+    this.nodes.panelTriggers.forEach((element, index) => {
       if (index !== shownIndex) this.hide(index);
     });
 
@@ -95,7 +95,7 @@ export default class Breadcrumb {
    */
   hide(index) {
     const panel = this.nodes.panels[index];
-    const trigger = this.nodes.triggers[index];
+    const trigger = this.nodes.panelTriggers[index];
 
     panel.classList.remove(this.classes.state.panelShown);
     trigger.classList.remove(this.classes.state.triggerActive);

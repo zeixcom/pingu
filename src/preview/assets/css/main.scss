@@ -539,7 +539,7 @@ body {
     }
   }
 
-  &__trigger {
+  &__panel-trigger {
     background: transparent;
     border: 0;
     font-family: overpass;
@@ -559,7 +559,7 @@ body {
       }
     }
 
-    &--active .pew_breadcrumb__trigger-icon {
+    &--active .pew_breadcrumb__panel-trigger-icon {
       transform: rotate(90deg) scale(-1);
     }
   }
