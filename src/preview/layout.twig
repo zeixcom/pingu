@@ -1,16 +1,29 @@
 <html class="{% if isDev %}dev{% endif %}">
   <head>
     <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/preview/assets/css/pew.css">
     {% block component_scripts %}{% endblock %}
   </head>
   <body>
-    <main class="pew_main">
+    <header class="pew_header">
+      <div class="pew_header__logo">
+        <img src="/preview/assets/img/logo.svg" class="pew_sidebar__image" alt="Pingu Logo">
+      </div>
+    </header>
+    <main class="pew_main pew_main--layer">
       {% include 'sidebar.twig' %}
       <div class="pew_content">
-        {% block content %}{% endblock %}
+        <!-- <div class="pew_container"> -->
+          {% block content %}{% endblock %}
+        <!-- </div> -->
       </div>
     </main>
+    <script src="/assets/js/main.bundle.js"></script>
     <script src="/preview/assets/js/pew.bundle.js"></script>
   </body>
 </html>

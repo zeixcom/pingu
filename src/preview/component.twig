@@ -2,37 +2,107 @@
 
 {% block title %}{{ config.name }}{% endblock %}
 
+<!-- @TODO: project name should come from the config.yaml -->
+{% set projectName = 'Pingu for the win' %}
+
 {% block content %}
-  <a class="pew_breadcrumb">Pingu / Components</a>
-  <h1 class="pew_title">{{ config.name }}</h1>
+<div class="pew_container">
+    <div class="pew_breadcrumb">
 
-  <div class="pew_preview">
-    <!-- AUTOINSERT COMPONENT -->
+      <ul class="pew_breadcrumb__list">
+        <li class="pew_breadcrumb__item">
+          <span class="pew_breadcrumb__text">{{projectName}}</span>
+        </li>
+        <li class="pew_breadcrumb__item">
+          <button href="#" class="pew_breadcrumb__trigger">
+            <span class="pew_breadcrumb__text">Components</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="pew_breadcrumb__trigger-icon"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+          </button>
+        </li>
+      </ul>
+    <div class="pew_breadcrumb__panels">
+      <div class="pew_breadcrumb__panel">
+        <ul class="pew_breadcrumb__link-list">
+          {% for component in components %}
+            <li class="pew_breadcrumb__link-item">
+              <a class="pew_link pew_breadcrumb__link {% if component.active %}pew_breadcrumb__link--active{% endif %}" href="{{ component.url }}">{{ component.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="pew_container">
+    <h1 class="pew_title">
+      <span class="pew_title__title">{{ config.name }}</span>
+    </h1>
   </div>
 
-  <div class="pew_block">
-    <h2 class="pew_subtitle">Description</h2>
-    <p>
-      <!-- AUTOINSERT DESCRIPTION -->
-    </p>
-  </div>
+  <section class="pew_block pew_block--preview" id="preview">
+    <div class="pew_container">
+      <h2 class="pew_subtitle">Preview</h2>
+    </div>
+    <div class="pew_preview">
+      <!-- AUTOINSERT COMPONENT -->
+    </div>
+  </section>
 
-  <div class="pew_block">
-    <ul>
-      <li>
-        <pre><code class="language-html">{{ code.twig }}</code></pre>
-      </li>
-      <li>
-        <pre><code class="language-js">{{ code.js }}</code></pre>
-      </li>
-      <li>
-        <pre><code class="language-scss">{{ code.scss }}</code></pre>
-      </li>
-    </ul>
-  </div>
+  <section class="pew_block pew_block--description" id="description">
+    <div class="pew_container">
+      <h2 class="pew_subtitle">Description</h2>
+      <div class="pew_markdown">
+        <!-- AUTOINSERT DESCRIPTION -->
+      </div>
+    </div>
+  </section>
 
-  <div class="pew_block">
-    <pre><code class="language-yaml">{{ code.yaml }}</code></pre>
-  </div>
+  <section class="pew_block pew_block--code" id="code">
+    <div class="pew_container">
+      <h2 class="pew_subtitle">Code</h2>
+      <div class="pew_tabs">
+        <ul class="pew_tabs__list" role="tablist">
+          <li class="pew_tabs__item" role="presentation">
+            <button id="tab_twig" class="pew_tabs__tab" role="tab" aria-controls="tab-panel_twig" tabindex="-1" aria-selected="false">
+              <span class="pew_tabs__tab-text">twig</span>
+            </button>
+          </li>
+          <li class="pew_tabs__item" role="presentation">
+            <button id="tab_js" class="pew_tabs__tab" role="tab" aria-controls="tab-panel_js" tabindex="-1" aria-selected="false">
+              <span class="pew_tabs__tab-text">js</span>
+            </button>
+          </li>
+          <li class="pew_tabs__item" role="presentation">
+            <button id="tab_scss" class="pew_tabs__tab" role="tab" aria-controls="tab-panel_scss" tabindex="-1" aria-selected="false">
+              <span class="pew_tabs__tab-text">scss</span>
+            </button>
+          </li>
+        </ul>
+        <!-- Tab Panels -->
+        <div class="pew_tabs__panels">
+          <article id="tab-panel_twig" class="pew_tabs__panel pew_tabs__panel--active" role="tabpanel" aria-labelledby="tab_twig">
+            <h2 class="pew_tabs__panel-title">Twig</h2>
+            <pre class="pew_code"><code class="language-html">{{ code.twig }}</code></pre>
+          </article>
+          <article id="tab-panel_js" class="pew_tabs__panel" role="tabpanel" aria-labelledby="tab_js" aria-hidden="true">
+            <h2 class="pew_tabs__panel-title">Javascript</h2>
+            <pre class="pew_code"><code class="language-js">{{ code.js }}</code></pre>
+          </article>
+          <article id="tab-panel_scss" class="pew_tabs__panel" role="tabpanel" aria-labelledby="tab_scss" aria-hidden="true">
+            <h2 class="pew_tabs__panel-title">Sass</h2>
+            <pre class="pew_code"><code class="language-scss">{{ code.scss }}</code></pre>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pew_block pew_block--data" id="data">
+    <div class="pew_container">
+      <h2 class="pew_subtitle">Data</h2>
+      <pre class="pew_code pew_code--padding"><code class="language-yaml">{{ code.yaml }}</code></pre>
+    </div>
+  </section>
 
 {% endblock %}
