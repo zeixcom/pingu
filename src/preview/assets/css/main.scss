@@ -1,19 +1,123 @@
+@import '../../../assets/css/utils/breakpoints';
+@import '~dialog-typography/dist/dialog-typography';
+
 @import '../fonts/overpass/overpass.css';
 @import '~prismjs/themes/prism-okaidia.css';
 @import '~prismjs/plugins/toolbar/prism-toolbar.css';
 
-$color--brand: #f47f4e;
-$color--text: #303030;
-
-$sidebar--link-color: #87cddd;
-$sidebar--link-color-active: #fff;
-$sidebar--background: #333;
+// @Todo: include base font size of the project
+$font-size--base: 18;
 
 $font-weight--light: 400;
 $font-weight--regular: 500;
 $font-weight--bold: 700;
 
-$font-size--title: 2.667rem;
+@function get-rem($value) {
+  @return ($value / $font-size--base) * 1rem;
+}
+
+$dialog-typo: (
+  desktop: (
+    default: (
+      font-size: get-rem(18),
+    ),
+    title: (
+      // font-size: 2.667rem,
+      font-size: get-rem(48),
+      font-weight: $font-weight--regular,
+    ),
+    subtitle: (
+      font-size: get-rem(36),
+      font-weight: $font-weight--bold,
+    ),
+    breadcrumb: (
+      font-size: get-rem(24),
+    ),
+    links: (
+      font-size: get-rem(21)
+    ),
+    thead: (
+      font-size: get-rem(18),
+      font-weight: $font-weight--bold,
+    ),
+    tbody: (
+      font-size: get-rem(21),
+      font-weight: $font-weight--light,
+    ),
+    sidebar: (
+      font-size: get-rem(24),
+      font-weight: $font-weight--bold,
+    ),
+    status: (
+      font-size: get-rem(18),
+      font-weight: $font-weight--regular,
+    ),
+  ),
+  phone: (
+    default: (
+      font-size: get-rem(16),
+    ),
+    title: (
+      font-size: get-rem(28),
+    ),
+    subtitle: (
+      font-size: get-rem(21),
+    ),
+    breadcrumb: (
+      font-size: get-rem(16),
+    ),
+    links: (
+      font-size: get-rem(16),
+    ),
+    thead: (
+      font-size: get-rem(16),
+    ),
+    tbody: (
+      font-size: get-rem(16),
+    ),
+    sidebar: (
+      font-size: get-rem(10),
+    ),
+    status: (
+      font-size: get-rem(14),
+    )
+  ),
+  tablet-portrait: (
+    sidebar: (
+      font-size: get-rem(12),
+    )
+  ),
+);
+
+$zIndex: (
+  nav: 100,
+);
+
+$color--brand: #f47f4e;
+$color--text: #333;
+$color--white: #fff;
+
+$color--approved: #5da807;
+$color--pending: #fbb950;
+$color--wip: #9b9b9b;
+
+$link--color: #267789;
+$link--hover-color: darken($link--color, 10);
+
+$sidebar--link-color: #87cddd;
+$sidebar--link-color-active: $color--white;
+$sidebar--bg: $color--text;
+
+$tabs--navigation-color: $color--white;
+$tabs--navigation-bg-color: #1a1a1a;
+$tabs--panel-bg-color: $color--text;
+$tabs--tab-active-bg-color: $tabs--panel-bg-color;
+
+$breadcrumb--link-color: $link--color;
+$breadcrumb--link-hover-color: $link--hover-color;
+
+// this color should be the background color of the project content
+$preview--bg-color: #f4f4f4;
 
 $paragraph--base: 1.111rem; // 20px
 $paragraph--half: $paragraph--base / 2; // 10px
@@ -21,6 +125,7 @@ $paragraph--double: $paragraph--base * 2; // 40px
 
 $spacing--base: 1.333rem; // 24px
 $spacing--half: $spacing--base / 2; // 12px
+$spacing--third: $spacing--base / 3; // 8px
 $spacing--double: $spacing--base * 2; // 48px
 
 $duration--hover: 350ms;
@@ -29,15 +134,38 @@ $duration--content: 1s;
 
 $cubic-bezier--slide: cubic-bezier(0.52, 0.01, 0.16, 1);
 
+$padding--code: ($spacing--base + $spacing--half) $paragraph--double;
+
+@mixin fullWidth($withPadding: true) {
+  margin-right: -$paragraph--double;
+  margin-left: -$paragraph--double;
+
+  @if $withPadding {
+    padding: $spacing--base $paragraph--double;
+  }
+
+  @include breakpoint(phone) {
+    margin-right: -$paragraph--base;
+    margin-left: -$paragraph--base;
+
+    @if $withPadding {
+      padding: $spacing--base $paragraph--base;
+    }
+  }
+}
+
+
 /**
  * LAYOUT
  */
 
 html {
-  font-size: 18px;
+  font-size: $font-size--base+px;
   font-family: overpass;
   font-weight: $font-weight--light;
   line-height: 1.25;
+
+  color: $color--text;
 
   -webkit-font-smoothing: antialiased;
 }
@@ -48,63 +176,144 @@ body {
 
 .pew_main {
   display: flex;
+  position: relative;
+
+  height: 100vh;
+  opacity: 1;
+  overflow: hidden;
+  transition: opacity 1s ease;
+
+  @include breakpoint(phone, tablet-portrait) {
+    padding-bottom: get-rem(60);
+  }
 
   a {
     text-decoration: none;
     font-weight: $font-weight--regular;
   }
+
+  &--layer {
+    opacity: 0;
+  }
+}
+
+.pew_container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pew_header {
+  display: none;
 }
 
 .pew_sidebar {
   display: flex;
-  flex-direction: column;
 
-  background-color: $sidebar--background;
+  background-color: $sidebar--bg;
   font-weight: $font-weight--regular;
-  height: 100vh;
-  overflow: hidden;
-  width: 250px;
+  z-index: map-get($zIndex, nav);
 
-  transition: width $duration--backgrounds $cubic-bezier--slide;
+  // desktop
+  @include breakpoint(tablet-landscape) {
+    position: relative;
+    flex-direction: column;
+    flex: 1 0 auto;
+    width: 250px;
+    overflow: hidden;
 
-  transform: translate3d(0, 0, 0);
+    height: 100vh;
+
+    transition: width $duration--backgrounds $cubic-bezier--slide;
+    transform: translate3d(0, 0, 0);
+  }
+  // mobile
+  @include breakpoint(phone, tablet-portrait) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 
   &__image {
-    width: 100%;
+    display: none;
+
+    @include breakpoint(tablet-landscape) {
+      display: block;
+
+      width: 100%;
+    }
   }
 
   &__navigation {
     flex: 1;
     display: flex;
-    padding: $spacing--base 0;
+
+    @include breakpoint(tablet-landscape) {
+      padding: $spacing--base 0;
+    }
+    @include breakpoint(phone, tablet-portrait) {
+      justify-content: center;
+    }
   }
 
   &__list {
     list-style: none;
     margin: 0;
     padding: 0;
+
+    @include breakpoint(phone, tablet-portrait) {
+      display: flex;
+    }
+  }
+
+  &__item {
+    @include breakpoint(phone, tablet-portrait) {
+      margin-right: $paragraph--half;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
   }
 
   &__text {
-    transition: $duration--hover ease;
-    transition-property: opacity, transform;
+    transition: ($duration--hover ease);
+    transition-property: opacity, visibility, transform;
   }
 
   &__icon {
     fill: $sidebar--link-color;
     transition: fill $duration--hover ease;
-    margin-right: $paragraph--base;
+
+    @include breakpoint(tablet-landscape) {
+      margin-right: $paragraph--base;
+    }
+    @include breakpoint(phone, tablet-portrait) {
+      display: flex;
+      justify-content: center;
+      margin-bottom: ($paragraph--half / 2);
+    }
   }
 
   &__link {
+    @include typo(sidebar);
     display: flex;
-    font-size: 1.333rem; // 24px
+    // font-size: 1.333rem; // 24px
     color: $sidebar--link-color;
     padding: $paragraph--half $spacing--base;
     box-shadow: inset 0 0 0 0 $sidebar--link-color;
 
-
     transition: color $duration--hover ease, box-shadow $duration--hover $cubic-bezier--slide;
+
+    // mobile
+    @include breakpoint(phone, tablet-portrait) {
+      padding: $paragraph--half 0 ($paragraph--half / 2);
+      flex-direction: column;
+      justify-content: center;
+      min-width: get-rem(60);
+      text-align: center;
+    }
   }
 
   &__item--active {
@@ -115,8 +324,14 @@ body {
 
     .pew_sidebar__link {
       color: $sidebar--link-color-active;
-      box-shadow: inset 4px 0 0 0 $sidebar--link-color;
       transition: color $duration--hover ease, box-shadow $duration--hover $duration--hover $cubic-bezier--slide;
+
+      @include breakpoint(tablet-landscape) {
+        box-shadow: inset 4px 0 0 0 $sidebar--link-color;
+      }
+      @include breakpoint(phone, tablet-portrait) {
+        box-shadow: inset 0 4px 0 0 $sidebar--link-color;
+      }
     }
   }
 
@@ -129,16 +344,19 @@ body {
   }
 
   &__collapse {
-    align-self: flex-end;
+    display: none;
 
-    display: flex;
-    justify-content: flex-end;
+    @include breakpoint(tablet-landscape) {
+      align-self: flex-end;
+      display: flex;
+      justify-content: flex-end;
 
-    background: none;
-    border: none;
-    padding: $paragraph--base;
-    outline: none;
-    cursor: pointer;
+      background: none;
+      border: none;
+      padding: $paragraph--base;
+      outline: none;
+      cursor: pointer;
+    }
 
     &-icon {
       fill: $sidebar--link-color;
@@ -156,19 +374,27 @@ body {
   }
 
   &--collapsed {
-    width: 70px;
+    @include breakpoint(tablet-landscape) {
+      width: 70px;
 
-    .pew_sidebar__navigation {
-      align-items: flex-start;
-    }
+      .pew_sidebar__navigation {
+        align-items: flex-start;
+      }
 
-    .pew_sidebar__text {
-      opacity: 0;
-      transform: translateX(1rem);
-    }
+      .pew_sidebar__text {
+        opacity: 0;
+        visibility: hidden;
+        // width: 0;
+        transform: translateX(1rem);
+      }
 
-    .pew_sidebar__collapse-icon {
-      transform: scale(1);
+      .pew_sidebar__icon {
+        // margin: 0;
+      }
+
+      .pew_sidebar__collapse-icon {
+        transform: scale(1);
+      }
     }
   }
 
@@ -182,8 +408,16 @@ body {
 }
 
 .pew_content {
-  width: calc(100% - 250px);
-  padding: $spacing--double $paragraph--double;
+  width: 100%;
+  padding: $spacing--base $paragraph--base;
+  overflow-y: auto;
+
+  @include breakpoint(tablet-portrait) {
+    // padding: $spacing--base $paragraph--base;
+  }
+  @include breakpoint(tablet-portrait) {
+    padding: $spacing--double $paragraph--double;
+  }
 
   &__item {
     opacity: 0;
@@ -203,22 +437,38 @@ body {
   }
 }
 
+.pew_block {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: $paragraph--double;
+}
+
+
 /**
  * COMPONENTS
  */
 
+.pew_link {
+  color: $link--color;
+  transition: color $duration--hover ease;
+
+  &:hover {
+    color: $link--hover-color;
+  }
+}
+
 .pew_title {
-  font-size: $font-size--title;
-  font-weight: $font-weight--regular;
+  @include typo(title);
 
-  margin: 0 0 $spacing--double;
+  margin: 0 0 $paragraph--double;
 
-  &__project {
+  &__title {
     font-weight: $font-weight--bold;
     text-transform: uppercase;
   }
 
-  &__site {
+  &__sub-title {
 
     &:before {
       content: '/';
@@ -227,7 +477,7 @@ body {
       margin-right: $spacing--half;
     }
 
-    &-title {
+    &-text {
       display: inline-block;
       transform: translateX(0.75rem);
       opacity: 0;
@@ -241,6 +491,398 @@ body {
   }
 }
 
+.pew_subtitle {
+  @include typo(subtitle);
+
+  margin: 0 0 $paragraph--base;
+
+  &:before {
+    content: '#';
+    display: inline-block;
+    color: $color--brand;
+    margin-right: $paragraph--half;
+  }
+}
+
+.pew_breadcrumb {
+  @include typo(breadcrumb);
+
+  margin-bottom: $paragraph--base;
+
+  &__list {
+    display: flex;
+    align-items: baseline;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+
+    &:before {
+      content: '/';
+      display: inline-block;
+      color: $color--brand;
+      margin: 0 ($spacing--half / 2);
+    }
+
+    &:first-child {
+
+      &:before {
+        content: none;
+      }
+
+      .pew_breadcrumb__text {
+        font-weight: $font-weight--bold;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &__trigger {
+    background: transparent;
+    border: 0;
+    font-family: overpass;
+    font-weight: $font-weight--regular;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+
+    &-icon {
+      fill: $color--brand;
+      transform: rotate(90deg) scale(1);
+      transition: transform $duration--hover ease;
+
+      @include breakpoint(phone) {
+        height: get-rem(10);
+      }
+    }
+
+    &--active .pew_breadcrumb__trigger-icon {
+      transform: rotate(90deg) scale(-1);
+    }
+  }
+
+  &__panels {
+    @include fullWidth(false);
+    position: relative;
+    overflow: hidden;
+    max-height: 0;
+
+    transition: max-height $duration--backgrounds ease;
+  }
+
+  &__link-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    // @TODO: not use column, change in a better day
+    column-count: 4;
+
+    @include breakpoint(phone, tablet-portrait) {
+      column-count: 2;
+    }
+  }
+
+  &__link-item {
+    margin-bottom: $paragraph--base;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateX(1rem);
+    transition: $duration--backgrounds ease;
+    transition-property: transform, opacity, visibility;
+  }
+
+  &__link {
+    color: $breadcrumb--link-color;
+
+    &--active {
+      color: $color--brand;
+    }
+
+    &:hover {
+      color: $breadcrumb--link-hover-color;
+    }
+  }
+
+  &__panel {
+    margin: $paragraph--half 0 0;
+    padding: $spacing--base $paragraph--base;
+    transition: $duration--backgrounds ease;
+    transition-property: visibility, opacity, transform;
+
+    @include breakpoint(tablet-portrait) {
+      width: 100%;
+      padding: $padding--code;
+    }
+
+    &--shown {
+      transition-duration: $duration--backgrounds;
+
+      .pew_breadcrumb__link-item {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+    }
+  }
+
+  // support to 100 other components, load every link item with a own delay (animation und so)
+  @for $i from 1 through 100 {
+
+    .pew_breadcrumb__panel--shown .pew_breadcrumb__link-item:nth-of-type(#{$i}) {
+      transition-delay: ($duration--backgrounds - 250ms) + (100ms * $i);
+    }
+  }
+}
+
+.pew_preview {
+  @include fullWidth;
+  background-color: $preview--bg-color;
+}
+
 .pew_table {
   width: 100%;
+
+  &__head {
+    @include typo(thead);
+
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  &__body {
+    @include typo(tbody);
+
+    tr {
+      margin-bottom: $paragraph--half;
+    }
+  }
+
+  &__text {
+    vertical-align: top;
+
+    &--description {
+      line-height: 1.2;
+    }
+  }
+
+  &__link {
+    display: block;
+  }
+
+  &__info {
+    // @TODO: change
+    font-size: 0.8rem;
+    margin: 0;
+    margin-left: 0.5rem;
+  }
+}
+
+// for having more css points than code highlighter (prismjs)
+.pew_code.pew_code {
+  @include typo;
+  @include breakpoint(phone) {
+    max-height: 80vh;
+  }
+
+  margin: 0;
+  // padding: 0;
+  padding: $padding--code;
+  background-color: $tabs--panel-bg-color;
+  border-radius: 0;
+
+  &--padding {
+    @include breakpoint(tablet-landscape) {
+      padding: $padding--code;
+    }
+    @include breakpoint(phone, tablet-portrait) {
+      @include fullWidth();
+    }
+  }
+}
+
+.pew_tabs {
+  @include breakpoint(phone, tablet-portrait) {
+    @include fullWidth(false);
+  }
+
+  &__list {
+    display: flex;
+
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    background-color: $tabs--navigation-bg-color;
+  }
+
+  &__item {
+    @include breakpoint(phone) {
+      flex: 1;
+    }
+  }
+
+  &__tab {
+    font-weight: $font-weight--bold;
+    background-color: transparent;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color $duration--hover ease;
+
+    min-width: 100px;
+
+    @include breakpoint(phone) {
+      width: 100%;
+    }
+
+    &-text {
+      @include typo;
+
+      display: block;
+      color: $tabs--navigation-color;
+      letter-spacing: 1;
+      padding: 0.867em 0;
+      transition: color $duration--hover ease;
+
+      @include breakpoint(tablet-portrait) {
+        padding: $paragraph--base $paragraph--double ($spacing--third + $paragraph--half);
+      }
+
+      &:before {
+        content: '.';
+        color: $color--brand;
+        transition: color $duration--hover ease;
+      }
+
+      &:hover {
+        color: $color--brand;
+      }
+
+      &:hover:before {
+        color: $tabs--navigation-color;
+      }
+    }
+
+    &--active {
+      background-color: $tabs--tab-active-bg-color;
+
+      .pew_tabs__tab-text {
+        color: $color--brand;
+      }
+
+      .pew_tabs__tab-text:before {
+        color: $tabs--navigation-color;
+      }
+    }
+  }
+
+  &__panels {
+    background-color: $tabs--panel-bg-color;
+    // padding: $padding--code;
+    padding: 0;
+    overflow-y: auto;
+
+    max-height: 600px;
+
+    @include breakpoint(phone) {
+      padding: 0;
+    }
+  }
+
+  &__panel {
+    @include breakpoint(phone) {
+      max-height: 60vh;
+    }
+
+    @include breakpoint(phone) {
+
+      .pew_code {
+        padding: $spacing--base $paragraph--base;
+      }
+    }
+
+    background-color: transparent;
+
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+
+    overflow: hidden;
+
+    transform: translateX(1rem);
+    transition: 0 ease;
+    transition-property: opacity, visibility, transform;
+
+    &--active {
+      height: auto;
+      opacity: 1;
+      visibility: visible;
+      overflow-y: auto;
+      transform: translateX(0);
+      transition-duration: $duration--backgrounds;
+    }
+  }
+
+  &__panel-title {
+    display: none;
+  }
+}
+
+.pew_markdown {
+  @include typo;
+
+  max-width: 750px;
+
+  p {
+    margin: 0 0 $paragraph--base;
+  }
+
+  *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.pew_status {
+  @include typo(status);
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &:before {
+    content: '';
+    height: $paragraph--half;
+    width: $paragraph--half;
+    margin-right: $paragraph--half;
+  }
+
+  &--approved {
+    color: $color--approved;
+
+    &:before {
+      background-color: $color--approved;
+    }
+  }
+
+  &--pending {
+    color: $color--pending;
+
+    &:before {
+      background-color: $color--pending;
+    }
+  }
+
+  &--wip {
+    color: $color--wip;
+
+    &:before {
+      background-color: $color--wip;
+    }
+  }
 }
