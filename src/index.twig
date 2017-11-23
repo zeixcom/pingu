@@ -8,43 +8,77 @@
 {% set projectName = 'Pingu for the win' %}
 
 {% block content %}
-  <h1 class="pew_title">
-    <span class="pew_title__project">{{projectName}}</span>
-    <span class="pew_title__site">
-    </span>
-  </h1>
+  <div class="pew_container">
 
-  <!-- Pages Overview -->
-  <section id="pages" class="pew_content__item">
-    <table class="pew_table">
-      {% for page in pages %}
-        <tr>
-          <td><a href="{{ page.url }}">{{ page.title }}</a></td>
-          <td>{{ page.fileName }}</td>
-          <td>{{ page.description }}</td>
-          <td>{{ page.status }}</td>
-        </tr>
-      {% endfor %}
-    </table>
-  </section>
+    <h1 class="pew_title">
+      <span class="pew_title__title">{{projectName}}</span>
+      <span class="pew_title__sub-title">
+      </span>
+    </h1>
 
-  <!-- Components Overview -->
-  <section id="components" class="pew_content__item">
-    <table class="pew_table">
-      {% for component in components %}
-        <tr>
-          <td><a href="{{ component.url }}">{{ component.title }}</a></td>
-          <td>{{ component.fileName }}</td>
-          <td>{{ component.description }}</td>
-          <td>{{ component.status }}</td>
-        </tr>
-      {% endfor %}
-    </table>
-  </section>
+    <!-- Pages Overview           -->
+    <section data-target="pages" class="pew_content__item">
+      <div class="pew_smart-table">
+        <div class="pew_smart-table__search">
+          <!-- <input type="text"> -->
+        </div>
+        <table class="pew_table pew_smart-table__table">
+          <thead class="pew_table__head">
+            <tr>
+              <th class="pew_table__heading">Name</th>
+              <!-- <th class="pew_table__heading">File</th> -->
+              <th class="pew_table__heading">Description</th>
+              <th class="pew_table__heading">Status</th>
+            </tr>
+          </thead>
+          <tbody class="pew_table__body">
+            {% for page in pages %}
+              <tr>
+                <td class="pew_table__text pew_table__text--name">
+                  <a class="pew_link pew_table__link" href="{{ page.url }}">{{ page.name }}</a>
+                  <p class="pew_table__info">- {{page.fileName}}</p>
+                </td>
+                <!-- <td class="pew_table__text pew_table__text--file">{{ page.fileName }}</td> -->
+                <td class="pew_table__text pew_table__text--description">{{ page.description }}</td>
+                <td class="pew_table__text pew_table__text--status">
+                  <span class="pew_status pew_status--{{page.status}}">{{ page.status }}</span>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-  <!-- Styleguide -->
-  <section id="styleguide" class="pew_content__item">
+    <!-- Components Overview -->
+    <section data-target="components" class="pew_content__item">
+      <div class="pew_smart-table">
+        <table class="pew_table pew_smart-table__table">
+          <thead class="pew_table__head">
+            <tr>
+              <th class="pew_table__heading">Name</th>
+              <th class="pew_table__heading">Description</th>
+              <th class="pew_table__heading">Status</th>
+            </tr>
+          </thead>
+          <tbody class="pew_table__body">
+            {% for component in components %}
+              <tr>
+                <td class="pew_table__text pew_table__text--name">
+                  <a class="pew_link" href="{{ component.url }}">{{ component.name }}</a>
+                </td>
+                <td class="pew_table__text pew_table__text--description">{{ component.description }}</td>
+                <td class="pew_table__text pew_table__text--status">{{ component.status }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-  </section>
+    <!-- Styleguide -->
+    <section data-target="styleguide" class="pew_content__item">
 
+    </section>
+  </div>
 {% endblock %}
