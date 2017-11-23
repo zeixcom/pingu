@@ -24,7 +24,7 @@ export default class ContentSwitcher {
 
     this.nodes = {
       items: this.el.querySelectorAll(`.${this.classes.dom.item}`),
-      siteTitle: document.querySelector('.pew_title__site'),
+      siteTitle: document.querySelector('.pew_title__sub-title'),
     };
   }
 
@@ -38,7 +38,7 @@ export default class ContentSwitcher {
 
   handleHashChange() {
     const id = window.location.hash.split('#')[1];
-    const currentItem = [...this.nodes.items].find(item => item.getAttribute('id') === id);
+    const currentItem = [...this.nodes.items].find(item => item.getAttribute('data-target') === id);
 
     if (currentItem) {
       this.updateSiteTitle(id);
@@ -49,18 +49,18 @@ export default class ContentSwitcher {
   updateSiteTitle(id) {
     const span = document.createElement('span');
     span.textContent = SITE_TITLES[id];
-    span.classList.add('pew_title__site-title');
+    span.classList.add('pew_title__sub-title-text');
 
     this.nodes.siteTitle.innerHTML = '';
     this.nodes.siteTitle.appendChild(span);
 
     setTimeout(() => {
-      span.classList.add('pew_title__site-title--shown');
+      span.classList.add('pew_title__sub-title-text--shown');
     }, 50);
   }
 
   setShownItem(shownItem) {
-    [...this.el.children].forEach((item) => {
+    [...this.nodes.items].forEach((item) => {
       item.setAttribute('aria-hidden', true);
       item.classList.remove(this.classes.state.itemShown);
     });

@@ -48,7 +48,7 @@ export default class Sidebar {
       link.addEventListener('click', (e) => {
         const item = link.parentNode;
 
-        if (item.classList.contains(this.classes.state.active)) {
+        if (item.classList.contains(this.classes.state.active) && window.location.pathname === '/') {
           e.preventDefault();
         }
       });
@@ -62,7 +62,12 @@ export default class Sidebar {
       this.collapse();
     }
 
-    this.handleHashChange();
+    if (window.location.pathname === '/') {
+      this.handleHashChange();
+    } else {
+      const componentItem = [...this.nodes.items].find(item => item.firstElementChild.getAttribute('href') === '/#components');
+      this.setActiveItem(componentItem);
+    }
 
     setTimeout(() => {
       this.el.classList.remove(this.classes.state.noTransition);
@@ -107,7 +112,7 @@ export default class Sidebar {
   }
 
   handleHashChange() {
-    const activeItem = [...this.nodes.items].find(item => item.firstElementChild.getAttribute('href') === window.location.hash);
+    const activeItem = [...this.nodes.items].find(item => item.firstElementChild.getAttribute('href').replace('/', '') === window.location.hash);
 
     if (activeItem) {
       this.setActiveItem(activeItem);
