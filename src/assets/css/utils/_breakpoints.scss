@@ -35,9 +35,9 @@ $breakpoints: (
 // support for dialog-typography
 $dialog-breakpoints: (
   phone: 'max-width: #{$phone--max}',
-  tablet-portrait: 'min-width: #{$tablet-portrait--min}',
-  tablet-landscape: 'min-width: #{$tablet-landscape--min}',
-  desktop: 'min-width: #{$desktop--min}',
+  tablet-portrait: 'max-width: #{$tablet-portrait--max}',
+  tablet-landscape: 'max-width: #{$tablet-landscape--max}',
+  desktop: 'max-width: #{$desktop--max}',
   desktop-big: 'min-width: #{$desktop-big--min}',
 );
 
