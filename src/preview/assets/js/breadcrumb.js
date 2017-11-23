@@ -2,15 +2,23 @@
 import ecr from 'element-client-rect';
 
 export default class Breadcrumb {
+  /**
+   * Creates an instance of Breadcrumb.
+   * @param {node} el the breadcrumb node
+   * @memberof Breadcrumb
+   */
   constructor(el) {
     this.el = el;
 
     this.init();
     this.initListeners();
-
-    this.setInitialState();
   }
 
+  /**
+   * init all the options, classes and node referenzes
+   *
+   * @memberof Breadcrumb
+   */
   init() {
     this.options = {};
 
@@ -34,6 +42,11 @@ export default class Breadcrumb {
     };
   }
 
+  /**
+   * init all the event listeners
+   *
+   * @memberof Breadcrumb
+   */
   initListeners() {
     this.nodes.triggers.forEach((trigger, index) => {
       trigger.addEventListener('click', (e) => {
@@ -48,8 +61,12 @@ export default class Breadcrumb {
     });
   }
 
-  setInitialState() {}
-
+  /**
+   * to show the detail panel of a breadcrumb item
+   *
+   * @param {number} shownIndex the index to show
+   * @memberof Breadcrumb
+   */
   show(shownIndex) {
     const panel = this.nodes.panels[shownIndex];
     const trigger = this.nodes.triggers[shownIndex];
@@ -70,6 +87,12 @@ export default class Breadcrumb {
     this.nodes.panelWrapper.style.maxHeight = maxHeight;
   }
 
+  /**
+   * to hide an shown detail panel of a breadcrumb item
+   *
+   * @param {number} index the index to hide
+   * @memberof Breadcrumb
+   */
   hide(index) {
     const panel = this.nodes.panels[index];
     const trigger = this.nodes.triggers[index];

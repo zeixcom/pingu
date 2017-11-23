@@ -1,6 +1,11 @@
 import SITE_TITLES from './data/siteTitles';
 
 export default class ContentSwitcher {
+  /**
+   * Creates an instance of ContentSwitcher.
+   * @param {node} el the content switcher node
+   * @memberof ContentSwitcher
+   */
   constructor(el) {
     this.el = el;
 
@@ -10,6 +15,11 @@ export default class ContentSwitcher {
     this.setInitialState();
   }
 
+  /**
+   * init all the options, classes and node referenzes
+   *
+   * @memberof ContentSwitcher
+   */
   init() {
     this.options = {};
 
@@ -28,14 +38,29 @@ export default class ContentSwitcher {
     };
   }
 
+  /**
+   * init all the event listeners
+   *
+   * @memberof ContentSwitcher
+   */
   initListeners() {
     window.addEventListener('hashchange', () => this.handleHashChange());
   }
 
+  /**
+   * to set the inital state
+   *
+   * @memberof ContentSwitcher
+   */
   setInitialState() {
     this.handleHashChange();
   }
 
+  /**
+   * on hashchange, shwo the correct item and update the site title
+   *
+   * @memberof Sidebar
+   */
   handleHashChange() {
     const id = window.location.hash.split('#')[1];
     const currentItem = [...this.nodes.items].find(item => item.getAttribute('data-target') === id);
@@ -46,9 +71,15 @@ export default class ContentSwitcher {
     }
   }
 
-  updateSiteTitle(id) {
+  /**
+   *
+   *
+   * @param {string} key the current page key
+   * @memberof ContentSwitcher
+   */
+  updateSiteTitle(key) {
     const span = document.createElement('span');
-    span.textContent = SITE_TITLES[id];
+    span.textContent = SITE_TITLES[key];
     span.classList.add('pew_title__sub-title-text');
 
     this.nodes.siteTitle.innerHTML = '';
@@ -59,10 +90,18 @@ export default class ContentSwitcher {
     }, 50);
   }
 
+  /**
+   * to show the next item and hide all others
+   *
+   * @param {node} shownItem
+   * @memberof ContentSwitcher
+   */
   setShownItem(shownItem) {
     [...this.nodes.items].forEach((item) => {
-      item.setAttribute('aria-hidden', true);
-      item.classList.remove(this.classes.state.itemShown);
+      if (item !== shownItem) {
+        item.setAttribute('aria-hidden', true);
+        item.classList.remove(this.classes.state.itemShown);
+      }
     });
 
     shownItem.setAttribute('aria-hidden', false);

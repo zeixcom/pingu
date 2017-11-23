@@ -1,15 +1,24 @@
 import merge from 'lodash/merge';
 
 export default class Sidebar {
+  /**
+   * Creates an instance of Sidebar.
+   * @param {node} el the sidebar node
+   * @memberof Sidebar
+   */
   constructor(el) {
     this.el = el;
 
     this.init();
-    this.initListeners();
-
     this.setInitialState();
+    this.initListeners();
   }
 
+  /**
+   * init all the options, classes and node referenzes
+   *
+   * @memberof Sidebar
+   */
   init() {
     const pewConfig = JSON.parse(localStorage.getItem('pew'));
 
@@ -41,6 +50,11 @@ export default class Sidebar {
     };
   }
 
+  /**
+   * init all the event listeners
+   *
+   * @memberof Sidebar
+   */
   initListeners() {
     this.nodes.collapse.addEventListener('click', e => this.handleCollapse(e));
 
@@ -57,6 +71,11 @@ export default class Sidebar {
     window.addEventListener('hashchange', () => this.handleHashChange());
   }
 
+  /**
+   * to set the inital state
+   *
+   * @memberof Sidebar
+   */
   setInitialState() {
     if (this.options.isCollapsed) {
       this.collapse();
@@ -74,6 +93,12 @@ export default class Sidebar {
     }, 0);
   }
 
+  /**
+   * function to simply handle the button click to change the collapsed state
+   *
+   * @param {event} e
+   * @memberof Sidebar
+   */
   handleCollapse(e) {
     e.preventDefault();
 
@@ -86,16 +111,31 @@ export default class Sidebar {
     this.updateLocalStorage();
   }
 
+  /**
+   * function to simply collapse the sidebar
+   *
+   * @memberof Sidebar
+   */
   collapse() {
     this.el.classList.add(this.classes.state.collapsed);
     this.options.isCollapsed = true;
   }
 
+  /**
+   * function to simply expand the sidebar
+   *
+   * @memberof Sidebar
+   */
   expand() {
     this.el.classList.remove(this.classes.state.collapsed);
     this.options.isCollapsed = false;
   }
 
+  /**
+   * to store the collapsed state of the sidebar, we need to update the localstorage
+   *
+   * @memberof Sidebar
+   */
   updateLocalStorage() {
     let pewConfig = JSON.parse(localStorage.getItem('pew'));
 
@@ -111,6 +151,11 @@ export default class Sidebar {
     localStorage.setItem('pew', JSON.stringify(pewConfig));
   }
 
+  /**
+   * on hashchange, set the correct item active
+   *
+   * @memberof Sidebar
+   */
   handleHashChange() {
     const activeItem = [...this.nodes.items].find(item => item.firstElementChild.getAttribute('href').replace('/', '') === window.location.hash);
 
@@ -119,6 +164,12 @@ export default class Sidebar {
     }
   }
 
+  /**
+   * To set an item active, call this function
+   *
+   * @param {node} item the active item
+   * @memberof Sidebar
+   */
   setActiveItem(item) {
     [...item.parentNode.children].forEach(el => el.classList.remove(this.classes.state.active));
     item.classList.add(this.classes.state.active);
