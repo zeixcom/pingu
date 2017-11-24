@@ -53,7 +53,6 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new StyleLintPlugin({ syntax: 'scss' }),
-    new FriendlyErrorsPlugin(),
     new ExtractTextPlugin({
       filename: '[name]',
       allChunks: true,
