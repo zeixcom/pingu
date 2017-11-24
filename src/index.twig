@@ -19,29 +19,56 @@
     <!-- Pages Overview           -->
     <section data-target="pages" class="pew_content__item">
       <div class="pew_smart-table">
-        <div class="pew_smart-table__search">
-          <!-- <input type="text"> -->
+        <div class="pew_smart-table__filter-container">
+          <div class="pew_smart-table__filter">
+            <input type="text" class="pew_smart-table__filter-input" placeholder="Type to filter ...">
+            <svg class="pew_smart-table__filter-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
+              <path d="M19.479 2l-7.479 12.543v5.924l-1-.6v-5.324l-7.479-12.543h15.958zm3.521-2h-23l9 15.094v5.906l5 3v-8.906l9-15.094z"/>
+            </svg>
+            <button class="pew_smart-table__filter-reset-trigger">
+              <svg class="pew_smart-table__filter-reset-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
+                <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
+              </svg>
+            </button>
+          </div>
         </div>
         <table class="pew_table pew_smart-table__table">
           <thead class="pew_table__head">
             <tr>
-              <th class="pew_table__heading">Name</th>
-              <!-- <th class="pew_table__heading">File</th> -->
-              <th class="pew_table__heading">Description</th>
-              <th class="pew_table__heading">Status</th>
+              <th class="pew_table__heading pew_table__heading--name">
+                <button class="pew_smart-table__sort-trigger pew_smart-table__sort-trigger--down">
+                  <span class="pew_smart-table__sort-heading">Name</span>
+                  <span class="pew_smart-table__sort-icon">
+                    <svg class="pew_smart-table__sort-icon-up" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                    <svg class="pew_smart-table__sort-icon-down" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                  </span>
+                </button>
+              </th>
+              <th class="pew_table__heading pew_table__heading--description">Description</th>
+              <th class="pew_table__heading pew_table__heading--status">
+                <button class="pew_smart-table__sort-trigger">
+                  <span class="pew_smart-table__sort-heading">Status</span>
+                  <span class="pew_smart-table__sort-icon">
+                    <svg class="pew_smart-table__sort-icon-up" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                    <svg class="pew_smart-table__sort-icon-down" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                  </span>
+                </button>
+              </th>
             </tr>
           </thead>
-          <tbody class="pew_table__body">
+          <tbody class="pew_table__body pew_smart-table__body">
             {% for page in pages %}
               <tr>
                 <td class="pew_table__text pew_table__text--name">
-                  <a class="pew_link pew_table__link" href="{{ page.url }}">{{ page.name }}</a>
+                  <a class="pew_link pew_table__link pew_smart-table__sort-value" href="{{ page.url }}">{{ page.name }}</a>
                   <p class="pew_table__info">- {{page.fileName}}</p>
                 </td>
-                <!-- <td class="pew_table__text pew_table__text--file">{{ page.fileName }}</td> -->
-                <td class="pew_table__text pew_table__text--description">{{ page.description }}</td>
+                <td class="pew_table__text pew_table__text--description">
+                  <span class="pew_table__description">{{ page.description }}</span>
+                  <span class="pew_table__used-components">{{ page.components }}</span>
+                </td>
                 <td class="pew_table__text pew_table__text--status">
-                  <span class="pew_status pew_status--{{page.status}}">{{ page.status }}</span>
+                  {% include "preview/pew_status.twig" with { status: page.status, isSmartTable: true } %}
                 </td>
               </tr>
             {% endfor %}
@@ -53,22 +80,53 @@
     <!-- Components Overview -->
     <section data-target="components" class="pew_content__item">
       <div class="pew_smart-table">
+        <div class="pew_smart-table__filter-container">
+          <div class="pew_smart-table__filter">
+            <input type="text" class="pew_smart-table__filter-input" placeholder="Type to filter ...">
+            <svg class="pew_smart-table__filter-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
+              <path d="M19.479 2l-7.479 12.543v5.924l-1-.6v-5.324l-7.479-12.543h15.958zm3.521-2h-23l9 15.094v5.906l5 3v-8.906l9-15.094z"/>
+            </svg>
+            <button class="pew_smart-table__filter-reset-trigger">
+              <svg class="pew_smart-table__filter-reset-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
+                <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
         <table class="pew_table pew_smart-table__table">
           <thead class="pew_table__head">
             <tr>
-              <th class="pew_table__heading">Name</th>
-              <th class="pew_table__heading">Description</th>
-              <th class="pew_table__heading">Status</th>
+              <th class="pew_table__heading pew_table__heading--name">
+                <button class="pew_smart-table__sort-trigger pew_smart-table__sort-trigger--down">
+                  <span class="pew_smart-table__sort-heading">Name</span>
+                  <span class="pew_smart-table__sort-icon">
+                    <svg class="pew_smart-table__sort-icon-up" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                    <svg class="pew_smart-table__sort-icon-down" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                  </span>
+                </button>
+              </th>
+              <th class="pew_table__heading pew_table__heading--description">Description</th>
+              <th class="pew_table__heading pew_table__heading--status">
+                <button class="pew_smart-table__sort-trigger">
+                  <span class="pew_smart-table__sort-heading">Status</span>
+                  <span class="pew_smart-table__sort-icon">
+                    <svg class="pew_smart-table__sort-icon-up" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                    <svg class="pew_smart-table__sort-icon-down" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                  </span>
+                </button>
+              </th>
             </tr>
           </thead>
-          <tbody class="pew_table__body">
-            {% for component in components %}
+          <tbody class="pew_table__body pew_smart-table__body">
+              {% for component in components %}
               <tr>
                 <td class="pew_table__text pew_table__text--name">
-                  <a class="pew_link" href="{{ component.url }}">{{ component.name }}</a>
+                  <a class="pew_link pew_smart-table__sort-value" href="{{ component.url }}">{{ component.name }}</a>
                 </td>
                 <td class="pew_table__text pew_table__text--description">{{ component.description }}</td>
-                <td class="pew_table__text pew_table__text--status">{{ component.status }}</td>
+                <td class="pew_table__text pew_table__text--status">
+                  {% include "preview/pew_status.twig" with { status: component.status, isSmartTable: true } %}
+                </td>
               </tr>
             {% endfor %}
           </tbody>
