@@ -21,22 +21,25 @@ export default class SmartTable {
 
     this.classes = {
       dom: {
-        searchInput: 'pew_smart-table__search-input',
+        filterInput: 'pew_smart-table__filter-input',
         table: 'pew_smart-table__table',
         tableBody: 'pew_smart-table__body',
         sortTrigger: 'pew_smart-table__sort-trigger',
         sortKey: 'pew_smart-table__sort-value',
+        resetFilterTrigger: 'pew_smart-table__filter-reset-trigger',
       },
       state: {
         sortTriggerUp: 'pew_smart-table__sort-trigger--up',
         sortTriggerDown: 'pew_smart-table__sort-trigger--down',
+        filterActive: 'pew_smart-table__filter--active',
       },
     };
 
     this.nodes = {
-      searchInput: this.el.querySelector(`.${this.classes.dom.searchInput}`),
+      filterInput: this.el.querySelector(`.${this.classes.dom.filterInput}`),
       tableBody: this.el.querySelector(`.${this.classes.dom.tableBody}`),
       sortTriggers: this.el.querySelectorAll(`.${this.classes.dom.sortTrigger}`),
+      resetFilterTrigger: this.el.querySelector(`.${this.classes.dom.resetFilterTrigger}`),
     };
   }
 
@@ -46,9 +49,23 @@ export default class SmartTable {
    * @memberof SmartTable
    */
   initListeners() {
-    this.nodes.searchInput.addEventListener('keyup', (e) => {
+    this.nodes.filterInput.addEventListener('keyup', (e) => {
       e.preventDefault();
-      this.searchEntries(e.target.value.toLowerCase());
+
+      const filterContainer = this.nodes.filterInput.parentElement;
+
+      if (e.keyCode === 27) this.resetFilter();
+
+      if (e.target.value.trim() !== '') filterContainer.classList.add(this.classes.state.filterActive);
+      else filterContainer.classList.remove(this.classes.state.filterActive);
+
+      this.filterEntries(e.target.value.toLowerCase());
+    });
+
+    this.nodes.resetFilterTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.resetFilter();
+      this.filterEntries();
     });
 
     this.nodes.sortTriggers.forEach((sortTrigger) => {
@@ -57,16 +74,11 @@ export default class SmartTable {
         const cellIndex = sortTrigger.parentElement.cellIndex;
         const sortDown = sortTrigger.classList.contains(this.classes.state.sortTriggerDown);
 
-        this.nodes.sortTriggers.forEach((trigger, index) => {
-          if (index === cellIndex) return;
-          trigger.classList.remove(
-            this.classes.state.sortTriggerDown,
-            this.classes.state.sortTriggerUp,
-          );
-        });
+        this.resetSort(cellIndex);
 
         sortTrigger.classList
-          .add(sortDown ? this.classes.state.sortTriggerUp : this.classes.state.sortTriggerDown)
+          .add(sortDown ? this.classes.state.sortTriggerUp : this.classes.state.sortTriggerDown);
+        sortTrigger.classList
           .remove(sortDown ? this.classes.state.sortTriggerDown : this.classes.state.sortTriggerUp);
 
         this.sortEntries(cellIndex, sortDown);
@@ -74,6 +86,13 @@ export default class SmartTable {
     });
   }
 
+  /**
+   * to sort the entries
+   *
+   * @param {number} column
+   * @param {boolean} isReverse
+   * @memberof SmartTable
+   */
   sortEntries(column, isReverse) {
     const rows = [...this.nodes.tableBody.rows].slice(0);
     const reverse = -((+isReverse) || -1);
@@ -84,16 +103,42 @@ export default class SmartTable {
   }
 
   /**
+   * to remove all the sort classes from the column
    *
-   *
-   * @param {any} searchString
+   * @param {number} column
    * @memberof SmartTable
    */
-  searchEntries(searchString) {
+  resetSort(column) {
+    this.nodes.sortTriggers.forEach((trigger, index) => {
+      if (index === column) return;
+      trigger.classList.remove(
+        this.classes.state.sortTriggerDown,
+        this.classes.state.sortTriggerUp,
+      );
+    });
+  }
+
+  /**
+   * to filter the entries
+   *
+   * @param {string} filterString
+   * @memberof SmartTable
+   */
+  filterEntries(filterString) {
     [...this.nodes.tableBody.rows].forEach((row) => {
       const node = row;
       const name = row.innerHTML.replace(/(<([^>]+)>)/ig, ' ');
-      node.style.display = new RegExp(searchString, 'g').test(name.toLowerCase()) ? '' : 'none';
+      node.style.display = new RegExp(filterString, 'g').test(name.toLowerCase()) ? '' : 'none';
     });
+  }
+
+  /**
+   * to reset the filter value
+   *
+   * @memberof SmartTable
+   */
+  resetFilter() {
+    this.nodes.filterInput.parentElement.classList.remove(this.classes.state.filterActive);
+    this.nodes.filterInput.value = '';
   }
 }
