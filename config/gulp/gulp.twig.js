@@ -23,9 +23,7 @@ gulp.task('twig', function() {
     .pipe(htmlhint.failReporter())
     .pipe(data(function(file) {
       var filename = path.basename(file.path, path.extname(file.path));
-      var configData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.project}/config.yml`, 'utf8'));
-
-      console.log('configData', configData);
+      var configData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.project}/pingu.config.yml`, 'utf8'));
 
       if (filename !== 'index') {
         var pageData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.pages}/${filename}/${filename}.yml`, 'utf8'));

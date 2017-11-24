@@ -21,7 +21,7 @@ gulp.task('preview', function() {
   return gulp.src(`${pathsHelper.components}/**/*.twig`)
     .pipe(tap(function (file) {
       var filename = path.basename(file.path, path.extname(file.path));
-      var projectConfig = yaml.safeLoad(fs.readFileSync(`${pathsHelper.project}/config.yml`, 'utf8'));
+      var projectConfig = yaml.safeLoad(fs.readFileSync(`${pathsHelper.project}/pingu.config.yml`, 'utf8'));
       var yamlCode = fs.readFileSync(replaceExt(file.path, '.yml'), 'utf8');
       var componentData = yaml.safeLoad(yamlCode);
       var twigCode = fs.readFileSync(file.path, 'utf8');
