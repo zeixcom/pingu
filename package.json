@@ -64,6 +64,7 @@
     "element-client-rect": "^1.0.4",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
+    "prism-twig2": "^1.0.1",
     "prismjs": "^1.8.3"
   },
   "scripts": {
