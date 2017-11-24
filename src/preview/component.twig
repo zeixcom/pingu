@@ -2,16 +2,13 @@
 
 {% block title %}{{ config.name }}{% endblock %}
 
-<!-- @TODO: project name should come from the config.yaml -->
-{% set projectName = 'Pingu for the win' %}
-
 {% block content %}
 <div class="pew_container">
     <div class="pew_breadcrumb">
 
       <ul class="pew_breadcrumb__list">
         <li class="pew_breadcrumb__item">
-          <span class="pew_breadcrumb__text">{{projectName}}</span>
+          <span class="pew_breadcrumb__text">{{ project.projectName }}</span>
         </li>
         <li class="pew_breadcrumb__item">
           <button href="#" class="pew_breadcrumb__panel-trigger">

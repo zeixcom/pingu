@@ -4,14 +4,11 @@
   Übersichtsseite
 {% endblock %}
 
-<!-- @TODO: project name should come from the config.yaml -->
-{% set projectName = 'Pingu for the win' %}
-
 {% block content %}
   <div class="pew_container">
 
     <h1 class="pew_title">
-      <span class="pew_title__title">{{projectName}}</span>
+      <span class="pew_title__title">{{ project.projectName }}</span>
       <span class="pew_title__sub-title">
       </span>
     </h1>
