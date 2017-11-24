@@ -10,7 +10,6 @@ gulp.task('default', function() {
   runSequence(
     'clean',
     ['twig', 'preview'],
-    'browser-sync',
     ['watch', 'webpack']
   );
 });

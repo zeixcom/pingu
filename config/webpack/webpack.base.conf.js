@@ -1,5 +1,6 @@
 var path = require('path');
 var pathsHelper = require('../helpers/paths.helper');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -30,5 +31,23 @@ module.exports = {
         exclude: '/node_modules/',
       },
     ]
-  }
+  },
+  plugins: [
+    new BrowserSyncPlugin({
+      port: 8004,
+      ui: {
+        port: 8006
+      },
+      open: 'local',
+      server: {
+        baseDir: pathsHelper.tmp,
+      },
+      files: [
+        `${pathsHelper.tmp}/*.html`,
+        `${pathsHelper.tmp}/**/*.html`,
+        `${pathsHelper.tmp}/**/*.css`,
+        `${pathsHelper.tmp}/**/*.js`
+      ]
+    })
+  ]
 };
