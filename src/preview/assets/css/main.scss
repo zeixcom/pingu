@@ -3,6 +3,7 @@
 
 @import '../fonts/overpass/overpass.css';
 @import '~prismjs/themes/prism-okaidia.css';
+@import '~prism-twig2/prism.twig2.css';
 @import '~prismjs/plugins/toolbar/prism-toolbar.css';
 
 // @Todo: include base font size of the project
@@ -52,6 +53,10 @@ $dialog-typo: (
       font-size: get-rem(18),
       font-weight: $font-weight--regular,
     ),
+    search: (
+      font-size: get-rem(21),
+      font-weight: $font-weight--regular,
+    ),
   ),
   phone: (
     default: (
@@ -97,9 +102,9 @@ $color--brand: #f47f4e;
 $color--text: #333;
 $color--white: #fff;
 
-$color--approved: #5da807;
-$color--pending: #fbb950;
-$color--wip: #9b9b9b;
+$status--approved-color: #5da807;
+$status--pending-color: #fbb950;
+$status--progress-color: #6495ed;
 
 $link--color: #267789;
 $link--hover-color: darken($link--color, 10);
@@ -115,6 +120,8 @@ $tabs--tab-active-bg-color: $tabs--panel-bg-color;
 
 $breadcrumb--link-color: $link--color;
 $breadcrumb--link-hover-color: $link--hover-color;
+
+$search--color: #808080;
 
 // this color should be the background color of the project content
 $preview--bg-color: #f4f4f4;
@@ -663,11 +670,47 @@ body {
     }
   }
 
-  &__text {
-    vertical-align: top;
+  &__heading {
+    padding-right: $paragraph--half / 2;
+    padding-bottom: $paragraph--half;
+
+    &--name {
+      width: 70%;
+
+      @include breakpoint(tablet-landscape) {
+        width: 35%;
+      }
+    }
 
     &--description {
+      display: none;
+      width: 50%;
+
+      @include breakpoint(tablet-landscape) {
+        display: table-cell;
+      }
+    }
+
+    &--status {
+      width: 30%;
+
+      @include breakpoint(tablet-landscape) {
+        width: 15%;
+      }
+    }
+  }
+
+  &__text {
+    vertical-align: top;
+    padding-bottom: $paragraph--base;
+
+    &--description {
+      display: none;
       line-height: 1.2;
+
+      @include breakpoint(tablet-landscape) {
+        display: table-cell;
+      }
     }
   }
 
@@ -680,6 +723,135 @@ body {
     font-size: 0.8rem;
     margin: 0;
     margin-left: 0.5rem;
+  }
+
+  &__description {
+    margin: 0;
+  }
+
+  &__used-components {
+    margin: 0;
+  }
+}
+
+.pew_smart-table {
+
+  &__filter-reset {
+
+    &-trigger {
+      display: none;
+
+      border: 0;
+      background: 0;
+      outline: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    &-icon {
+      fill: $search--color;
+    }
+
+    &-trigger:hover {
+
+      .pew_smart-table__filter-reset-icon {
+        fill: darken($search--color, 10);
+      }
+    }
+  }
+
+  &__filter {
+    border-bottom: 1px solid $search--color;
+    padding-bottom: $spacing--third;
+    margin-bottom: $paragraph--double;
+
+    &-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    &-input {
+      @include typo(search);
+      border: 0;
+      background: 0;
+      outline: none;
+      color: $search--color;
+    }
+
+    &-icon {
+      fill: $search--color;
+    }
+
+    &--active {
+
+      .pew_smart-table__filter-icon {
+        display: none;
+      }
+
+      .pew_smart-table__filter-reset-trigger {
+        display: inline;
+      }
+    }
+  }
+
+  &__sort {
+
+    &-trigger {
+      display: flex;
+      border: 0;
+      background: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      font-family: inherit;
+      text-transform: inherit;
+      outline: none;
+      cursor: pointer;
+
+      transition: color $duration--hover ease;
+
+      &:hover {
+        color: $color--brand;
+      }
+    }
+
+    &-heading {
+      line-height: 1.4;
+    }
+
+    &-icon {
+      display: flex;
+      flex-direction: column;
+
+      margin-left: $spacing--half;
+
+      svg {
+        transition: fill $duration--hover ease;
+      }
+
+      &-up {
+        transform: rotate(-90deg);
+      }
+
+      &-down {
+        transform: rotate(90deg);
+      }
+    }
+
+    &-trigger--up {
+
+      .pew_smart-table__sort-icon-up {
+        fill: $color--brand;
+      }
+    }
+
+    &-trigger--down {
+
+      .pew_smart-table__sort-icon-down {
+        fill: $color--brand;
+      }
+    }
   }
 }
 
@@ -855,34 +1027,28 @@ body {
   display: flex;
   align-items: center;
 
-  &:before {
-    content: '';
-    height: $paragraph--half;
-    width: $paragraph--half;
+  svg {
     margin-right: $paragraph--half;
   }
 
   &--approved {
-    color: $color--approved;
 
-    &:before {
-      background-color: $color--approved;
+    svg {
+      fill: $status--approved-color;
     }
   }
 
   &--pending {
-    color: $color--pending;
 
-    &:before {
-      background-color: $color--pending;
+    svg {
+      fill: $status--pending-color;
     }
   }
 
-  &--wip {
-    color: $color--wip;
+  &--progress {
 
-    &:before {
-      background-color: $color--wip;
+    svg {
+      fill: $status--progress-color;
     }
   }
 }
