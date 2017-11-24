@@ -23,6 +23,7 @@ gulp.task('twig', function() {
     .pipe(htmlhint.failReporter())
     .pipe(data(function(file) {
       var filename = path.basename(file.path, path.extname(file.path));
+      var configData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.project}/pingu.config.yml`, 'utf8'));
 
       if (filename !== 'index') {
         var pageData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.pages}/${filename}/${filename}.yml`, 'utf8'));
@@ -31,6 +32,7 @@ gulp.task('twig', function() {
         var finalizedData = utils.checkAndLoadDefaultComponentData(concatedData);
 
         finalizedData.isDev = isDev;
+        finalizedData.project = configData;
 
         return finalizedData;
       } else {
@@ -48,7 +50,7 @@ gulp.task('twig', function() {
           pages.push(pageSpecificData);
         });
 
-        return { pages, isDev };
+        return { pages, isDev, project: configData };
       }
     }))
     .pipe(twig({
