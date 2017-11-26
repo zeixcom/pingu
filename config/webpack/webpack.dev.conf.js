@@ -5,7 +5,6 @@ var utils = require('./webpack.utils');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var StyleLintPlugin = require('stylelint-webpack-plugin');
-var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = merge(baseWebpackConfig, {

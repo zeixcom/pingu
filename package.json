@@ -26,6 +26,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.4.0",
     "extract-text-webpack-plugin": "^3.0.1",
+    "file-loader": "^1.1.5",
     "fs-extra": "^4.0.2",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
@@ -59,8 +60,11 @@
   "dependencies": {
     "animejs": "^2.2.0",
     "bows": "^1.7.0",
+    "dialog-typography": "^1.1.1",
     "element-client-rect": "^1.0.4",
     "lodash": "^4.17.4",
+    "normalize.css": "^7.0.0",
+    "prism-twig2": "^1.0.1",
     "prismjs": "^1.8.3"
   },
   "scripts": {

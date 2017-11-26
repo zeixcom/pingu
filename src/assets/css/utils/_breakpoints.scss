@@ -1,0 +1,101 @@
+$phone--max: 600px;
+
+$tablet-portrait--min: 601px;
+$tablet-portrait--max: 900px;
+
+$tablet-landscape--min: 901px;
+$tablet-landscape--max: 1200px;
+
+$desktop--min: 1201px;
+$desktop--max: 1800px;
+
+$desktop-big--min: 1801px;
+
+$breakpoints: (
+  phone: (
+    max: $phone--max,
+  ),
+  tablet-portrait: (
+    min: $tablet-portrait--min,
+    max: $tablet-portrait--max,
+  ),
+  tablet-landscape: (
+    min: $tablet-landscape--min,
+    max: $tablet-landscape--max,
+  ),
+  desktop: (
+    min: $desktop--min,
+    max: $desktop--max,
+  ),
+  desktop-big: (
+    min: $desktop-big--min,
+  ),
+);
+
+// support for dialog-typography
+$dialog-breakpoints: (
+  phone: 'max-width: #{$phone--max}',
+  tablet-portrait: 'max-width: #{$tablet-portrait--max}',
+  tablet-landscape: 'max-width: #{$tablet-landscape--max}',
+  desktop: 'max-width: #{$desktop--max}',
+  desktop-big: 'min-width: #{$desktop-big--min}',
+);
+
+// reserved for dialog-typography
+@mixin bp($name) {
+  @media ( #{map-get( $dialog-breakpoints, $name )} ) {
+    @content;
+  }
+}
+
+// mixin for use in projects
+@mixin breakpoint($min, $max: null) {
+  $base: map-get($breakpoints, $min);
+  $baseMin: map-get($base, 'min');
+  $baseMax: map-get($base, 'max');
+
+  $noSense: false;
+  $mediaQuery: '';
+
+  @if $max == null {
+    @if $baseMin == null {
+      $mediaQuery: 'max-width: #{$baseMax}';
+    } @else {
+      $mediaQuery: 'min-width: #{$baseMin}';
+    }
+  } @else if $max == 'only' {
+    @if $baseMin == null {
+      $mediaQuery: 'max-width: #{$baseMax}';
+    } @else if $baseMax == null {
+      $mediaQuery: 'min-width: #{$baseMin}';
+    } @else {
+      $mediaQuery: 'min-width: #{$baseMin}) and (max-width #{$baseMax}';
+    }
+  } @else {
+    $second: map-get($breakpoints, $max);
+
+    @if (type-of($second) == 'map') {
+      $secondMax: map-get($second, 'max');
+
+      @if $secondMax {
+        @if $baseMin == null {
+          $mediaQuery: 'max-width: #{$secondMax}';
+        } @else {
+          $mediaQuery: 'min-width: #{$baseMin}) and (max-width: #{$secondMax}';
+        }
+      } @else {
+        @if $baseMin == null {
+          $noSense: true;
+        } @else {
+          $mediaQuery: 'min-width: #{$baseMin}';
+        }
+      }
+    }
+  }
+
+  @if $noSense == false {
+    @media screen and ( $mediaQuery ) {
+      @content;
+    }
+  }
+}

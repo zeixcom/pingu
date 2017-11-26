@@ -37,7 +37,9 @@ gulp.task('twig', function() {
         return finalizedData;
       } else {
         var pagesRaw = scaffoldUtils.getAllNodesByNodeType('page');
+        var componentsRaw = scaffoldUtils.getAllNodesByNodeType('component');
         var pages = [];
+        var components = [];
 
         pagesRaw.forEach((page) => {
           var pageYMLData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.pages}/${page}/${camelCase(page)}.yml`, 'utf8'));
@@ -50,7 +52,18 @@ gulp.task('twig', function() {
           pages.push(pageSpecificData);
         });
 
-        return { pages, isDev, project: configData };
+        componentsRaw.forEach((component) => {
+          var componentYMLData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.components}/${component}/${camelCase(component)}.yml`, 'utf8'));
+          var componentSpecificData = {};
+
+          componentSpecificData = componentYMLData.config;
+          componentSpecificData.fileName = `${camelCase(component)}.twig`
+          componentSpecificData.url = `/${pathsHelper.relativePaths.previewComponent}/${camelCase(component)}.html`;
+
+          components.push(componentSpecificData);
+        });
+
+        return { pages, components, isDev, project: configData };
       }
     }))
     .pipe(twig({
