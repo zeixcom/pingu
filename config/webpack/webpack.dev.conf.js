@@ -12,7 +12,7 @@ module.exports = merge(baseWebpackConfig, {
   devtool: 'source-map', // needs to be source-map for the sass files
   output: {
     path: pathsHelper.tmp,
-    publicPath: pathsHelper.tmp
+    publicPath: '/',
   },
   module: {
     rules: [
