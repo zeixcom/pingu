@@ -6,10 +6,21 @@ var has = require('lodash/has');
 
 var regexDefaultData = /defaultData\[(.*)\]/g;
 var pathsHelper = require('../helpers/paths.helper');
+var scaffoldUtils = require('../scaffold/scaffold.utils');
 
 exports.loadYML = function(path) {
   return yaml.safeLoad(fs.readFileSync(path, 'utf8'));
 };
+
+exports.loadPreviewDefaultData = function() {
+  return {
+    project: this.loadYML(pathsHelper.projectConfig),
+    nodes: {
+      pages: scaffoldUtils.getAllNodesByNodeType('page'),
+      components: scaffoldUtils.getAllNodesByNodeType('component'),
+    },
+  };
+}
 
 exports.PREVIEW_COMPONENT_REGEX = '<!-- AUTOINSERT COMPONENT -->';
 exports.PREVIEW_DESCRIPTION_REGEX = '<!-- AUTOINSERT DESCRIPTION -->';

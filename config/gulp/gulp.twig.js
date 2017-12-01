@@ -42,8 +42,6 @@ gulp.task('twig', function() {
         data.layout = utils.loadYML(`${pathsHelper.layouts}/${data.config.layout}/${data.config.layout}.yml`);
       }
 
-      console.log('data', data);
-
       return data;
     }))
     .pipe(twig({

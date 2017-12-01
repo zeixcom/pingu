@@ -20,7 +20,7 @@
     <div class="pew_breadcrumb__panels">
       <div class="pew_breadcrumb__panel">
         <ul class="pew_breadcrumb__link-list">
-          {% for component in components %}
+          {% for component in nodes.components %}
             <li class="pew_breadcrumb__link-item">
               <a class="pew_link pew_breadcrumb__link {% if component.active %}pew_breadcrumb__link--active{% endif %}" href="{{ component.url }}">{{ component.name }}</a>
             </li>
