@@ -1,0 +1,11 @@
+pages: Pages
+components: Components
+filterLabel: Type to filter
+name: Name
+description: Description
+status: Status
+styleguide: Styleguide
+preview: Preview
+code: Code
+data: Datastructure
+overviewPage: Overview
