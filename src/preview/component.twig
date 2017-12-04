@@ -1,6 +1,6 @@
 {% extends './layout.twig' %}
 
-{% block title %}{{ config.name }}{% endblock %}
+{% block title %}{{ config.title }}{% endblock %}
 
 {% block content %}
 <div class="pew_container">
@@ -22,7 +22,7 @@
         <ul class="pew_breadcrumb__link-list">
           {% for component in nodes.components %}
             <li class="pew_breadcrumb__link-item">
-              <a class="pew_link pew_breadcrumb__link {% if component.active %}pew_breadcrumb__link--active{% endif %}" href="{{ component.url }}">{{ component.name }}</a>
+              <a class="pew_link pew_breadcrumb__link {% if component.active %}pew_breadcrumb__link--active{% endif %}" href="{{ component.url }}">{{ component.title }}</a>
             </li>
           {% endfor %}
         </ul>

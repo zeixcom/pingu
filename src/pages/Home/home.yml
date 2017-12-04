@@ -1,5 +1,6 @@
 config:
   layout: base
+  title: Startseite
   name: Home
   description: 'Das ist die Seitenbeschreibung <br/> mit Bruch. <br/> <br/> Beinhaltet folgende Componenten: Accordion, Test, Content'
   status: approved
