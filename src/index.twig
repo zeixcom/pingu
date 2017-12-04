@@ -57,7 +57,7 @@
             {% for page in nodes.pages %}
               <tr>
                 <td class="pew_table__text pew_table__text--name">
-                  <a class="pew_link pew_table__link pew_smart-table__sort-value" href="{{ page.url }}">{{ page.name }}</a>
+                  <a class="pew_link pew_table__link pew_smart-table__sort-value" href="{{ page.url }}">{{ page.title }}</a>
                   <p class="pew_table__info">- {{page.fileName}}</p>
                 </td>
                 <td class="pew_table__text pew_table__text--description">
@@ -117,7 +117,7 @@
               {% for component in nodes.components %}
               <tr>
                 <td class="pew_table__text pew_table__text--name">
-                  <a class="pew_link pew_smart-table__sort-value" href="{{ component.url }}">{{ component.name }}</a>
+                  <a class="pew_link pew_smart-table__sort-value" href="{{ component.url }}">{{ component.title }}</a>
                 </td>
                 <td class="pew_table__text pew_table__text--description">{{ component.description }}</td>
                 <td class="pew_table__text pew_table__text--status">

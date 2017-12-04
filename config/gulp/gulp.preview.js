@@ -41,7 +41,7 @@ gulp.task('preview:components', function() {
         var componentData = utils.loadYML(`${pathsHelper.components}/${component}/${component}.yml`);
 
         return {
-          name: component,
+          title: componentData.config.title,
           url: `/${pathsHelper.relativePaths.previewComponent}/${camelCase(component)}.html`,
           active: component === componentData.config.name,
         };
@@ -103,7 +103,7 @@ gulp.task('preview:overview', function() {
         var componentData = utils.loadYML(`${pathsHelper.components}/${component}/${component}.yml`);
 
         return {
-          name: component,
+          title: componentData.config.title,
           url: `/${pathsHelper.relativePaths.previewComponent}/${camelCase(component)}.html`,
           description: componentData.config.description,
           status: componentData.config.status,
@@ -116,7 +116,7 @@ gulp.task('preview:overview', function() {
         var pageData = utils.loadYML(`${pathsHelper.pages}/${page}/${page}.yml`);
 
         return {
-          name: page,
+          title: pageData.config.title,
           url: `/${camelCase(page)}.html`,
           description: pageData.config.description,
           status: pageData.config.status,
