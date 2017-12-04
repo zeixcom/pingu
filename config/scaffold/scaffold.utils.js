@@ -29,6 +29,10 @@ exports.FIND_REPLACES = [
   {
     label: 'COMP_NAME',
     value: 'component',
+  },
+  {
+    label: 'COMP_TITLE',
+    value: 'title',
   }
 ];
 
@@ -40,6 +44,7 @@ exports.normalizeNodeName = function(nodeName, nodeType) {
   var baseName = _.camelCase(nodeName);
 
   return {
+    title: nodeName,
     directory: _.upperFirst(baseName),
     component: _.upperFirst(baseName),
     class: _.kebabCase(baseName),
