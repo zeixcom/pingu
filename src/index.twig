@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody class="pew_table__body pew_smart-table__body">
-            {% for page in pages %}
+            {% for page in nodes.pages %}
               <tr>
                 <td class="pew_table__text pew_table__text--name">
                   <a class="pew_link pew_table__link pew_smart-table__sort-value" href="{{ page.url }}">{{ page.name }}</a>
@@ -62,7 +62,6 @@
                 </td>
                 <td class="pew_table__text pew_table__text--description">
                   <span class="pew_table__description">{{ page.description }}</span>
-                  <span class="pew_table__used-components">{{ page.components }}</span>
                 </td>
                 <td class="pew_table__text pew_table__text--status">
                   {% include "preview/pew_status.twig" with { status: page.status, isSmartTable: true } %}
@@ -115,7 +114,7 @@
             </tr>
           </thead>
           <tbody class="pew_table__body pew_smart-table__body">
-              {% for component in components %}
+              {% for component in nodes.components %}
               <tr>
                 <td class="pew_table__text pew_table__text--name">
                   <a class="pew_link pew_smart-table__sort-value" href="{{ component.url }}">{{ component.name }}</a>
