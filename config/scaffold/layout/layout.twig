@@ -1,8 +1,12 @@
-<html>
+<!doctype html>
+<html class="{% if isDev %}dev{% endif %}" lang="">
   <head>
-    <title>Layout</title>
+    {% include '../_snippets/html-head.twig' %}
+    <link rel="stylesheet" href="assets/css/styles.css">
   </head>
   <body>
     {% block content %}{% endblock %}
+
+    <script src="assets/js/main.bundle.js"></script>
   </body>
 </html>
