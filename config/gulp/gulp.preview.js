@@ -126,8 +126,6 @@ gulp.task('preview:overview', function() {
 
       data.nodes.pages = pagesBuffer;
 
-      console.log('data', data);
-
       return data;
     }))
     .pipe(twig({
