@@ -62,9 +62,9 @@ export default class ContentSwitcher {
   handleHashChange() {
     const id = window.location.hash.split('#')[1];
     const currentItem = [...this.nodes.items].find(item => item.getAttribute('data-target') === id);
-    const siteTitle = currentItem.getAttribute('data-target-title');
 
     if (currentItem) {
+      const siteTitle = currentItem.getAttribute('data-target-title');
       this.updateSiteTitle(siteTitle);
       this.setShownItem(currentItem);
     }
