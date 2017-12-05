@@ -1,3 +1,5 @@
+@import '../../../assets/css/utils/settings';
+@import '../../../assets/css/utils/functions';
 @import '../../../assets/css/utils/breakpoints';
 @import '~dialog-typography/dist/dialog-typography';
 
@@ -6,90 +8,86 @@
 @import '~prism-twig2/prism.twig2.css';
 @import '~prismjs/plugins/toolbar/prism-toolbar.css';
 
-// @Todo: include base font size of the project
-$font-size--base: 18;
-
 $font-weight--light: 400;
 $font-weight--regular: 500;
 $font-weight--bold: 700;
 
-@function get-rem($value) {
-  @return ($value / $font-size--base) * 1rem;
-}
-
 $dialog-typo: (
   desktop: (
     default: (
-      font-size: get-rem(18),
+      font-size: px-to-rem(18),
     ),
     title: (
       // font-size: 2.667rem,
-      font-size: get-rem(48),
+      font-size: px-to-rem(48),
       font-weight: $font-weight--regular,
     ),
     subtitle: (
-      font-size: get-rem(36),
+      font-size: px-to-rem(36),
       font-weight: $font-weight--bold,
     ),
     breadcrumb: (
-      font-size: get-rem(24),
+      font-size: px-to-rem(24),
     ),
     links: (
-      font-size: get-rem(21)
+      font-size: px-to-rem(21)
+    ),
+    info: (
+      font-size: px-to-rem(15)
     ),
     thead: (
-      font-size: get-rem(18),
+      font-size: px-to-rem(18),
       font-weight: $font-weight--bold,
     ),
     tbody: (
-      font-size: get-rem(21),
+      font-size: px-to-rem(21),
       font-weight: $font-weight--light,
     ),
     sidebar: (
-      font-size: get-rem(24),
+      font-size: px-to-rem(24),
       font-weight: $font-weight--bold,
     ),
     status: (
-      font-size: get-rem(18),
+      font-size: px-to-rem(18),
       font-weight: $font-weight--regular,
     ),
     search: (
-      font-size: get-rem(21),
+      font-size: px-to-rem(21),
       font-weight: $font-weight--regular,
     ),
   ),
   phone: (
     default: (
-      font-size: get-rem(16),
+      font-size: px-to-rem(16),
     ),
     title: (
-      font-size: get-rem(28),
+      font-size: px-to-rem(28),
     ),
     subtitle: (
-      font-size: get-rem(21),
+      font-size: px-to-rem(21),
     ),
     breadcrumb: (
-      font-size: get-rem(16),
+      font-size: px-to-rem(16),
     ),
     links: (
-      font-size: get-rem(16),
+      font-size: px-to-rem(16),
     ),
     thead: (
-      font-size: get-rem(16),
+      font-size: px-to-rem(16),
     ),
     tbody: (
-      font-size: get-rem(16),
+      font-size: px-to-rem(16),
     ),
     sidebar: (
-      font-size: get-rem(10),
+      font-size: px-to-rem(10),
     ),
     status: (
-      font-size: get-rem(14),
+      font-size: px-to-rem(14),
     )
   ),
   tablet-portrait: (
     sidebar: (
-      font-size: get-rem(12),
+      font-size: px-to-rem(12),
     )
   ),
 );
@@ -175,6 +173,10 @@ html {
   color: $color--text;
 
   -webkit-font-smoothing: antialiased;
+
+  @include breakpoint(desktop, phone) {
+    background-color: $color--brand;
+  }
 }
 
 body {
@@ -191,7 +193,7 @@ body {
   transition: opacity 1s ease;
 
   @include breakpoint(phone, tablet-portrait) {
-    padding-bottom: get-rem(60);
+    padding-bottom: px-to-rem(60);
   }
 
   a {
@@ -318,7 +320,7 @@ body {
       padding: $paragraph--half 0 ($paragraph--half / 2);
       flex-direction: column;
       justify-content: center;
-      min-width: get-rem(60);
+      min-width: px-to-rem(60);
       text-align: center;
     }
   }
@@ -562,7 +564,7 @@ body {
       transition: transform $duration--hover ease;
 
       @include breakpoint(phone) {
-        height: get-rem(10);
+        height: px-to-rem(10);
       }
     }
 
@@ -719,8 +721,7 @@ body {
   }
 
   &__info {
-    // @TODO: change
-    font-size: 0.8rem;
+    @include typo(info);
     margin: 0;
     margin-left: 0.5rem;
   }

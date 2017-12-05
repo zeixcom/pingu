@@ -1,0 +1,24 @@
+/* fonts */
+$font-size--base: 16 !global;
+
+/* spacings */
+$size--base: 24 !global;
+
+
+$container--max-width: 1200px !global;
+
+/* breakpoints */
+$breakpoint--base: desktop !global;
+
+$phone--max: 600px !global;
+
+$tablet-portrait--min: 601px !global;
+$tablet-portrait--max: 900px !global;
+
+$tablet-landscape--min: 901px !global;
+$tablet-landscape--max: 1200px !global;
+
+$desktop--min: 1201px !global;
+$desktop--max: 1800px !global;
+
+$desktop-big--min: 1801px !global;

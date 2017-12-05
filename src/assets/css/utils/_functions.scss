@@ -1,0 +1,63 @@
+/**
+ * Strip the unit from a number (e.g. 18px --> 18).
+ */
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+/**
+ * Tint the color with transparency
+ * @param  {string} $color      - hex color code
+ * @param  {float} $percentage - percentage of transparency
+ */
+@function tint($color, $percentage) {
+  @if $percentage == 0.1 {
+    @return lighten($color, 45%);
+  }
+  @if $percentage == 0.2 {
+    @return lighten($color, 40%);
+  }
+  @if $percentage == 0.3 {
+    @return lighten($color, 35%);
+  }
+  @if $percentage == 0.4 {
+    @return lighten($color, 30%);
+  }
+  @if $percentage == 0.5 {
+    @return lighten($color, 25%);
+  }
+  @if $percentage == 0.6 {
+    @return lighten($color, 20%);
+  }
+  @if $percentage == 0.7 {
+    @return lighten($color, 15%);
+  }
+  @if $percentage == 0.8 {
+    @return lighten($color, 10%);
+  }
+  @if $percentage == 0.9 {
+    @return lighten($color, 5%);
+  }
+}
+
+/**
+ * helper functions
+ */
+@function px-to-em($px, $ref: $font-size--base) {
+  @return to-em(to-px($px) / to-px($ref));
+}
+@function px-to-rem($px) {
+  @return to-rem(to-px($px) / to-px($font-size--base));
+}
+@function to-em($val) {
+  @return ($val + 0);
+}
+@function to-rem($val) {
+  @return ($val + 0rem); // stylelint-disable-line
+}
+@function to-px($val) {
+  @return ($val + 0);
+}
+@function px-to-lh($px, $font-size: $font-size--base) {
+  @return (strip-units($px) / strip-units($font-size));
+}
