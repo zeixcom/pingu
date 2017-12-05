@@ -1,4 +1,5 @@
 config:
+  title: Accordion
   name: Accordion
   description: This is a description
   status: w.i.p
