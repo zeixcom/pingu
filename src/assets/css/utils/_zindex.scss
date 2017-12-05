@@ -14,5 +14,6 @@ $z-index: (
   @if not map-has-key($z-index, $key) {
     @error 'Unknown zindex key: `#{$key}`.';
   }
+
   @return map-get($z-index, $key);
 }
