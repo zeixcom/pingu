@@ -1,7 +1,7 @@
 {% extends 'preview/layout.twig' %}
 
 {% block title %}
-  Übersichtsseite
+  {{ lang.overviewPage }}
 {% endblock %}
 
 {% block content %}
@@ -18,7 +18,7 @@
       <div class="pew_smart-table">
         <div class="pew_smart-table__filter-container">
           <div class="pew_smart-table__filter">
-            <input type="text" class="pew_smart-table__filter-input" placeholder="Type to filter ...">
+            <input type="text" class="pew_smart-table__filter-input" placeholder="{{ lang.filterLabel }} ...">
             <svg class="pew_smart-table__filter-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
               <path d="M19.479 2l-7.479 12.543v5.924l-1-.6v-5.324l-7.479-12.543h15.958zm3.521-2h-23l9 15.094v5.906l5 3v-8.906l9-15.094z"/>
             </svg>
@@ -34,17 +34,17 @@
             <tr>
               <th class="pew_table__heading pew_table__heading--name">
                 <button class="pew_smart-table__sort-trigger pew_smart-table__sort-trigger--down">
-                  <span class="pew_smart-table__sort-heading">Name</span>
+                  <span class="pew_smart-table__sort-heading">{{ lang.name }}</span>
                   <span class="pew_smart-table__sort-icon">
                     <svg class="pew_smart-table__sort-icon-up" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
                     <svg class="pew_smart-table__sort-icon-down" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
                   </span>
                 </button>
               </th>
-              <th class="pew_table__heading pew_table__heading--description">Description</th>
+              <th class="pew_table__heading pew_table__heading--description">{{ lang.description }}</th>
               <th class="pew_table__heading pew_table__heading--status">
                 <button class="pew_smart-table__sort-trigger">
-                  <span class="pew_smart-table__sort-heading">Status</span>
+                  <span class="pew_smart-table__sort-heading">{{ lang.status }}</span>
                   <span class="pew_smart-table__sort-icon">
                     <svg class="pew_smart-table__sort-icon-up" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
                     <svg class="pew_smart-table__sort-icon-down" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
@@ -94,17 +94,17 @@
             <tr>
               <th class="pew_table__heading pew_table__heading--name">
                 <button class="pew_smart-table__sort-trigger pew_smart-table__sort-trigger--down">
-                  <span class="pew_smart-table__sort-heading">Name</span>
+                  <span class="pew_smart-table__sort-heading">{{ lang.name }}</span>
                   <span class="pew_smart-table__sort-icon">
                     <svg class="pew_smart-table__sort-icon-up" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
                     <svg class="pew_smart-table__sort-icon-down" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
                   </span>
                 </button>
               </th>
-              <th class="pew_table__heading pew_table__heading--description">Description</th>
+              <th class="pew_table__heading pew_table__heading--description">{{ lang.description }}</th>
               <th class="pew_table__heading pew_table__heading--status">
                 <button class="pew_smart-table__sort-trigger">
-                  <span class="pew_smart-table__sort-heading">Status</span>
+                  <span class="pew_smart-table__sort-heading">{{ lang.status }}</span>
                   <span class="pew_smart-table__sort-icon">
                     <svg class="pew_smart-table__sort-icon-up" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
                     <svg class="pew_smart-table__sort-icon-down" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>

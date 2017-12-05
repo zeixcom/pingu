@@ -36,6 +36,7 @@ module.exports = {
   buildAssets: resolveApp(buildFolder + '/assets'),
   buildPreviewAssets: resolveApp(buildFolder + '/preview/assets'),
   projectConfig: resolveApp('./pingu.config.yml'),
+  previewLangFiles: resolveApp('./config/lang'),
   relativePaths: {
     js: 'assets/js',
     css: 'assets/js',
