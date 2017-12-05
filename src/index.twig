@@ -14,7 +14,7 @@
     </h1>
 
     <!-- Pages Overview           -->
-    <section data-target="pages" class="pew_content__item">
+    <section data-target="pages" data-target-title="{{ lang.pages }}" class="pew_content__item">
       <div class="pew_smart-table">
         <div class="pew_smart-table__filter-container">
           <div class="pew_smart-table__filter">
@@ -74,11 +74,11 @@
     </section>
 
     <!-- Components Overview -->
-    <section data-target="components" class="pew_content__item">
+    <section data-target="components" data-target-title="{{ lang.components }}" class="pew_content__item">
       <div class="pew_smart-table">
         <div class="pew_smart-table__filter-container">
           <div class="pew_smart-table__filter">
-            <input type="text" class="pew_smart-table__filter-input" placeholder="Type to filter ...">
+            <input type="text" class="pew_smart-table__filter-input" placeholder="{{ lang.filterLabel }} ...">
             <svg class="pew_smart-table__filter-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
               <path d="M19.479 2l-7.479 12.543v5.924l-1-.6v-5.324l-7.479-12.543h15.958zm3.521-2h-23l9 15.094v5.906l5 3v-8.906l9-15.094z"/>
             </svg>
@@ -131,7 +131,7 @@
     </section>
 
     <!-- Styleguide -->
-    <section data-target="styleguide" class="pew_content__item">
+    <section data-target="styleguide" data-target-title="{{ lang.styleguide }}" class="pew_content__item">
 
     </section>
   </div>

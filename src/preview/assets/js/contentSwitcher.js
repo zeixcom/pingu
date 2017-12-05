@@ -1,5 +1,3 @@
-import SITE_TITLES from './data/siteTitles';
-
 export default class ContentSwitcher {
   /**
    * Creates an instance of ContentSwitcher.
@@ -64,9 +62,10 @@ export default class ContentSwitcher {
   handleHashChange() {
     const id = window.location.hash.split('#')[1];
     const currentItem = [...this.nodes.items].find(item => item.getAttribute('data-target') === id);
+    const siteTitle = currentItem.getAttribute('data-target-title');
 
     if (currentItem) {
-      this.updateSiteTitle(id);
+      this.updateSiteTitle(siteTitle);
       this.setShownItem(currentItem);
     }
   }
@@ -74,12 +73,12 @@ export default class ContentSwitcher {
   /**
    *
    *
-   * @param {string} key the current page key
+   * @param {string} title the current page title
    * @memberof ContentSwitcher
    */
-  updateSiteTitle(key) {
+  updateSiteTitle(title) {
     const span = document.createElement('span');
-    span.textContent = SITE_TITLES[key];
+    span.textContent = title;
     span.classList.add('pew_title__sub-title-text');
 
     this.nodes.siteTitle.innerHTML = '';
