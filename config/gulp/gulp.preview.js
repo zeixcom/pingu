@@ -36,6 +36,7 @@ gulp.task('preview:components', function() {
       var componentsMappedBuffer = [];
       var data = merge({}, utils.loadPreviewDefaultData(), utils.loadYML(replaceExt(file.path, '.yml')));
 
+      data.lang = utils.loadLang(data.project.lang);
 
       componentsMappedBuffer = data.nodes.components.map((component) => {
         var componentData = utils.loadYML(`${pathsHelper.components}/${component}/${component}.yml`);
@@ -98,6 +99,8 @@ gulp.task('preview:overview', function() {
       var data = utils.loadPreviewDefaultData();
       var componentsBuffer;
       var pagesBuffer;
+
+      data.lang = utils.loadLang(data.project.lang);
 
       componentsBuffer = data.nodes.components.map((component) => {
         var componentData = utils.loadYML(`${pathsHelper.components}/${component}/${component}.yml`);

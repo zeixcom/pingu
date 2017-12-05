@@ -22,5 +22,9 @@ exports.loadPreviewDefaultData = function() {
   };
 }
 
+exports.loadLang = function(lang) {
+  return this.loadYML(`${pathsHelper.previewLangFiles}/${lang}.yml`);
+}
+
 exports.PREVIEW_COMPONENT_REGEX = '<!-- AUTOINSERT COMPONENT -->';
 exports.PREVIEW_DESCRIPTION_REGEX = '<!-- AUTOINSERT DESCRIPTION -->';

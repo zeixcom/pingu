@@ -1,0 +1,11 @@
+pages: Seiten
+components: Komponenten
+filterLabel: Filtern
+name: Name
+description: Beschreibung
+status: Status
+styleguide: Styleguide
+preview: Vorschau
+code: Quellcode
+data: Daten-Struktur
+overviewPage: Übersichtsseite
