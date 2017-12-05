@@ -1,0 +1,18 @@
+$dialog-typo: (
+  desktop: (
+    default: (
+      font-size: px-to-rem(18),
+    ),
+    title: (
+      font-size: px-to-rem(48),
+    ),
+  ),
+  phone: (
+    default: (
+      font-size: px-to-rem(16),
+    ),
+    title: (
+      font-size: px-to-rem(28),
+    ),
+  ),
+);

@@ -1,0 +1,37 @@
+/**
+ * Define your project spacings in pixels.
+ * if you want to seperate the spacing from box / paragraph, use a list for it.
+ * Example:
+ * key: (box, paragraph)
+ */
+$sizes: (
+  base: ($size--base, 21),
+  half: (($size--base / 2), 10),
+  quarter: (($size--base / 4), 5),
+  double: (($size--base * 2), 44),
+  triple: (($size--base / 3), 69),
+);
+
+/**
+ * Function for including the project bases. returns a rem value.
+ * @param  {string} $key - key of the size map
+ * @param  {string} $type - is box spacing or paragraph spacing
+ */
+@function size($key: base, $type: box) {
+  @if not map-has-key($sizes, $key) {
+    @error 'Unknown size: `#{$key}`.';
+  }
+
+  $keyList: map-get($sizes, $key);
+  $value: '';
+
+  @if type-of($keyList) != 'list' {
+    $value: $keyList;
+  } @else if $type == box {
+    $value: nth($keyList, 1);
+  } @else {
+    $value: nth($keyList, 2);
+  }
+
+  @return px-to-rem($value);
+}

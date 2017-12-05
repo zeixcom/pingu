@@ -1,12 +1,20 @@
 /**
  * UTILS
  */
+@import 'utils/settings';
 @import 'utils/colors';
+@import 'utils/breakpoints';
+@import 'utils/functions';
+@import 'utils/mixins';
+@import 'utils/typography';
+@import 'utils/sizes';
+@import 'utils/zindex';
 
 /**
  * VENDORS
  */
 @import '~normalize.css/normalize.css';
+@import '~dialog-typography/dist/dialog-typography';
 
 /**
  * LAYOUTS
