@@ -7,20 +7,18 @@ var utils = require('./webpack.utils');
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-
-var env = utils.config.build.env;
+var ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 module.exports = merge(baseWebpackConfig, {
   devtool: utils.config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: pathsHelper.build,
-    filename: `${pathsHelper.relativePaths.js}/[name].[chunkhash].js`,
-    chunkFilename: `${pathsHelper.relativePaths.js}/[id].[chunkhash].js`
+    publicPath: '/',
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      'process.env': utils.config.build.env
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -30,8 +28,8 @@ module.exports = merge(baseWebpackConfig, {
     }),
     // extract css into its own file
     new ExtractTextPlugin({
-      // filename: `${pathsHelper.css}/[name].[contenthash].js`
-      filename: `${pathsHelper.relativePaths.css}/[name].[contenthash].js`
+      filename: '[name]',
+      allChunks: true,
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -39,6 +37,9 @@ module.exports = merge(baseWebpackConfig, {
       cssProcessorOptions: {
         safe: true
       }
+    }),
+    new ImageminPlugin({
+      test: /\.(jpe?g|png|gif|svg)$/i
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
@@ -60,13 +61,5 @@ module.exports = merge(baseWebpackConfig, {
       name: 'manifest',
       chunks: ['vendor']
     }),
-    // // copy custom static assets
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: path.resolve(__dirname, '../static'),
-    //     to: utils.config.build.assetsSubDirectory,
-    //     ignore: ['.*']
-    //   }
-    // ])
   ]
 });
