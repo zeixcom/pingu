@@ -6,6 +6,7 @@ var webpack = require('webpack');
 var merge = require('webpack-merge');
 var StyleLintPlugin = require('stylelint-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = merge(baseWebpackConfig, {
   watch: true,
@@ -13,37 +14,6 @@ module.exports = merge(baseWebpackConfig, {
   output: {
     path: pathsHelper.tmp,
     publicPath: '/',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                includePaths: ['node_modules']
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: 'inline'
-              }
-            }
-          ]
-        }),
-      },
-    ]
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -55,6 +25,22 @@ module.exports = merge(baseWebpackConfig, {
     new ExtractTextPlugin({
       filename: '[name]',
       allChunks: true,
+    }),
+    new BrowserSyncPlugin({
+      port: 8004,
+      ui: {
+        port: 8006
+      },
+      open: 'local',
+      server: {
+        baseDir: pathsHelper.tmp,
+      },
+      files: [
+        `${pathsHelper.tmp}/*.html`,
+        `${pathsHelper.tmp}/**/*.html`,
+        `${pathsHelper.tmp}/**/*.css`,
+        `${pathsHelper.tmp}/**/*.js`
+      ]
     })
   ],
 });
