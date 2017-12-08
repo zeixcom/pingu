@@ -32,3 +32,25 @@ exports.config = {
     cssSourceMap: false
   },
 };
+
+exports.getCopyWebpackOptions = function(isCraft) {
+  var options = [
+    {
+      from: pathsHelper.assets,
+      to: pathsHelper.assetsPath('assets'),
+      ignore: ['css/*', 'js/*', 'fonts/*']
+    }
+  ];
+
+  if (isCraft) {
+    options.push(
+      {
+        from: pathsHelper.previewAssets,
+        to: pathsHelper.assetsPath('preview/assets'),
+        ignore: ['css/*', 'js/*', 'fonts/*']
+      }
+    );
+  }
+
+  return options;
+}
