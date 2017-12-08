@@ -26,6 +26,7 @@ module.exports = {
   img: resolveApp('src/assets/img'),
   js: resolveApp('src/assets/js'),
   css: resolveApp('src/assets/css'),
+  icon: resolveApp('src/assets/icon'),
   mainJs: resolveApp('src/assets/js/main.js'),
   mainScss: resolveApp('src/assets/css/main.scss'),
   pinguAppJs: resolveApp('src/assets/js/helpers/PinguApp.js'),

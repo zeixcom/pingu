@@ -12,6 +12,7 @@ gulp.task('twig', function() {
   var htmlhint = require('gulp-htmlhint');
   var camelCase = require('lodash/camelCase');
   var merge = require('lodash/merge');
+
   var utils = require('./gulp.utils');
   var scaffoldUtils = require('../scaffold/scaffold.utils');
   var extensions = require('../twig/extensions');
