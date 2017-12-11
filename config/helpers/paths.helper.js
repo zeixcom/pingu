@@ -14,6 +14,7 @@ function resolveApp(relativePath) {
 module.exports = {
   tmp: resolveApp(devFolder),
   build: resolveApp(buildFolder),
+  public: resolveApp('public'),
   src: resolveApp('src'),
   config: resolveApp('config'),
   scaffold: resolveApp('config/scaffold'),
@@ -36,6 +37,9 @@ module.exports = {
   tmpPreviewAssets: resolveApp(devFolder + '/preview/assets'),
   buildAssets: resolveApp(buildFolder + '/assets'),
   buildPreviewAssets: resolveApp(buildFolder + '/preview/assets'),
+  craft: {
+    templates: resolveApp('craft/templates'),
+  },
   projectConfig: resolveApp('./pingu.config.yml'),
   previewLangFiles: resolveApp('./config/lang'),
   relativePaths: {

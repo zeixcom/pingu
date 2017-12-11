@@ -4,6 +4,25 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var isDev = process.env.NODE_ENV === 'development';
+var isCraft = process.env.NODE_CMS === 'craft';
+
+var getCopyOptions = function(isCraft) {
+  var options = [{
+    from: pathsHelper.assets,
+    to: pathsHelper.assetsPath('assets'),
+    ignore: ['css/**/*', 'js/**/*', 'fonts/**/*']
+  }];
+
+  if (!isCraft) {
+    options.push({
+      from: pathsHelper.previewAssets,
+      to: pathsHelper.assetsPath('preview/assets'),
+      ignore: ['css/**/*', 'js/**/*', 'fonts/**/*']
+    });
+  }
+
+  return options;
+}
 
 module.exports = {
   entry: {
@@ -24,6 +43,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint-loader',
         enforce: 'pre',
+        exclude: [/node_modules/, /craft/],
         options: {
           formatter: require('eslint-formatter-pretty')
         }
@@ -71,17 +91,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: pathsHelper.assets,
-        to: pathsHelper.assetsPath('assets'),
-        ignore: ['css/*', 'js/*', 'fonts/*']
-      },
-      {
-        from: pathsHelper.previewAssets,
-        to: pathsHelper.assetsPath('preview/assets'),
-        ignore: ['css/*', 'js/*', 'fonts/*']
-      }
-    ])
+    new CopyWebpackPlugin(getCopyOptions(isCraft))
   ]
 };

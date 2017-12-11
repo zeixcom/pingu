@@ -7,6 +7,9 @@ gulp.task('clean', function() {
 
   return del([
     // delete tmp folder
-    pathsHelper.tmp
+    pathsHelper.tmp,
+    pathsHelper.build,
+    `${pathsHelper.public}/assets/`,
+    pathsHelper.craft.templates
   ]);
 });

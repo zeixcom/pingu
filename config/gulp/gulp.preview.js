@@ -4,8 +4,6 @@ var pathsHelper = require('../helpers/paths.helper');
 var utils = require('./gulp.utils');
 var camelCase = require('lodash/camelCase');
 
-var isDev = process.env.NODE_ENV === 'development';
-
 gulp.task('preview:components', function() {
   'use strict';
 
@@ -20,6 +18,8 @@ gulp.task('preview:components', function() {
   var showdown = require('showdown');
   var escapeHTML = require('escape-html');
   var merge = require('lodash/merge');
+
+  var isDev = process.env.NODE_ENV === 'development';
 
   return gulp.src(`${pathsHelper.components}/**/*.twig`)
     .pipe(tap(function (file) {
@@ -93,6 +93,7 @@ gulp.task('preview:overview', function() {
   var extensions = require('../twig/extensions');
   var utils = require('./gulp.utils');
 
+  var isDev = process.env.NODE_ENV === 'development';
 
   return gulp.src(`${pathsHelper.src}/index.twig`)
     .pipe(data(function(file) {
