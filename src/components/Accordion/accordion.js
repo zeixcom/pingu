@@ -2,7 +2,6 @@
  * @name: Accordion
  */
 
-import anime from 'animejs';
 import ecr from 'element-client-rect';
 
 import PinguComponent from '../../assets/js/helpers/PinguComponent';
@@ -23,10 +22,6 @@ class Accordion extends PinguComponent {
       },
       customEvents: {},
       multipleOpen: false,
-      animation: {
-        duration: 500,
-        easing: 'linear',
-      },
     };
 
     const defaultData = {};
@@ -75,12 +70,7 @@ class Accordion extends PinguComponent {
     node.setAttribute('aria-expanded', true);
     elements.panel.setAttribute('aria-hidden', false);
 
-    anime({
-      targets: elements.panel,
-      maxHeight: ecr(elements.panelContent).height,
-      duration: this.options.animation.duration,
-      easing: this.options.animation.easing,
-    });
+    elements.panel.style.maxHeight = `${ecr(elements.panelContent).height}px`;
   }
 
   /**
@@ -94,12 +84,7 @@ class Accordion extends PinguComponent {
     node.setAttribute('aria-expanded', false);
     elements.panel.setAttribute('aria-hidden', true);
 
-    anime({
-      targets: elements.panel,
-      maxHeight: 0,
-      duration: this.options.animation.duration,
-      easing: this.options.animation.easing,
-    });
+    elements.panel.style.maxHeight = '0px';
   }
 
   /**
