@@ -10,6 +10,13 @@
         "name": "Launch Chrome",
         "url": "http://localhost:8004",
         "webRoot": "${workspaceRoot}"
+      },
+      {
+        "type": "firefox",
+        "request": "launch",
+        "name": "Launch Firefox",
+        "url": "http://localhost:8004",
+        "webRoot": "${workspaceRoot}"
       }
     ]
 }
