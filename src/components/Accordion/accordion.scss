@@ -2,6 +2,8 @@
   @name: Accordion
 */
 
+$accordion-animation-duration: 500ms;
+$accordion-animation-easing: ease-in-out;
 
 .accordion {
   list-style-type: none;
@@ -41,10 +43,9 @@
 
   &__panel {
     overflow: hidden;
+    transition: max-height $accordion-animation-duration $accordion-animation-easing;
 
-    &[ aria-hidden='true' ] {
-      max-height: 0;
-    }
+    max-height: 0;
   }
 
   &__panel-content {
