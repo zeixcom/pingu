@@ -26,5 +26,9 @@ exports.loadLang = function(lang) {
   return this.loadYML(`${pathsHelper.previewLangFiles}/${lang}.yml`);
 }
 
+exports.twigReplacePath = function(content, replace) {
+  return content.replace(/("|')\$\//g, replace);
+}
+
 exports.PREVIEW_COMPONENT_REGEX = '<!-- AUTOINSERT COMPONENT -->';
 exports.PREVIEW_DESCRIPTION_REGEX = '<!-- AUTOINSERT DESCRIPTION -->';
