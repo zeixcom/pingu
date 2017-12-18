@@ -12,6 +12,7 @@ gulp.task('twig', function() {
   var htmlhint = require('gulp-htmlhint');
   var camelCase = require('lodash/camelCase');
   var merge = require('lodash/merge');
+  var tap = require('gulp-tap');
 
   var utils = require('./gulp.utils');
   var scaffoldUtils = require('../scaffold/scaffold.utils');
@@ -49,8 +50,13 @@ gulp.task('twig', function() {
       filters: extensions.FILTERS,
       functions: extensions.FUNCTIONS
     }))
+    .pipe(tap (function (file) {
+      var content = file.contents.toString('utf8');
+
+      file.contents = Buffer.from(utils.twigReplacePath(content, '"../'));
+    }))
     .pipe(rename(
-      {dirname: ''}
+      {dirname: 'templates'}
     ))
     .pipe(
       gulp.dest(isDev ? pathsHelper.tmp : pathsHelper.build)

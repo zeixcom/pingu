@@ -45,7 +45,7 @@ module.exports = {
   relativePaths: {
     js: 'assets/js',
     css: 'assets/js',
-    previewComponent: 'preview/components',
+    previewComponent: 'preview',
   },
   webpackEntries: {
     js: 'assets/js/main.bundle.js',

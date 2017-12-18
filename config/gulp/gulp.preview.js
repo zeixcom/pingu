@@ -76,9 +76,14 @@ gulp.task('preview:components', function() {
       // Write buffer to file
       file.contents = Buffer.from(previewHTMLTwigged);
     }))
+    .pipe(tap (function (file) {
+      var content = file.contents.toString('utf8');
+
+      file.contents = Buffer.from(utils.twigReplacePath(content, '"../'));
+    }))
     .pipe(rename(
       {
-        dirname: 'preview/components',
+        dirname: 'preview',
         extname: '.html',
       }
     ))
@@ -89,6 +94,7 @@ gulp.task('preview:overview', function() {
   var twig = require('gulp-twig');
   var data = require('gulp-data');
   var merge = require('lodash/merge');
+  var tap = require('gulp-tap');
 
   var extensions = require('../twig/extensions');
   var utils = require('./gulp.utils');
@@ -121,7 +127,7 @@ gulp.task('preview:overview', function() {
 
         return {
           title: pageData.config.title,
-          url: `/${camelCase(page)}.html`,
+          url: `/templates/${camelCase(page)}.html`,
           description: pageData.config.description,
           status: pageData.config.status,
           filename: `${page}.twig`,
@@ -135,6 +141,11 @@ gulp.task('preview:overview', function() {
     .pipe(twig({
       filters: extensions.FILTERS,
       functions: extensions.FUNCTIONS
+    }))
+    .pipe(tap (function (file) {
+      var content = file.contents.toString('utf8');
+
+      file.contents = Buffer.from(utils.twigReplacePath(content, '"'));
     }))
     .pipe(gulp.dest(isDev ? pathsHelper.tmp : pathsHelper.build));
 });
