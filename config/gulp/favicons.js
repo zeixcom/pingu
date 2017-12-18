@@ -7,8 +7,8 @@ var FAVICON_DATA_FILE = 'faviconData.json';
 
 gulp.task('favicon', function(done) {
   realFavicon.generateFavicon({
-    masterPicture: `${pathsHelper.images}/favicon/favicon.png`,
-    dest: `${pathsHelper.tmp}/assets/images/favicon`,
+    masterPicture: `${pathsHelper.img}/favicon/favicon.png`,
+    dest: `${pathsHelper.tmp}/assets/img/favicon`,
     iconsPath: '/',
     design: {
       ios: {

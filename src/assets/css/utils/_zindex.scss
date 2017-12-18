@@ -1,0 +1,19 @@
+/**
+ * Map for all zindexes used in the project
+ */
+$z-index: (
+  negative: -1,
+  default: 0,
+  nav: 10,
+);
+
+/**
+ * function to get the values of the map
+ */
+@function z($key: default) {
+  @if not map-has-key($z-index, $key) {
+    @error 'Unknown zindex key: `#{$key}`.';
+  }
+
+  @return map-get($z-index, $key);
+}

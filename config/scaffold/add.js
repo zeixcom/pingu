@@ -4,6 +4,8 @@ var _ = require('lodash');
 var scaffoldUtils = require('./scaffold.utils.js');
 var pathsHelper = require('../helpers/paths.helper');
 
+var isCraft = process.env.NODE_CMS === 'craft';
+
 var nodeName = {};
 var nodeType = '';
 var hasJS = true;
@@ -61,9 +63,11 @@ gulp.task('addGenerator', ['addGeneratorPrompts'], function() {
   var { parse, stringify } = require('scss-parser');
 
   var folder = nodeType.toLowerCase();
-  var fileTypes2Pipe = scaffoldUtils.getFileTypesToPipe(hasJS, hasSCSS);
+  var fileTypes2Pipe = scaffoldUtils.getFileTypesToPipe(hasJS, hasSCSS, isCraft);
 
-  return gulp.src(`${pathsHelper.scaffold}/${folder}/*.{${fileTypes2Pipe}}`)
+  var scaffoldPath = `${pathsHelper.scaffold}/${folder}${scaffoldUtils.isCraftPath(isCraft)}/*.{${fileTypes2Pipe}}`;
+
+  return gulp.src(scaffoldPath)
     .pipe(tap(function(file, t) {
       var extension = path.extname(file.path);
 

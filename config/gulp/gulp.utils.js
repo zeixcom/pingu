@@ -6,38 +6,28 @@ var has = require('lodash/has');
 
 var regexDefaultData = /defaultData\[(.*)\]/g;
 var pathsHelper = require('../helpers/paths.helper');
+var scaffoldUtils = require('../scaffold/scaffold.utils');
 
-exports.checkAndLoadDefaultComponentData = function(data) {
+exports.loadYML = function(path) {
+  return yaml.safeLoad(fs.readFileSync(path, 'utf8'));
+};
 
-  for (var key in data) {
-    if (data.hasOwnProperty(key)) {
-      var paramValue = data[key];
-      var defaultDataMatch = regexDefaultData.exec(paramValue);
-
-      if (defaultDataMatch !== null) {
-        var compName =  defaultDataMatch[defaultDataMatch.length - 1];
-        var compDataFile = yaml.safeLoad(fs.readFileSync(`${pathsHelper.components}/${compName}/${compName}.yml`, 'utf8'));
-
-        if (has(compDataFile, '_options')) {
-          compDataFile.options = JSON.stringify(compDataFile._options);
-
-          delete compDataFile._options;
-        }
-
-        data[key] = compDataFile;
-      }
-    }
-  }
-
-  return data;
+exports.loadPreviewDefaultData = function() {
+  return {
+    project: this.loadYML(pathsHelper.projectConfig),
+    nodes: {
+      pages: scaffoldUtils.getAllNodesByNodeType('page'),
+      components: scaffoldUtils.getAllNodesByNodeType('component'),
+    },
+  };
 }
 
-exports.concatPageDataWithLayoutData = function(data) {
-  var layout = data.config.layout;
-  var layoutData = yaml.safeLoad(fs.readFileSync(`${pathsHelper.layouts}/${layout}/${layout}.yml`, 'utf8'));
-  var mergedData = merge({}, data, layoutData);
+exports.loadLang = function(lang) {
+  return this.loadYML(`${pathsHelper.previewLangFiles}/${lang}.yml`);
+}
 
-  return mergedData;
+exports.twigReplacePath = function(content, replace) {
+  return content.replace(/("|')\$\//g, replace);
 }
 
 exports.PREVIEW_COMPONENT_REGEX = '<!-- AUTOINSERT COMPONENT -->';

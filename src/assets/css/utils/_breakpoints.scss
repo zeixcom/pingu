@@ -1,0 +1,110 @@
+/**
+ * Map for the project breakpoints.
+ * the breakpoint variables are defined in settings.scss
+ */
+$breakpoints: (
+  phone: (
+    max: $phone--max,
+  ),
+  tablet-portrait: (
+    min: $tablet-portrait--min,
+    max: $tablet-portrait--max,
+  ),
+  tablet-landscape: (
+    min: $tablet-landscape--min,
+    max: $tablet-landscape--max,
+  ),
+  desktop: (
+    min: $desktop--min,
+    max: $desktop--max,
+  ),
+  desktop-big: (
+    min: $desktop-big--min,
+  ),
+);
+
+// override default breakpoint from dialog
+$dialog-breakpoint-default: $breakpoint--base !global;
+
+// support for dialog-typography
+$dialog-breakpoints: (
+  phone: 'max-width: #{$phone--max}',
+  tablet-portrait: 'max-width: #{$tablet-portrait--max}',
+  tablet-landscape: 'max-width: #{$tablet-landscape--max}',
+  desktop: 'max-width: #{$desktop--max}',
+  desktop-big: 'min-width: #{$desktop-big--min}',
+);
+
+// reserved for dialog-typography
+@mixin bp($name) {
+  @media ( #{map-get( $dialog-breakpoints, $name )} ) {
+    @content;
+  }
+}
+
+/**
+ * Use the breakpoints of this project.
+ *
+ * Examples:
+ * @include breakpoint(desktop, only) -> takes the min and max value from the desktop breakpoint
+ * @include breakpoint(phone, desktop) -> takes the min of the phone and the max of the desktop
+ *
+ * @param  {string} $baseKey - key of the min breakpoint
+ * @param  {string} $additional - key for breakpoint or 'only'
+ */
+@mixin breakpoint($baseKey, $additional: null) {
+  @if not map-has-key($breakpoints, $baseKey) {
+    @error 'Unknown breakpoint: `#{$baseKey}`.';
+  }
+
+  $baseMap: map-get($breakpoints, $baseKey);
+  $baseMin: map-get($baseMap, 'min');
+  $baseMax: map-get($baseMap, 'max');
+
+  $mediaQuery: '';
+
+  @if $additional == null {
+    @if $baseMin == null {
+      $mediaQuery: 'max-width: #{$baseMax}';
+    } @else {
+      $mediaQuery: 'min-width: #{$baseMin}';
+    }
+  } @else if $additional == 'only' {
+    @if $baseMin == null {
+      $mediaQuery: 'max-width: #{$baseMax}';
+    } @else if $baseMax == null {
+      $mediaQuery: 'min-width: #{$baseMin}';
+    } @else {
+      $mediaQuery: 'min-width: #{$baseMin}) and (max-width #{$baseMax}';
+    }
+  } @else {
+    @if not map-has-key($breakpoints, $additional) {
+      @error 'Unknown breakpoint: `#{$additional}`.';
+    }
+    $second: map-get($breakpoints, $additional);
+
+    @if (type-of($second) == 'map') {
+      $secondMax: map-get($second, 'max');
+
+      @if $secondMax {
+        @if $baseMin == null {
+          $mediaQuery: 'max-width: #{$secondMax}';
+        } @else if $secondMax > $baseMin {
+          @error 'Please define the lower breakpoint first';
+        } @else {
+          $mediaQuery: 'min-width: #{$baseMin}) and (max-width: #{$secondMax}';
+        }
+      } @else {
+        @if $baseMin == null {
+          @error 'You dont need a media query for that';
+        } @else {
+          $mediaQuery: 'min-width: #{$baseMin}';
+        }
+      }
+    }
+  }
+
+  @media screen and ( $mediaQuery ) {
+    @content;
+  }
+}

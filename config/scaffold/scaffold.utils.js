@@ -29,6 +29,10 @@ exports.FIND_REPLACES = [
   {
     label: 'COMP_NAME',
     value: 'component',
+  },
+  {
+    label: 'COMP_TITLE',
+    value: 'title',
   }
 ];
 
@@ -40,6 +44,7 @@ exports.normalizeNodeName = function(nodeName, nodeType) {
   var baseName = _.camelCase(nodeName);
 
   return {
+    title: nodeName,
     directory: _.upperFirst(baseName),
     component: _.upperFirst(baseName),
     class: _.kebabCase(baseName),
@@ -86,8 +91,8 @@ exports.getAllNodesByNodeType = function(nodeType) {
   return [];
 };
 
-exports.getFileTypesToPipe = function(hasJS, hasSCSS) {
-  var fileTypes = ['twig', 'yml', 'md'];
+exports.getFileTypesToPipe = function(hasJS, hasSCSS, isCraft) {
+  var fileTypes = isCraft ? ['html'] : ['twig', 'yml', 'md'];
 
   hasJS ? fileTypes.push('js') : null;
   hasSCSS ? fileTypes.push('scss') : null;
@@ -101,3 +106,7 @@ exports.isNodeAlreadyExisting = function(nodeType, nodeName) {
 
   return nodesByNodeType.indexOf(nodeNameNormalized) === -1;
 };
+
+exports.isCraftPath = function(isCraft) {
+  return isCraft ? '/craft' : '';
+}

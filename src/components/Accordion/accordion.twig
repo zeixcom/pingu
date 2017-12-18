@@ -1,0 +1,26 @@
+<ul class="accordion" data-pingu="{{config.name}}" data-accordion-options="{{options}}" role="tablist">
+  {% set uid = uuid(config.name) %}
+  {% for key, item in items %}
+    <li class="accordion__item">
+      <button
+        class="accordion__trigger"
+        aria-expanded="false"
+        id="{{ uid }}-trigger-{{key}}"
+        aria-controls="{{uid}}-panel-{{key}}"
+        type="button"
+      >
+        {{ item.title }}
+
+        {{ icon('plus', 'accordion__plus') }}
+      </button>
+      <div
+        class="accordion__panel"
+        id="{{uid}}-panel-{{key}}"
+        aria-hidden="true"
+        aria-labelledby="{{ uid }}-trigger-{{key}}"
+      >
+        <div class="accordion__panel-content">{{ item.content }}</div>
+      </div>
+    </li>
+  {% endfor %}
+  </ul>

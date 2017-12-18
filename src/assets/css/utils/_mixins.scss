@@ -1,0 +1,41 @@
+/**
+ * Event Wrapper
+ */
+@mixin on-event($self: false) {
+  @if $self {
+
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+/**
+ * Helps to center the content in any way, only with position absolute
+ * @param  {string}   $axis: "both" - y, x or both
+ */
+@mixin center($axis: 'both') {
+  position: absolute;
+  @if $axis == y {
+    transform: translateY(-50%);
+    top: 50%;
+  } @else if $axis == x {
+    transform: translateX(-50%);
+    left: 50%;
+  } @else if $axis == both {
+    transform: translate(-50%, -50%);
+
+    top: 50%;
+    left: 50%;
+  }
+}
