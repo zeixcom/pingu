@@ -105,5 +105,8 @@ export default class ContentSwitcher {
 
     shownItem.setAttribute('aria-hidden', false);
     shownItem.classList.add(this.classes.state.itemShown);
+
+    // always start at top after switch
+    window.scrollTo(0, 0);
   }
 }
