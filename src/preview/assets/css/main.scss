@@ -244,6 +244,10 @@ body {
     right: 0;
   }
 
+  &__logo {
+    flex: 0 0 auto;
+  }
+
   &__image {
     display: none;
 
@@ -690,6 +694,7 @@ body {
 
       @include breakpoint(tablet-landscape) {
         display: table-cell;
+        text-align: left;
       }
     }
 
@@ -803,6 +808,7 @@ body {
       display: flex;
       border: 0;
       background: inherit;
+      background-color: transparent;
       font-size: inherit;
       font-weight: inherit;
       font-family: inherit;
