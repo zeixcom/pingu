@@ -51,7 +51,8 @@ module.exports = {
     js: 'assets/js/main.bundle.js',
     css: 'assets/css/styles.css',
     previewJs: 'preview/assets/js/pew.bundle.js',
-    previewCss: 'preview/assets/css/pew.css'
+    previewCss: 'preview/assets/css/pew.css',
+    polyfill: 'assets/js/polyfill.js',
   },
   assetsPath: function(path) {
     var assetsSubDirectory = process.env.NODE_ENV === 'production'

@@ -26,10 +26,11 @@ var getCopyOptions = function(isCraft) {
 
 module.exports = {
   entry: {
+    [pathsHelper.webpackEntries.polyfill] : ['babel-polyfill', 'nodelist-foreach-polyfill'],
     [pathsHelper.webpackEntries.js]: pathsHelper.mainJs,
     [pathsHelper.webpackEntries.css]: pathsHelper.mainScss,
     [pathsHelper.webpackEntries.previewJs]: pathsHelper.previewMainJs,
-    [pathsHelper.webpackEntries.previewCss]: pathsHelper.previewMainScss
+    [pathsHelper.webpackEntries.previewCss]: pathsHelper.previewMainScss,
   },
   output: {
     filename: '[name]',
